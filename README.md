@@ -1,2 +1,3 @@
-# wp-nowpayments-integration
-Cryptocurrency Payment integration using the nowpayments.io Gateway
+# WordPress nowpayments.io integration
+
+Cryptocurrency Payment integration using the NOWPayments API
