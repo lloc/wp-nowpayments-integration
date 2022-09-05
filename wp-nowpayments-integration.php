@@ -31,6 +31,20 @@
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
+declare( strict_types=1 );
+
 if ( ! defined( 'ABSPATH' ) ) {
-	exit();
+	exit;
 }
+
+require __DIR__ . '/vendor/autoload.php';
+
+// @codeCoverageIgnoreStart
+if ( function_exists( 'add_action' ) && ! defined( 'WP_NOWPAYMENTS_INTEGRATION_PATH' ) ) {
+	 define( 'WP_NOWPAYMENTS_INTEGRATION_PATH', plugin_dir_path( __FILE__ ) );
+
+	add_action( 'plugins_loaded', function () {
+		( new lloc\NowpaymentsIntegration\Plugin() )->add_hooks();
+	} );
+}
+// @codeCoverageIgnoreEnd

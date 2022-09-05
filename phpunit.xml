@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" colors="true" xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/9.3/phpunit.xsd">
+    <coverage>
+        <include>
+            <directory suffix=".php">./includes/</directory>
+        </include>
+    </coverage>
+    <testsuite name="Internal tests">
+        <directory prefix="Test" suffix=".php">./tests/</directory>
+    </testsuite>
+</phpunit>

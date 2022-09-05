@@ -14,10 +14,15 @@
     "szepeviktor/phpstan-wordpress": "^0.7.2",
     "phpstan/extension-installer": "^1.1"
   },
+  "autoload": {
+    "psr-4": {
+      "lloc\\NowpaymentsIntegration\\": "includes/"
+    }
+  },
   "autoload-dev": {
-    "files": [
-      "wp-nowpayments-integration.php"
-    ]
+    "psr-4": {
+      "lloc\\NowpaymentsIntegrationTests\\": "tests/"
+    }
   },
   "scripts": {
     "test": "./vendor/bin/phpunit",
@@ -37,5 +42,10 @@
     "gateway",
     "integration",
     "cryptocurrency"
-  ]
+  ],
+  "config": {
+    "allow-plugins": {
+      "composer/installers": true
+    }
+  }
 }
