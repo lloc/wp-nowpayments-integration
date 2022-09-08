@@ -10,26 +10,26 @@ use lloc\NowpaymentsIntegrationTests\LlocTestCase;
 
 class TestClient extends LlocTestCase {
 
-	public function get_service() {
-		$service = \Mockery::mock( Service::class );
-		$service->shouldReceive( 'add_query_arg' )->andReturn( 'ok' );
+	protected $service;
 
-		return $service;
+	public function setUp(): void {
+		parent::setUp();
+
+		$this->service = \Mockery::mock( Service::class );
+		$this->service->shouldReceive( 'get' )->andReturn( 'https://example.org/test' );
+
+		Functions\when( 'add_query_arg' )->justReturn( 'https://example.org/test?foo=bar' );
 	}
 
 	public function test_get() {
-		Functions\when( 'wp_remote_get' )->justReturn( [ 'body' => 'ok' ] );
+		Functions\expect( 'wp_remote_get' )->once()->andReturn( [ 'body' => 'ok' ] );
 
-		$client = new Client( $this->get_service() );
-
-		$this->assertInstanceOf( Response::class, $client->get( 'test' ) );
+		$this->assertInstanceOf( Response::class, ( new Client( $this->service ) )->get( 'test' ) );
 	}
 
 	public function test_post() {
-		Functions\when( 'wp_remote_post' )->justReturn( [ 'body' => 'ok' ] );
+		Functions\expect( 'wp_remote_post' )->once()->andReturn( [ 'body' => 'ok' ] );
 
-		$client = new Client( $this->get_service() );
-
-		$this->assertInstanceOf( Response::class, $client->post( 'test' ) );
+		$this->assertInstanceOf( Response::class, ( new Client( $this->service ) )->post( 'test' ) );
 	}
 }
