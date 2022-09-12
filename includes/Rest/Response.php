@@ -1,6 +1,8 @@
 <?php
 
-namespace lloc\NowpaymentsIntegration\Rest;
+namespace lloc\Nowpayments\Rest;
+
+use WP_Error;
 
 class Response {
 
@@ -8,13 +10,12 @@ class Response {
 	protected $error = null;
 
 	/**
-	 * @param \WP_Error|array $response
+	 * @param WP_Error|array $response
 	 */
 	public function __construct( $response ) {
 		if ( ! is_wp_error( $response ) ) {
 			$this->response = $response;
-		}
-		else {
+		} else {
 			$this->error = $response;
 		}
 	}
@@ -27,7 +28,7 @@ class Response {
 	}
 
 	/**
-	 * @return \WP_Error|null
+	 * @return WP_Error|null
 	 */
 	public function get_error() {
 		return $this->error;

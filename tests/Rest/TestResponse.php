@@ -1,9 +1,10 @@
 <?php
 
-namespace lloc\NowpaymentsIntegrationTests\Rest;
+namespace lloc\NowpaymentsTests\Rest;
 
-use lloc\NowpaymentsIntegration\Rest\Response;
-use lloc\NowpaymentsIntegrationTests\LlocTestCase;
+use lloc\Nowpayments\Rest\Response;
+use lloc\NowpaymentsTests\LlocTestCase;
+use Mockery;
 
 class TestResponse extends LlocTestCase {
 
@@ -24,7 +25,7 @@ class TestResponse extends LlocTestCase {
 	}
 
 	public function test_get_error() {
-		$error = \Mockery::mock( '\WP_Error' );
+		$error = Mockery::mock( '\WP_Error' );
 
 		$response = new Response( $error );
 

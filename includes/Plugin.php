@@ -1,6 +1,6 @@
 <?php
 
-namespace lloc\NowpaymentsIntegration;
+namespace lloc\Nowpayments;
 
 
 class Plugin {

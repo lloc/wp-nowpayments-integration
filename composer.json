@@ -16,12 +16,12 @@
   },
   "autoload": {
     "psr-4": {
-      "lloc\\NowpaymentsIntegration\\": "includes/"
+      "lloc\\Nowpayments\\": "includes/"
     }
   },
   "autoload-dev": {
     "psr-4": {
-      "lloc\\NowpaymentsIntegrationTests\\": "tests/"
+      "lloc\\NowpaymentsTests\\": "tests/"
     }
   },
   "scripts": {

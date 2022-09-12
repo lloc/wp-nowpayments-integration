@@ -1,6 +1,6 @@
 <?php
 
-namespace lloc\NowpaymentsIntegrationTests;
+namespace lloc\NowpaymentsTests;
 
 use PHPUnit\Framework\TestCase;
 use Brain\Monkey;

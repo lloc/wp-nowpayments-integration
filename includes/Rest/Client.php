@@ -1,25 +1,56 @@
 <?php
 
-namespace lloc\NowpaymentsIntegration\Rest;
+namespace lloc\Nowpayments\Rest;
 
 class Client {
 
 	private Service $service;
 
+	/**
+	 * @param Service $service
+	 */
 	public function __construct( Service $service ) {
 		$this->service = $service;
 	}
 
-	public function add_query_arg( array $args, string $endpoint ) {
-		return add_query_arg( $args, $this->service->get( $endpoint ) );
+	/**
+	 * @param string $endpoint
+	 * @param array $body
+	 * @param array $headers
+	 *
+	 * @return Response
+	 */
+	public function get( string $endpoint, array $body = [], array $headers = [] ): Response {
+		$url = add_query_arg( $body, $this->service->get( $endpoint ) );
+
+		if ( ! empty( $headers ) ) {
+			$headers = [ 'headers' => $headers ];
+		}
+
+		return new Response( wp_remote_get( $url, $headers ) );
 	}
 
-	public function get( string $endpoint, array $args = [] ): object {
-		return new Response( wp_remote_get( $this->add_query_arg( $args, $endpoint ) ) );
-	}
+	/**
+	 * @param string $endpoint
+	 * @param array $body
+	 * @param array $headers
+	 *
+	 * @return Response
+	 */
+	public function post( string $endpoint, array $body = [], array $headers = [] ): Response {
+		$url  = $this->service->get( $endpoint );
+		$args = [];
 
-	public function post( string $endpoint, array $args = [] ): object {
-		return new Response( wp_remote_post( $this->add_query_arg( $args, $endpoint ) ) );
+
+		if ( ! empty( $body ) ) {
+			$args = [ 'body' => $body ];
+		}
+
+		if ( ! empty( $headers ) ) {
+			$args = [ 'headers' => $headers ];
+		}
+
+		return new Response( wp_remote_post( $url, $args ) );
 	}
 
 }
