@@ -10,7 +10,7 @@ class TestPlugin extends LlocTestCase {
 	public function test_add_hooks() {
 		( new Plugin() )->add_hooks();
 
-		$this->assertEquals( 10, has_action( 'plugins_loaded', [ Plugin::class, 'plugins_loaded' ] ) );
+		$this->assertEquals( 10, has_action( 'plugins_loaded', 'lloc\Nowpayments\Plugin->plugins_loaded()' ) );
 	}
 
 	public function test_plugins_loaded() {

@@ -40,11 +40,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 require __DIR__ . '/vendor/autoload.php';
 
 // @codeCoverageIgnoreStart
-if ( function_exists( 'add_action' ) && ! defined( 'WP_NOWPAYMENTS_INTEGRATION_PATH' ) ) {
-	 define( 'WP_NOWPAYMENTS_INTEGRATION_PATH', plugin_dir_path( __FILE__ ) );
+if ( function_exists( 'add_action' ) ) {
+	defined( 'WP_NOWPAYMENTS_INTEGRATION_PATH' ) || define( 'WP_NOWPAYMENTS_INTEGRATION_PATH', plugin_dir_path( __FILE__ ) );
+	defined( 'WP_NOWPAYMENTS_INTEGRATION_URL' ) || define( 'WP_NOWPAYMENTS_INTEGRATION_URL', plugin_dir_url( __FILE__ ) );
 
 	add_action( 'plugins_loaded', function () {
-		( new lloc\NowpaymentsIntegration\Plugin() )->add_hooks();
+		( new lloc\Nowpayments\Plugin() )->add_hooks();
+		( new \lloc\Nowpayments\Settings() )->add_hooks();
 	} );
 }
 // @codeCoverageIgnoreEnd
