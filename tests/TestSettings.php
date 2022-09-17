@@ -8,10 +8,10 @@ use Brain\Monkey\Functions;
 class TestSettings extends LlocTestCase {
 
 	public function test_admin_init() {
-		Functions\expect( '\register_setting' )->once();
-		Functions\expect( '\add_settings_section' )->once();
-		Functions\expect( '\add_settings_field' )->once();
-		Functions\expect( '\__' )->times( 3 );
+		Functions\expect( 'register_setting' )->once();
+		Functions\expect( 'add_settings_section' )->once();
+		Functions\expect( 'add_settings_field' )->once();
+		Functions\expect( '__' )->times( 3 );
 
 		Settings::admin_init();
 

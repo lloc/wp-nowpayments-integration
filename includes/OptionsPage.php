@@ -30,11 +30,7 @@ class OptionsPage {
 			return;
 		}
 
-		if ( isset( $_GET['settings-updated'] ) ) {
-			add_settings_error( '', esc_attr( 'settings_updated' ), __( 'Settings Saved', 'wp-nowpayments-integration' ), 'updated' );
-		}
-
-		//settings_errors( 'wporg_messages' );
+		self::add_settings_error( $_GET );
 
 		echo '<div class="wrap">', PHP_EOL;
 		printf( '<h1>%s</h1>', esc_html( get_admin_page_title() ) );
@@ -46,6 +42,16 @@ class OptionsPage {
 
 		echo '</form>', PHP_EOL;
 		echo '</div>', PHP_EOL;
+	}
+
+	public static function add_settings_error( $arr ) {
+		if ( isset( $arr['settings-updated'] ) ) {
+			add_settings_error( '', esc_attr( 'settings_updated' ), __( 'Settings Saved', 'wp-nowpayments-integration' ), 'updated' );
+
+			return true;
+		}
+
+		return false;
 	}
 
 }
