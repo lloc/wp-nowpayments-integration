@@ -5,21 +5,35 @@ namespace lloc\Nowpayments;
 
 class Plugin {
 
-	public const LANGUAGE_DIR = '/languages/';
+	public const LANGUAGE_DIR = 'languages';
+
+	private string $file;
 
 	/**
-	 * Provides the plugin's entry point
+	 * @param string $file
 	 */
-	public function add_hooks(): void {
-		add_action( 'plugins_loaded', [ $this, 'plugins_loaded' ] );
+	public static function init( string $file ): void {
+		$plugin = new self( $file );
+
+		add_action( 'plugins_loaded', [ $plugin, 'plugins_loaded' ] );
+		add_action( 'admin_menu', [ OptionsPage::class, 'admin_menu' ] );
+		add_action( 'admin_init', [ Settings::class, 'admin_init' ] );
+	}
+
+	/**
+	 * @param string $file
+	 */
+	public function __construct( string $file ) {
+		$this->file = $file;
 	}
 
 	/**
 	 * Loads text domain
+	 *
 	 * @return bool
 	 */
-	public static function plugins_loaded(): bool {
-		return load_plugin_textdomain( 'wp-nowpayments-integration', false, self::dirname( self::LANGUAGE_DIR ) );
+	public function plugins_loaded(): bool {
+		return load_plugin_textdomain( 'wp-nowpayments-integration', false, $this->dirname( self::LANGUAGE_DIR ) );
 	}
 
 	/**
@@ -27,22 +41,22 @@ class Plugin {
 	 *
 	 * @return string
 	 */
-	public static function dirname( string $path ): string {
-		return dirname( self::path() ) . $path;
+	public function dirname( string $path ): string {
+		return $this->path() . trailingslashit( $path );
 	}
 
 	/**
 	 * @return string
 	 */
-	public static function path(): string {
-		return defined( 'WP_NOWPAYMENTS_INTEGRATION_PATH' ) ? constant( 'WP_NOWPAYMENTS_INTEGRATION_PATH' ) : '';
+	public function path(): string {
+		return plugin_dir_path( $this->file );
 	}
 
 	/**
 	 * @return string
 	 */
-	public static function url(): string {
-		return defined( 'WP_NOWPAYMENTS_INTEGRATION_URL' ) ? constant( 'WP_NOWPAYMENTS_INTEGRATION_URL' ) : '';
+	public function url(): string {
+		return plugin_dir_url( $this->file );
 	}
 
 }

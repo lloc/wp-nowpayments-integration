@@ -2,62 +2,86 @@
 
 namespace lloc\Nowpayments;
 
-use TDP\OptionsKit;
-
 class Settings {
 
-	public const SLUG = 'nowpayments';
-
-	public function __construct() {
-		$panel  = new OptionsKit( self::SLUG );
-		$panel->set_page_title( __( 'Nowpayments Settings', 'wp-nowpayments-integration' ) );
-	}
-
-	public function add_hooks(): void {
-		add_filter( 'nowpayments_menu', [ $this, 'setup_menu' ] );
-		add_filter( 'nowpayments_settings_tabs', [ $this, 'register_settings_tabs' ] );
-		add_filter( 'nowpayments_registered_settings', [ $this, 'register_settings' ] );
-	}
+	public const OPTION_GROUP = 'nowpayments_group';
+	public const OPTION_NAME = 'nowpayments_option';
+	public const API_SECTION_ID = 'api_section_id';
+	public const API_KEY_FIELD = 'api_key';
 
 	/**
-	 * @param array $menu
-	 *
-	 * @return array
+	 * Callback entry-point
 	 */
-	function setup_menu( array $menu ): array {
-		$menu['page_title'] = __( 'Nowpayments', 'wp-nowpayments-integration' );
-		$menu['menu_title'] = $menu['page_title'];
+	public static function admin_init(): void {
+		register_setting(
+			self::OPTION_GROUP,
+			self::OPTION_NAME,
+			[ 'sanitize_callback' => [ __CLASS__, 'sanitize_text_field' ] ]
+		);
 
-		return $menu;
-	}
+		add_settings_section(
+			self::API_SECTION_ID,
+			__( 'API settings', 'wp-nowpayments-integration' ),
+			[ __CLASS__, 'render_section' ],
+			OptionsPage::PAGE
+		);
 
-	/**
-	 * @param array $tabs
-	 *
-	 * @return array
-	 */
-	function register_settings_tabs( array $tabs ): array {
-		return [
-			'general' => __( 'General', 'wp-nowpayments-integration' ),
-		];
-	}
-
-	/**
-	 * @param array $settings
-	 *
-	 * @return array
-	 */
-	function register_settings( array $settings ): array {
-		return [
-			'general' => [
-				[
-					'id'   => 'api_key',
-					'name' => __( 'API Key', 'wp-nowpayments-integration' ),
-					'desc' => __( 'Add your API key to get started', 'wp-nowpayments-integration' ),
-					'type' => 'text',
-				],
+		add_settings_field(
+			self::API_KEY_FIELD,
+			__( 'API key', 'wp-nowpayments-integration' ),
+			[ __CLASS__, 'render_fields' ],
+			OptionsPage::PAGE,
+			self::API_SECTION_ID,
+			[
+				'label_for' => self::API_KEY_FIELD,
+				'description' => __( '<a href="https://nowpayments.io/?link_id=3530618365">Sign up at nowpayments.io</a>, specify your outcome wallet, generate an API key and insert it in the above field.', 'wp-nowpayments-integration' ),
 			]
-		];
+		);
+
+		do_action( 'nowpayments_settings_admin_init', OptionsPage::PAGE );
+	}
+
+	/**
+	 * @param array $args
+	 */
+	public static function render_section( array $args ): void {
+		$description = __( "Set here the API parameters for the site's connection to the Nowpayments API.", 'wp-nowpayments-integration' );
+
+		printf(
+			'<p id="%s">%s</p>',
+			esc_attr( $args['id'] ), // 'id' is mandatory or 'add_settings_section'
+			esc_html( $description )
+		);
+	}
+
+	/**
+	 * @param array $args
+	 */
+	public static function render_fields( array $args ): void {
+		$options = get_option( self::OPTION_NAME );
+		$value   = $options[ $args['label_for'] ] ?? '';
+
+		printf(
+			'<input id="%1$s" name="%2$s[%1$s]" value="%3$s" class="regular-text code" />',
+			esc_attr( $args['label_for'] ),
+			esc_attr( self::OPTION_NAME ),
+			esc_attr( $value )
+		);
+
+		if ( isset( $args['description' ] ) ) {
+			printf( '<p class="description">%s</p>', $args['description' ] );
+		}
+	}
+
+	/**
+	 * @param array $fields
+	 *
+	 * @return array
+	 */
+	public static function sanitize_text_field( array $fields ): array {
+		$value = $fields[ self::API_KEY_FIELD ] ?? '';
+
+		return [ self::API_KEY_FIELD => preg_replace( '/[^A-Z0-9-]/', '', $value ) ];
 	}
 
 }
