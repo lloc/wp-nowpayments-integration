@@ -15,9 +15,11 @@ class OptionsPage {
 
 	/**
 	 * Callback entry-point
+	 *
+	 * @return string|false
 	 */
-	public static function admin_menu(): void {
-		add_options_page( self::PAGE_TITLE, self::MENU_TITLE, self::CAPABILITY, self::MENU_SLUG, [
+	public static function admin_menu() {
+		return add_options_page( self::PAGE_TITLE, self::MENU_TITLE, self::CAPABILITY, self::MENU_SLUG, [
 			__CLASS__,
 			'render_page'
 		] );
