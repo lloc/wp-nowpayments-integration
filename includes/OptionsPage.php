@@ -8,7 +8,6 @@ class OptionsPage {
 	public const PAGE_TITLE = 'Nowpayments Settings';
 	public const MENU_TITLE = 'Nowpayments';
 	public const CAPABILITY = 'manage_options';
-	public const MENU_SLUG = 'nowpayments_settings';
 	public const SETTING = 'nowpayments_settings';
 	public const CODE = 'nowpayments_code';
 
@@ -19,7 +18,7 @@ class OptionsPage {
 	 * @return string|false
 	 */
 	public static function admin_menu() {
-		return add_options_page( self::PAGE_TITLE, self::MENU_TITLE, self::CAPABILITY, self::MENU_SLUG, [
+		return add_options_page( self::PAGE_TITLE, self::MENU_TITLE, self::CAPABILITY, Plugin::SLUG, [
 			__CLASS__,
 			'render_page'
 		] );
@@ -38,15 +37,18 @@ class OptionsPage {
 
 		settings_fields( Settings::OPTION_GROUP );
 		do_settings_sections( self::PAGE );
-		submit_button( 'Save Settings' );
+
+		submit_button( __( 'Save Settings', 'wp-nowpayments-integration' ) );
 
 		echo '</form>', PHP_EOL;
 		echo '</div>', PHP_EOL;
 	}
 
-	public static function add_settings_error( $arr ) {
+	public static function add_settings_error( $arr ): bool {
 		if ( isset( $arr['settings-updated'] ) ) {
-			add_settings_error( '', esc_attr( 'settings_updated' ), __( 'Settings Saved', 'wp-nowpayments-integration' ), 'updated' );
+			$message = __( 'Settings Saved', 'wp-nowpayments-integration' );
+
+			add_settings_error( self::SETTING, esc_attr( 'settings_updated' ), $message, 'updated' );
 
 			return true;
 		}

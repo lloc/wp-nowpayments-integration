@@ -5,6 +5,7 @@ namespace lloc\Nowpayments;
 
 class Plugin {
 
+	public const SLUG = 'nowpayments';
 	public const LANGUAGE_DIR = 'languages';
 
 	private string $file;
@@ -18,6 +19,7 @@ class Plugin {
 		add_action( 'plugins_loaded', [ $plugin, 'plugins_loaded' ] );
 		add_action( 'admin_menu', [ OptionsPage::class, 'admin_menu' ] );
 		add_action( 'admin_init', [ Settings::class, 'admin_init' ] );
+		add_action( 'wp_dashboard_setup', [ AdminWidget::class, 'init' ] );
 	}
 
 	/**

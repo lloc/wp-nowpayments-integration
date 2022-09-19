@@ -23,6 +23,7 @@ class TestOptionsPage extends LlocTestCase {
 		Functions\expect( 'settings_fields' )->once();
 		Functions\expect( 'do_settings_sections' )->once();
 		Functions\expect( 'submit_button' )->once();
+		Functions\expect( '__' )->once();
 
 		OptionsPage::render_page();
 
