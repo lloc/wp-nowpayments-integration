@@ -14,7 +14,8 @@
     "brain/monkey": "2.*",
     "phpstan/phpstan": "^1.8",
     "szepeviktor/phpstan-wordpress": "^1.1",
-    "phpstan/extension-installer": "^1.1"
+    "phpstan/extension-installer": "^1.1",
+    "smeghead/php-class-diagram": "^0.0.7"
   },
   "autoload": {
     "psr-4": {
@@ -27,9 +28,10 @@
     }
   },
   "scripts": {
-    "test": "./vendor/bin/phpunit",
-    "coverage": "./vendor/bin/phpunit --coverage-html ./reports/php/coverage",
-    "analyze": "./vendor/bin/phpstan analyze"
+    "test": "vendor/bin/phpunit",
+    "coverage": "vendor/bin/phpunit --coverage-html ./reports/php/coverage",
+    "analyze": "vendor/bin/phpstan analyze",
+    "diagram": "vendor/bin/php-class-diagram --php7 includes > plantuml_gist.puml"
   },
   "authors": [
     {
