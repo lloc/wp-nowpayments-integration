@@ -1,0 +1,70 @@
+@startuml class-diagram
+  class Settings {
+    {static} +admin_init()
+    {static} +render_section(args)
+    {static} +render_fields(args)
+    {static} +sanitize_text_field(fields)
+  }
+  class Plugin {
+    -file : string
+    {static} +init(file)
+    +__construct(file)
+    +plugins_loaded()
+    +dirname(path)
+    +path()
+    +url()
+  }
+  class AdminWidget {
+    {static} +init()
+    {static} +render()
+  }
+  class OptionsPage {
+    {static} +admin_menu()
+    {static} +render_page()
+    {static} +add_settings_error(arr)
+  }
+  package Integration as Integration <<Rectangle>> {
+    class Integration.Status {
+      +request()
+    }
+  }
+  package Rest as Rest <<Rectangle>> {
+    interface Rest.Result {
+      +get()
+    }
+    class Rest.Error {
+      #error : WP_Error
+      +__construct(error)
+      +get()
+    }
+    class Rest.Service {
+      -environment : string
+      +__construct(environment)
+      {static} +create()
+      +get(endpoint)
+      +info()
+    }
+    class Rest.Client {
+      -service : Service
+      +__construct(service)
+      +get(endpoint, body, headers)
+      +post(endpoint, body, headers)
+    }
+    class Rest.Response {
+      #response : string[]
+      +__construct(response)
+      +get()
+    }
+    class Rest.Endpoint {
+      #client : Client
+      +__construct(client)
+      {abstract} +request()
+    }
+  }
+  Rest.Client ..> Rest.Service
+  Rest.Endpoint ..> Rest.Client
+  Rest.Endpoint <|-- Integration.Status
+  Rest.Result <|-- Rest.Error
+  Rest.Result <|-- Rest.Response
+  Rest.Service ..> Rest.Service
+@enduml
