@@ -14,8 +14,8 @@ abstract class Endpoint {
 	}
 
 	/**
-	 * @return Response
+	 * @return string[]
 	 */
-	abstract public function request(): Response;
+	abstract public function request(): array;
 
 }

@@ -12,11 +12,12 @@ class TestStatus extends LlocTestCase {
 
 	public function test_request() {
 		$response = Mockery::mock( Response::class );
+		$response->shouldReceive( 'get' )->andReturn( [] );
 
 		$client   = Mockery::mock( Client::class );
 		$client->shouldReceive( 'get' )->andReturn( $response );
 
-		$this->assertInstanceOf( Response::class, ( new Status( $client ) )->request() );
+		$this->assertEquals( [], ( new Status( $client ) )->request() );
 	}
 
 }

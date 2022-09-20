@@ -10,7 +10,7 @@ class Service {
 	private string $environment;
 
 	/**
-	 * @param string $url
+	 * @param string $environment
 	 */
 	public function __construct( string $environment ) {
 		$this->environment = $environment;

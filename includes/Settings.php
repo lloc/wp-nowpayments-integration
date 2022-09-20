@@ -42,7 +42,7 @@ class Settings {
 	}
 
 	/**
-	 * @param array $args
+	 * @param string[] $args
 	 */
 	public static function render_section( array $args ): void {
 		$description = __( "Set here the API parameters for the site's connection to the Nowpayments API.", 'wp-nowpayments-integration' );
@@ -55,7 +55,7 @@ class Settings {
 	}
 
 	/**
-	 * @param array $args
+	 * @param string[] $args
 	 */
 	public static function render_fields( array $args ): void {
 		$options = get_option( self::OPTION_NAME );
@@ -74,9 +74,9 @@ class Settings {
 	}
 
 	/**
-	 * @param array $fields
+	 * @param string[] $fields
 	 *
-	 * @return array
+	 * @return string[]
 	 */
 	public static function sanitize_text_field( array $fields ): array {
 		$value = $fields[ self::API_KEY_FIELD ] ?? '';

@@ -1,0 +1,8 @@
+parameters:
+    level: 6
+    inferPrivatePropertyTypeFromConstructor: true
+    paths:
+        - wp-nowpayments-integration.php
+        - includes
+    excludePaths:
+        - tests

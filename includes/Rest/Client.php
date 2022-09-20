@@ -15,29 +15,35 @@ class Client {
 
 	/**
 	 * @param string $endpoint
-	 * @param array $body
-	 * @param array $headers
+	 * @param string[] $body
+	 * @param string[] $headers
 	 *
 	 * @return Response
 	 */
-	public function get( string $endpoint, array $body = [], array $headers = [] ): Response {
+	public function get( string $endpoint, array $body = [], array $headers = [] ): Result {
 		$url = add_query_arg( $body, $this->service->get( $endpoint ) );
 
 		if ( ! empty( $headers ) ) {
 			$headers = [ 'headers' => $headers ];
 		}
 
-		return new Response( wp_remote_get( $url, $headers ) );
+		$response = wp_remote_get( $url, $headers );
+
+		if ( is_wp_error( $response ) ) {
+			return new Error( $response );
+		}
+
+		return new Response( $response );
 	}
 
 	/**
 	 * @param string $endpoint
-	 * @param array $body
-	 * @param array $headers
+	 * @param string[] $body
+	 * @param string[] $headers
 	 *
 	 * @return Response
 	 */
-	public function post( string $endpoint, array $body = [], array $headers = [] ): Response {
+	public function post( string $endpoint, array $body = [], array $headers = [] ): Result {
 		$url  = $this->service->get( $endpoint );
 		$args = [];
 
@@ -50,7 +56,14 @@ class Client {
 			$args = [ 'headers' => $headers ];
 		}
 
-		return new Response( wp_remote_post( $url, $args ) );
+		$response = wp_remote_post( $url, $args );
+
+		if ( is_wp_error( $response ) ) {
+			return new Error( $response );
+		}
+
+		return new Response( $response );
 	}
+
 
 }

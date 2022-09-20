@@ -2,6 +2,8 @@
 
 namespace lloc\Nowpayments;
 
+use function _PHPStan_52b7bec27\Symfony\Component\String\s;
+
 class OptionsPage {
 
 	public const PAGE = 'nowpayments_page';
@@ -15,13 +17,15 @@ class OptionsPage {
 	/**
 	 * Callback entry-point
 	 *
-	 * @return string|false
+	 * @return string
 	 */
-	public static function admin_menu() {
-		return add_options_page( self::PAGE_TITLE, self::MENU_TITLE, self::CAPABILITY, Plugin::SLUG, [
+	public static function admin_menu(): string {
+		$hook_suffix = add_options_page( self::PAGE_TITLE, self::MENU_TITLE, self::CAPABILITY, Plugin::SLUG, [
 			__CLASS__,
 			'render_page'
 		] );
+
+		return strval( $hook_suffix );
 	}
 
 	public static function render_page(): void {
@@ -44,7 +48,12 @@ class OptionsPage {
 		echo '</div>', PHP_EOL;
 	}
 
-	public static function add_settings_error( $arr ): bool {
+	/**
+	 * @param string[] $arr
+	 *
+	 * @return bool
+	 */
+	public static function add_settings_error( array $arr ): bool {
 		if ( isset( $arr['settings-updated'] ) ) {
 			$message = __( 'Settings Saved', 'wp-nowpayments-integration' );
 
