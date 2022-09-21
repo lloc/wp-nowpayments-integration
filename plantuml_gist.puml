@@ -41,7 +41,7 @@
       -environment : string
       +__construct(environment)
       {static} +create()
-      +get(endpoint)
+      +get(method)
       +info()
     }
     class Rest.Client {

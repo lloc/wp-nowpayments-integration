@@ -24,14 +24,14 @@ class Service {
 	}
 
 	/**
-	 * @param string $endpoint
+	 * @param string $method
 	 *
 	 * @return string
 	 */
-	public function get( string $endpoint ): string {
+	public function get( string $method ): string {
 		$url = 'production' === $this->environment ? static::PRODUCTION_SERVICE_URL : static::SANDBOX_SERVICE_URL;
 
-		return esc_url( trailingslashit( $url ) . $endpoint );
+		return esc_url( trailingslashit( $url ) . $method );
 	}
 
 	/**
