@@ -18,7 +18,7 @@ class Client {
 	 * @param string[] $body
 	 * @param string[] $headers
 	 *
-	 * @return Response
+	 * @return Result
 	 */
 	public function get( string $endpoint, array $body = [], array $headers = [] ): Result {
 		$url = add_query_arg( $body, $this->service->get( $endpoint ) );
@@ -41,7 +41,7 @@ class Client {
 	 * @param string[] $body
 	 * @param string[] $headers
 	 *
-	 * @return Response
+	 * @return Result
 	 */
 	public function post( string $endpoint, array $body = [], array $headers = [] ): Result {
 		$url  = $this->service->get( $endpoint );

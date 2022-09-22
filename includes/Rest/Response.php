@@ -10,10 +10,12 @@ class Response implements Result {
 	protected array $response = [];
 
 	/**
-	 * @param string[] $response
+	 * @param mixed $response
 	 */
-	public function __construct( array $response ) {
-		$this->response = $response;
+	public function __construct( $response ) {
+		if ( is_array( $response ) ) {
+			$this->response = $response;
+		}
 	}
 
 	/**
