@@ -10,13 +10,16 @@
     {static} +init(file)
     +__construct(file)
     +plugins_loaded()
+    {static} +wp_dashboard_setup()
     +dirname(path)
     +path()
     +url()
   }
   class AdminWidget {
-    {static} +init()
-    {static} +render()
+    #status : Status
+    +__construct(status)
+    {static} +create(status)
+    +render()
   }
   class OptionsPage {
     {static} +admin_menu()
@@ -47,6 +50,7 @@
     class Rest.Client {
       -service : Service
       +__construct(service)
+      +get_service()
       +get(endpoint, body, headers)
       +post(endpoint, body, headers)
     }
@@ -58,10 +62,15 @@
     class Rest.Endpoint {
       #client : Client
       +__construct(client)
+      +get_client()
       {abstract} +request()
     }
   }
+  AdminWidget ..> Integration.Status
+  Plugin ..> AdminWidget
   Rest.Client ..> Rest.Service
+  Rest.Client ..> Rest.Service
+  Rest.Endpoint ..> Rest.Client
   Rest.Endpoint ..> Rest.Client
   Rest.Endpoint <|-- Integration.Status
   Rest.Result <|-- Rest.Error

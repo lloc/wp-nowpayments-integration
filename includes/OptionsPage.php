@@ -2,8 +2,6 @@
 
 namespace lloc\Nowpayments;
 
-use function _PHPStan_52b7bec27\Symfony\Component\String\s;
-
 class OptionsPage {
 
 	public const PAGE = 'nowpayments_page';
