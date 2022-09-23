@@ -9,8 +9,6 @@ class OptionsPage {
 	public const MENU_TITLE = 'Nowpayments';
 	public const CAPABILITY = 'manage_options';
 	public const SETTING = 'nowpayments_settings';
-	public const CODE = 'nowpayments_code';
-
 
 	/**
 	 * Callback entry-point

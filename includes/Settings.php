@@ -5,7 +5,6 @@ namespace lloc\Nowpayments;
 class Settings {
 
 	public const OPTION_GROUP = 'nowpayments_group';
-	public const OPTION_NAME = 'nowpayments_option';
 	public const API_SECTION_ID = 'api_section_id';
 	public const API_KEY_FIELD = 'api_key';
 
@@ -15,7 +14,7 @@ class Settings {
 	public static function admin_init(): void {
 		register_setting(
 			self::OPTION_GROUP,
-			self::OPTION_NAME,
+			Option::OPTION_NAME,
 			[ 'sanitize_callback' => [ __CLASS__, 'sanitize_text_field' ] ]
 		);
 
@@ -58,14 +57,11 @@ class Settings {
 	 * @param string[] $args
 	 */
 	public static function render_fields( array $args ): void {
-		$options = get_option( self::OPTION_NAME );
-		$value   = $options[ $args['label_for'] ] ?? '';
-
 		printf(
 			'<input id="%1$s" name="%2$s[%1$s]" value="%3$s" class="regular-text code" />',
 			esc_attr( $args['label_for'] ),
-			esc_attr( self::OPTION_NAME ),
-			esc_attr( $value )
+			esc_attr( Option::OPTION_NAME ),
+			esc_attr( ( new Option( $args['label_for'] ) )->get() )
 		);
 
 		if ( isset( $args['description' ] ) ) {
