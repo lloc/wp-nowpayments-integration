@@ -1,4 +1,9 @@
 @startuml class-diagram
+  class Option {
+    +value : string
+    +__construct(key)
+    +get()
+  }
   class Settings {
     {static} +admin_init()
     {static} +render_section(args)
@@ -28,6 +33,9 @@
   }
   package Integration as Integration <<Rectangle>> {
     class Integration.Status {
+      +request()
+    }
+    class Integration.Currencies {
       +request()
     }
   }
@@ -72,6 +80,7 @@
   Rest.Client ..> Rest.Service
   Rest.Endpoint ..> Rest.Client
   Rest.Endpoint ..> Rest.Client
+  Rest.Endpoint <|-- Integration.Currencies
   Rest.Endpoint <|-- Integration.Status
   Rest.Result <|-- Rest.Error
   Rest.Result <|-- Rest.Response
