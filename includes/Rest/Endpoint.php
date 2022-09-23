@@ -1,4 +1,4 @@
-<?php
+<?php declare( strict_types=1 );
 
 namespace lloc\Nowpayments\Rest;
 
@@ -11,6 +11,11 @@ abstract class Endpoint {
 	 */
 	public function __construct( Client $client ) {
 		$this->client = $client;
+	}
+
+
+	public function get_client(): Client {
+		return $this->client;
 	}
 
 	/**

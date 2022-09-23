@@ -1,4 +1,4 @@
-<?php
+<?php declare( strict_types=1 );
 
 /**
  * WordPress nowpayments.io integration
@@ -30,8 +30,6 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  */
-
-declare( strict_types=1 );
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;

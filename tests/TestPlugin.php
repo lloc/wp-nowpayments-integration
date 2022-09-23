@@ -2,19 +2,28 @@
 
 namespace lloc\NowpaymentsTests;
 
-use lloc\Nowpayments\OptionsPage;
+use lloc\Nowpayments\AdminWidget;
 use lloc\Nowpayments\Plugin;
 use Brain\Monkey\Functions;
-use lloc\Nowpayments\Settings;
+use function Brain\Monkey\Actions\expectAdded;
 
 class TestPlugin extends LlocTestCase {
 
 	public function test_init() {
-		Plugin::init( __FILE__ );
+		expectAdded( 'plugins_loaded' );
+		expectAdded( 'admin_menu' );
+		expectAdded( 'admin_init' );
+		expectAdded( 'wp_dashboard_setup' );
 
-		$this->assertEquals( 10, has_action( 'plugins_loaded', 'lloc\Nowpayments\Plugin->plugins_loaded()' ) );
-		$this->assertEquals( 10, has_action( 'admin_menu', [ OptionsPage::class, 'admin_menu' ] ) );
-		$this->assertEquals( 10, has_action( 'admin_init', [ Settings::class, 'admin_init' ] ) );
+		$this->assertInstanceOf( Plugin::class, Plugin::init( __FILE__ ) );
+	}
+
+	public function test_wp_dashboard_setup() {
+		Functions\expect( 'wp_get_environment_type' )->once()->andReturn( 'staging' );
+		Functions\expect( '__' )->once()->andReturn( 'test' );
+		Functions\expect( 'wp_add_dashboard_widget' )->once()->andReturnNull();
+
+		$this->assertInstanceOf( AdminWidget::class, ( new Plugin( __FILE__ ) )->wp_dashboard_setup() );
 	}
 
 	public function test_plugins_loaded() {

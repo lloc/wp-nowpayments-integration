@@ -22,6 +22,10 @@ class TestClient extends LlocTestCase {
 		Functions\when( 'add_query_arg' )->justReturn( 'https://example.org/test?foo=bar' );
 	}
 
+	public function test_get_service() {
+		$this->assertInstanceOf( Service::class, ( new Client( $this->service ) )->get_service() );
+	}
+
 	public function test_get_empty() {
 		Functions\expect( 'wp_remote_get' )->once()->andReturn( [ 'body' => 'ok' ] );
 

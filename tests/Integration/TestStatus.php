@@ -10,6 +10,12 @@ use Mockery;
 
 class TestStatus extends LlocTestCase {
 
+	public function test_get_client() {
+		$client = Mockery::mock( Client::class );
+
+		$this->assertEquals( $client, ( new Status( $client ) )->get_client() );
+	}
+
 	public function test_request() {
 		$response = Mockery::mock( Response::class );
 		$response->shouldReceive( 'get' )->andReturn( [] );

@@ -1,4 +1,4 @@
-<?php
+<?php declare( strict_types=1 );
 
 namespace lloc\Nowpayments\Rest;
 
@@ -11,6 +11,13 @@ class Client {
 	 */
 	public function __construct( Service $service ) {
 		$this->service = $service;
+	}
+
+	/**
+	 * @return Service
+	 */
+	public function get_service(): Service {
+		return $this->service;
 	}
 
 	/**
@@ -29,11 +36,7 @@ class Client {
 
 		$response = wp_remote_get( $url, $headers );
 
-		if ( is_wp_error( $response ) ) {
-			return new Error( $response );
-		}
-
-		return new Response( $response );
+		return is_wp_error( $response ) ? new Error( $response ) : new Response( $response );
 	}
 
 	/**
@@ -47,7 +50,6 @@ class Client {
 		$url  = $this->service->get( $endpoint );
 		$args = [];
 
-
 		if ( ! empty( $body ) ) {
 			$args = [ 'body' => $body ];
 		}
@@ -58,12 +60,7 @@ class Client {
 
 		$response = wp_remote_post( $url, $args );
 
-		if ( is_wp_error( $response ) ) {
-			return new Error( $response );
-		}
-
-		return new Response( $response );
+		return is_wp_error( $response ) ? new Error( $response ) : new Response( $response );
 	}
-
 
 }
