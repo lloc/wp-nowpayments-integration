@@ -37,10 +37,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 require __DIR__ . '/vendor/autoload.php';
 
-// @codeCoverageIgnoreStart
-if ( function_exists( 'add_action' ) ) {
-	add_action( 'plugins_loaded', function () {
-		lloc\Nowpayments\Plugin::init( __FILE__ );
-	} );
-}
-// @codeCoverageIgnoreEnd
+add_action( 'plugins_loaded', function () {
+	lloc\Nowpayments\Plugin::init( __FILE__ );
+} );
+
+add_filter( 'use_block_editor_for_post', '__return_true', 99 );
+add_filter( 'use_block_editor_for_post_type', '__return_true', 99 );

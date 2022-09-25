@@ -16,6 +16,10 @@
     +__construct(file)
     +plugins_loaded()
     {static} +wp_dashboard_setup()
+    +init_widget()
+    +block_init()
+    +block_render()
+    +plugins_url(path)
     +dirname(path)
     +path()
     +url()
@@ -30,6 +34,13 @@
     {static} +admin_menu()
     {static} +render_page()
     {static} +add_settings_error(arr)
+  }
+  class Widget {
+    +id_base : 
+    +__construct()
+    +widget(args, instance)
+    +update(new_instance, old_instance)
+    +form(instance)
   }
   package Integration as Integration <<Rectangle>> {
     class Integration.Status {

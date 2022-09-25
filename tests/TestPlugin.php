@@ -10,6 +10,8 @@ use function Brain\Monkey\Actions\expectAdded;
 class TestPlugin extends LlocTestCase {
 
 	public function test_init() {
+		Functions\expect( 'add_shortcode' )->once();
+
 		expectAdded( 'plugins_loaded' );
 		expectAdded( 'admin_menu' );
 		expectAdded( 'admin_init' );

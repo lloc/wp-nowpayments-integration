@@ -25,6 +25,12 @@ class Plugin {
 		add_action( 'admin_menu', [ OptionsPage::class, 'admin_menu' ] );
 		add_action( 'admin_init', [ Settings::class, 'admin_init' ] );
 		add_action( 'wp_dashboard_setup', [ $plugin, 'wp_dashboard_setup' ] );
+		add_action( 'widgets_init', [ $plugin, 'init_widget' ] );
+
+		add_shortcode( 'sc_nowpayments_widget', [ $plugin, 'block_render' ] );
+		if ( function_exists( 'register_block_type' ) ) {
+			add_action( 'init', [ $plugin, 'block_init' ] );
+		}
 
 		return $plugin;
 	}
@@ -54,6 +60,44 @@ class Plugin {
 		$status  = new Status( $client );
 
 		return AdminWidget::create( $status );
+	}
+
+	public function init_widget(): void {
+		register_widget( Widget::class );
+	}
+
+	public function block_init(): void {
+		$handle = 'nowpayments-widget-block';
+
+		wp_register_script(
+			$handle,
+			$this->plugins_url( 'js/widget-block.js' ),
+			[ 'wp-blocks', 'wp-element', 'wp-components', 'wp-editor' ]
+		);
+
+		register_block_type( 'lloc/nowpayments-widget-block', [
+			'attributes'      => [ 'title' => [ 'type' => 'string' ] ],
+			'editor_script'   => $handle,
+			'render_callback' => [ $this, 'block_render' ],
+		] );
+	}
+
+	/**
+	 * @return string
+	 */
+	public function block_render(): string {
+		ob_start();
+		the_widget( Widget::class );
+		return ob_get_clean();
+	}
+
+	/**
+	 * @param string $path
+	 *
+	 * @return string
+	 */
+	public function plugins_url( string $path ): string {
+		return plugins_url( $path, $this->file );
 	}
 
 	/**
