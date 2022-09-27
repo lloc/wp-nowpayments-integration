@@ -25,12 +25,10 @@ class Plugin {
 		add_action( 'admin_menu', [ OptionsPage::class, 'admin_menu' ] );
 		add_action( 'admin_init', [ Settings::class, 'admin_init' ] );
 		add_action( 'wp_dashboard_setup', [ $plugin, 'wp_dashboard_setup' ] );
-		add_action( 'widgets_init', [ $plugin, 'init_widget' ] );
+		add_action( 'widgets_init', [ __CLASS__, 'widgets_init' ] );
+		add_action( 'init', [ $plugin, 'block_init' ] );
 
-		add_shortcode( 'sc_nowpayments_widget', [ $plugin, 'block_render' ] );
-		if ( function_exists( 'register_block_type' ) ) {
-			add_action( 'init', [ $plugin, 'block_init' ] );
-		}
+		add_shortcode( 'sc_nowpayments_widget', [ __CLASS__, 'block_render' ] );
 
 		return $plugin;
 	}
@@ -62,11 +60,23 @@ class Plugin {
 		return AdminWidget::create( $status );
 	}
 
-	public function init_widget(): void {
+	/**
+	 * @return int
+	 */
+	public function widgets_init(): int {
 		register_widget( Widget::class );
+
+		return 1;
 	}
 
-	public function block_init(): void {
+	/**
+	 * @return bool
+	 */
+	public function block_init(): bool {
+		if ( ! function_exists( 'register_block_type' ) ) {
+			return false;
+		}
+
 		$handle = 'nowpayments-widget-block';
 
 		wp_register_script(
@@ -78,14 +88,16 @@ class Plugin {
 		register_block_type( 'lloc/nowpayments-widget-block', [
 			'attributes'      => [ 'title' => [ 'type' => 'string' ] ],
 			'editor_script'   => $handle,
-			'render_callback' => [ $this, 'block_render' ],
+			'render_callback' => [__CLASS__, 'block_render' ],
 		] );
+
+		return true;
 	}
 
 	/**
 	 * @return string
 	 */
-	public function block_render(): string {
+	public static function block_render(): string {
 		ob_start();
 		the_widget( Widget::class );
 		return ob_get_clean();

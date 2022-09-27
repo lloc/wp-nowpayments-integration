@@ -4,11 +4,14 @@ namespace lloc\Nowpayments;
 
 class Widget extends \WP_Widget {
 
-	public $id_base = 'nowpayments_widget';
+	public const ID_BASE = 'nowpayments_widget';
 
+	/**
+	 * @codeCoverageIgnore
+	 */
 	public function __construct() {
 		parent::__construct(
-			$this->id_base,
+			self::ID_BASE,
 			__( 'lloc/nowpayments-widget-block', 'wp-nowpayments-integration' )
 		);
 	}
@@ -31,7 +34,7 @@ class Widget extends \WP_Widget {
 		);
 
 		/** This filter is documented in wp-includes/default-widgets.php */
-		$title = apply_filters('widget_title', $instance['title'] ?? '', $instance, $this->id_base);
+		$title = apply_filters( 'widget_title', $instance['title'] ?? '', $instance, self::ID_BASE );
 
 		if ( $title ) {
 			$title = $args['before_title'] . esc_attr( $title ) . $args['after_title'];
