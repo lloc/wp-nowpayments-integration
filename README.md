@@ -2,6 +2,8 @@
 
 Cryptocurrency Payment integration using the NOWPayments API
 
+**This is still work-in-progress. Don't deploy it into production, please!**
+
 ## Quickstart
 
 1. <a href="https://nowpayments.io/?link_id=3530618365">Sign up at nowpayments.io</a>
