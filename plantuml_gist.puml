@@ -16,9 +16,9 @@
     +__construct(file)
     +plugins_loaded()
     {static} +wp_dashboard_setup()
-    +init_widget()
+    +widgets_init()
     +block_init()
-    +block_render()
+    {static} +block_render()
     +plugins_url(path)
     +dirname(path)
     +path()
@@ -36,7 +36,6 @@
     {static} +add_settings_error(arr)
   }
   class Widget {
-    +id_base : 
     +__construct()
     +widget(args, instance)
     +update(new_instance, old_instance)
@@ -47,6 +46,10 @@
       +request()
     }
     class Integration.Currencies {
+      +request()
+    }
+    class Integration.Estimate {
+      +set(amount, currency_from, currency_to)
       +request()
     }
   }
@@ -80,8 +83,11 @@
     }
     class Rest.Endpoint {
       #client : Client
+      #body : string[]
       +__construct(client)
       +get_client()
+      #get_headers()
+      +set_body(body)
       {abstract} +request()
     }
   }
@@ -92,6 +98,7 @@
   Rest.Endpoint ..> Rest.Client
   Rest.Endpoint ..> Rest.Client
   Rest.Endpoint <|-- Integration.Currencies
+  Rest.Endpoint <|-- Integration.Estimate
   Rest.Endpoint <|-- Integration.Status
   Rest.Result <|-- Rest.Error
   Rest.Result <|-- Rest.Response
