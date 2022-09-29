@@ -7,6 +7,9 @@ use lloc\Nowpayments\Settings;
 
 abstract class Endpoint {
 
+	/**
+	 * @var Client
+	 */
 	protected Client $client;
 
 	/**
@@ -21,6 +24,9 @@ abstract class Endpoint {
 		$this->client = $client;
 	}
 
+	/**
+	 * @return Client
+	 */
 	public function get_client(): Client {
 		return $this->client;
 	}
