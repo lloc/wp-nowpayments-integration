@@ -2,9 +2,17 @@
 
 namespace lloc\Nowpayments\Rest;
 
+use lloc\Nowpayments\Option;
+use lloc\Nowpayments\Settings;
+
 abstract class Endpoint {
 
 	protected Client $client;
+
+	/**
+	 * @var string[]
+	 */
+	protected array $body = [];
 
 	/**
 	 * @param Client $client
@@ -13,9 +21,26 @@ abstract class Endpoint {
 		$this->client = $client;
 	}
 
-
 	public function get_client(): Client {
 		return $this->client;
+	}
+
+	/**
+	 * @return string[]
+	 */
+	protected function get_headers(): array {
+		return [ 'x-api-key' => ( new Option( Settings::API_KEY_FIELD ) )->get() ];
+	}
+
+	/**
+	 * @param string[] $body
+	 *
+	 * @return Endpoint
+	 */
+	public function set_body( array $body ): Endpoint {
+		$this->body = $body;
+
+		return $this;
 	}
 
 	/**
