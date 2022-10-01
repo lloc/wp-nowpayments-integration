@@ -52,6 +52,11 @@
       +set(amount, currency_from, currency_to)
       +request()
     }
+    class Integration.PaymentStatus {
+      #payment_id : string
+      +set(payment_id)
+      +request()
+    }
   }
   package Rest as Rest <<Rectangle>> {
     interface Rest.Result {
@@ -99,6 +104,7 @@
   Rest.Endpoint ..> Rest.Client
   Rest.Endpoint <|-- Integration.Currencies
   Rest.Endpoint <|-- Integration.Estimate
+  Rest.Endpoint <|-- Integration.PaymentStatus
   Rest.Endpoint <|-- Integration.Status
   Rest.Result <|-- Rest.Error
   Rest.Result <|-- Rest.Response
