@@ -27,7 +27,7 @@ class AdminWidget {
 	}
 
 	public function render(): void {
-		$arr     = $this->status->request();
+		$arr     = $this->status->get();
 		$service = $this->status->get_client()->get_service();
 
 		$format = __( '<div><strong>%s</strong> responds with "%s".</div>', 'wp-nowpayments-integration' );

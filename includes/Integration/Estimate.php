@@ -20,7 +20,7 @@ class Estimate extends Endpoint {
 	/**
 	 * @return string[]
 	 */
-	public function request(): array {
+	public function get(): array {
 		$response = $this->client->get( 'v1/estimate', $this->body, $this->get_headers() );
 
 		return $response->get();

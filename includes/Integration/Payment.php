@@ -4,7 +4,7 @@ namespace lloc\Nowpayments\Integration;
 
 use lloc\Nowpayments\Rest\Endpoint;
 
-class PaymentStatus extends Endpoint {
+class Payment extends Endpoint {
 
 	protected string $payment_id = '';
 
@@ -22,7 +22,7 @@ class PaymentStatus extends Endpoint {
 	/**
 	 * @return string[]
 	 */
-	public function request(): array {
+	public function get(): array {
 		$endpoint = sprintf( 'v1/payment/%s', $this->payment_id );
 
 		$response = $this->client->get( $endpoint, [], $this->get_headers() );
