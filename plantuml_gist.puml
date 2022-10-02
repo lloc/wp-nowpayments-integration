@@ -43,19 +43,19 @@
   }
   package Integration as Integration <<Rectangle>> {
     class Integration.Status {
-      +request()
+      +get()
+    }
+    class Integration.Payment {
+      #payment_id : string
+      +set(payment_id)
+      +get()
     }
     class Integration.Currencies {
-      +request()
+      +get()
     }
     class Integration.Estimate {
       +set(amount, currency_from, currency_to)
-      +request()
-    }
-    class Integration.PaymentStatus {
-      #payment_id : string
-      +set(payment_id)
-      +request()
+      +get()
     }
   }
   package Rest as Rest <<Rectangle>> {
@@ -93,7 +93,7 @@
       +get_client()
       #get_headers()
       +set_body(body)
-      {abstract} +request()
+      +__call(name, arguments)
     }
   }
   AdminWidget ..> Integration.Status
@@ -104,7 +104,7 @@
   Rest.Endpoint ..> Rest.Client
   Rest.Endpoint <|-- Integration.Currencies
   Rest.Endpoint <|-- Integration.Estimate
-  Rest.Endpoint <|-- Integration.PaymentStatus
+  Rest.Endpoint <|-- Integration.Payment
   Rest.Endpoint <|-- Integration.Status
   Rest.Result <|-- Rest.Error
   Rest.Result <|-- Rest.Response

@@ -64,7 +64,7 @@ class TestPlugin extends LlocTestCase {
 	}
 
 	public function test_plugins_url(): void {
-		$path = 'abc';
+		$path     = 'abc';
 		$expected = '/wp-nowpayments-integration/tests/abc';
 
 		Functions\expect( 'plugins_url' )->once()->andReturn( $expected );

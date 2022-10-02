@@ -11,22 +11,31 @@ use Mockery;
 
 class TestCurrencies extends LlocTestCase {
 
-	public function test_get_client() {
-		$client = Mockery::mock( Client::class );
+	protected $client;
 
-		$this->assertEquals( $client, ( new Currencies( $client ) )->get_client() );
-	}
-
-	public function test_request() {
-		Functions\expect( 'get_option' )->once()->andReturn( 'abc' );
+	public function setUp(): void {
+		parent::setUp();
 
 		$response = Mockery::mock( Response::class );
 		$response->shouldReceive( 'get' )->andReturn( [] );
 
-		$client   = Mockery::mock( Client::class );
-		$client->shouldReceive( 'get' )->andReturn( $response );
+		$this->client = Mockery::mock( Client::class );
+		$this->client->shouldReceive( 'get' )->andReturn( $response );
+	}
 
-		$this->assertEquals( [], ( new Currencies( $client ) )->request() );
+	public function test_get_client() {
+		$this->assertEquals( $this->client, ( new Currencies( $this->client ) )->get_client() );
+	}
+
+	public function test_get() {
+		Functions\expect( 'get_option' )->once()->andReturn( 'abc' );
+
+		$this->assertEquals( [], ( new Currencies( $this->client ) )->get() );
+	}
+
+	public function test_post() {
+		$this->expectException( \BadMethodCallException::class );
+		$this->assertNull( ( new Currencies( $this->client ) )->post() );
 	}
 
 }

@@ -20,7 +20,7 @@ class TestAdminWidget extends LlocTestCase {
 		$client->shouldReceive( 'get_service' )->once()->andReturn( $service );
 
 		$status = \Mockery::mock( Status::class );
-		$status->shouldReceive( 'request' )->once()->andReturn( [ 'message' => 'def' ] );
+		$status->shouldReceive( 'get' )->once()->andReturn( [ 'message' => 'def' ] );
 		$status->shouldReceive( 'get_client' )->once()->andReturn( $client );
 
 		( new AdminWidget( $status ) )->render();

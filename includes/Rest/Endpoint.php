@@ -5,7 +5,7 @@ namespace lloc\Nowpayments\Rest;
 use lloc\Nowpayments\Option;
 use lloc\Nowpayments\Settings;
 
-abstract class Endpoint {
+class Endpoint {
 
 	/**
 	 * @var Client
@@ -50,8 +50,13 @@ abstract class Endpoint {
 	}
 
 	/**
-	 * @return string[]
+	 * @param string $name
+	 * @param string[] $arguments
+	 *
+	 * @return mixed
 	 */
-	abstract public function request(): array;
+	public function __call( string $name, array $arguments) {
+         throw new \BadMethodCallException( sprintf( 'Method %s::%s does not exist.', __CLASS__, $name ) );
+	}
 
 }
