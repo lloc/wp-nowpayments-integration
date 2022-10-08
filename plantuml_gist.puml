@@ -57,6 +57,10 @@
       +set(amount, currency_from, currency_to)
       +get()
     }
+    class Integration.MinAmount {
+      +set(currency_from, currency_to)
+      +get()
+    }
   }
   package Rest as Rest <<Rectangle>> {
     interface Rest.Result {
@@ -104,6 +108,7 @@
   Rest.Endpoint ..> Rest.Client
   Rest.Endpoint <|-- Integration.Currencies
   Rest.Endpoint <|-- Integration.Estimate
+  Rest.Endpoint <|-- Integration.MinAmount
   Rest.Endpoint <|-- Integration.Payment
   Rest.Endpoint <|-- Integration.Status
   Rest.Result <|-- Rest.Error
