@@ -39,7 +39,7 @@ class Endpoint {
 	}
 
 	/**
-	 * @param string[] $body
+	 * @param array<string, string|int> $body
 	 *
 	 * @return Endpoint
 	 */

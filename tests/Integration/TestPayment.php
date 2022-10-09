@@ -30,8 +30,23 @@ class TestPayment extends LlocTestCase {
 	public function test_get() {
 		Functions\expect( 'get_option' )->once()->andReturn( 'abc' );
 
-		$payment_status = ( new Payment( $this->client ) )->set( '123456789' );
+		$payment_status = ( new Payment( $this->client ) )->set( [ 'payment_id' => '123456789' ] );
 		$this->assertEquals( [], $payment_status->get() );
+	}
+
+	public function test_list() {
+		Functions\expect( 'get_option' )->once()->andReturn( 'abc' );
+
+		$args           = [
+			'limit'    => 10,
+			'page'     => 0,
+			'sortBy'   => 'created_at',
+			'orderBy'  => 'asc',
+			'dateFrom' => '2020-10-01',
+			'dateTo'   => '2022-10-31',
+		];
+		$payment_status = ( new Payment( $this->client ) )->set( $args );
+		$this->assertEquals( [], $payment_status->list() );
 	}
 
 	public function test_post() {
