@@ -46,9 +46,9 @@
       +get()
     }
     class Integration.Payment {
-      #payment_id : string
-      +set(payment_id)
+      +set(args)
       +get()
+      +list()
     }
     class Integration.Currencies {
       +get()
