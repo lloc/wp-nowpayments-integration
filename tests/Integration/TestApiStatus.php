@@ -2,13 +2,13 @@
 
 namespace lloc\NowpaymentsTests\Integration;
 
-use lloc\Nowpayments\Integration\Status;
+use lloc\Nowpayments\Integration\ApiStatus;
 use lloc\Nowpayments\Rest\Client;
 use lloc\Nowpayments\Rest\Response;
 use lloc\NowpaymentsTests\LlocTestCase;
 use Mockery;
 
-class TestStatus extends LlocTestCase {
+class TestApiStatus extends LlocTestCase {
 
 	protected $client;
 
@@ -23,16 +23,16 @@ class TestStatus extends LlocTestCase {
 	}
 
 	public function test_get_client() {
-		$this->assertEquals( $this->client, ( new Status( $this->client ) )->get_client() );
+		$this->assertEquals( $this->client, ( new ApiStatus( $this->client ) )->get_client() );
 	}
 
 	public function test_get() {
-		$this->assertEquals( [], ( new Status( $this->client ) )->get() );
+		$this->assertEquals( [], ( new ApiStatus( $this->client ) )->get() );
 	}
 
 	public function test_post() {
 		$this->expectException( \BadMethodCallException::class );
-		$this->assertNull( ( new Status( $this->client ) )->post() );
+		$this->assertNull( ( new ApiStatus( $this->client ) )->post() );
 	}
 
 }

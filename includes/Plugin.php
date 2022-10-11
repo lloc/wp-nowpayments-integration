@@ -2,7 +2,7 @@
 
 namespace lloc\Nowpayments;
 
-use lloc\Nowpayments\Integration\Status;
+use lloc\Nowpayments\Integration\ApiStatus;
 use lloc\Nowpayments\Rest\Client;
 use lloc\Nowpayments\Rest\Service;
 
@@ -55,7 +55,7 @@ class Plugin {
 	public static function wp_dashboard_setup(): AdminWidget {
 		$service = Service::create();
 		$client  = new Client( $service );
-		$status  = new Status( $client );
+		$status  = new ApiStatus( $client );
 
 		return AdminWidget::create( $status );
 	}

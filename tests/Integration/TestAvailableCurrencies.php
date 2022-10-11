@@ -3,13 +3,13 @@
 namespace lloc\NowpaymentsTests\Integration;
 
 use Brain\Monkey\Functions;
-use lloc\Nowpayments\Integration\Estimate;
+use lloc\Nowpayments\Integration\AvailableCurrencies;
 use lloc\Nowpayments\Rest\Client;
 use lloc\Nowpayments\Rest\Response;
 use lloc\NowpaymentsTests\LlocTestCase;
 use Mockery;
 
-class TestEstimate extends LlocTestCase {
+class TestAvailableCurrencies extends LlocTestCase {
 
 	protected $client;
 
@@ -24,20 +24,26 @@ class TestEstimate extends LlocTestCase {
 	}
 
 	public function test_get_client() {
-		$this->assertEquals( $this->client, ( new Estimate( $this->client ) )->get_client() );
+		$this->assertEquals( $this->client, ( new AvailableCurrencies( $this->client ) )->get_client() );
 	}
 
 	public function test_get() {
 		Functions\expect( 'get_option' )->once()->andReturn( 'abc' );
+		Functions\expect( 'wp_cache_set' )->once();
 
-		$estimates = ( new Estimate( $this->client ) )->set( '3999.5000', 'usd', 'btc' );
-		$this->assertEquals( [], $estimates->get() );
+		$this->assertEquals( [], ( new AvailableCurrencies( $this->client ) )->get() );
+	}
+
+	public function test_is_valid() {
+		Functions\expect( 'wp_cache_get' )->twice()->andReturn( [ 'currencies' => [ 'ada' ] ] );
+
+		$this->assertFalse( ( new AvailableCurrencies( $this->client ) )->is_valid( 'btc' ) );
+		$this->assertTrue( ( new AvailableCurrencies( $this->client ) )->is_valid( 'ada' ) );
 	}
 
 	public function test_post() {
 		$this->expectException( \BadMethodCallException::class );
-		$this->assertNull( ( new Estimate( $this->client ) )->post() );
+		$this->assertNull( ( new AvailableCurrencies( $this->client ) )->post() );
 	}
-
 
 }

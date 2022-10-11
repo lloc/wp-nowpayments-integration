@@ -2,21 +2,21 @@
 
 namespace lloc\Nowpayments;
 
-use lloc\Nowpayments\Integration\Status;
+use lloc\Nowpayments\Integration\ApiStatus;
 use lloc\Nowpayments\Rest\Client;
 use lloc\Nowpayments\Rest\Service;
 
 class AdminWidget {
 
-	protected Status $status;
+	protected ApiStatus $status;
 
 	public const WIDGET_ID = 'nowpayments_status_widget';
 
-	public function __construct( Status $status ) {
+	public function __construct( ApiStatus $status ) {
 		$this->status = $status;
 	}
 
-	public static function create( Status $status ): AdminWidget {
+	public static function create( ApiStatus $status ): AdminWidget {
 		$obj = new self( $status );
 
 		$widget_name = __( 'Nowpayments Status', 'wp-nowpayments-integration' );

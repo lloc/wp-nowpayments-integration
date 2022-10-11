@@ -3,13 +3,13 @@
 namespace lloc\NowpaymentsTests\Integration;
 
 use Brain\Monkey\Functions;
-use lloc\Nowpayments\Integration\Currencies;
+use lloc\Nowpayments\Integration\PaymentStatus;
 use lloc\Nowpayments\Rest\Client;
 use lloc\Nowpayments\Rest\Response;
 use lloc\NowpaymentsTests\LlocTestCase;
 use Mockery;
 
-class TestCurrencies extends LlocTestCase {
+class TestPaymentStatus extends LlocTestCase {
 
 	protected $client;
 
@@ -24,18 +24,20 @@ class TestCurrencies extends LlocTestCase {
 	}
 
 	public function test_get_client() {
-		$this->assertEquals( $this->client, ( new Currencies( $this->client ) )->get_client() );
+		$this->assertEquals( $this->client, ( new PaymentStatus( $this->client ) )->get_client() );
 	}
 
 	public function test_get() {
 		Functions\expect( 'get_option' )->once()->andReturn( 'abc' );
 
-		$this->assertEquals( [], ( new Currencies( $this->client ) )->get() );
+		$payment_status = ( new PaymentStatus( $this->client ) )->set( '123456789' );
+		$this->assertEquals( [], $payment_status->get() );
 	}
+
 
 	public function test_post() {
 		$this->expectException( \BadMethodCallException::class );
-		$this->assertNull( ( new Currencies( $this->client ) )->post() );
+		$this->assertNull( ( new PaymentStatus( $this->client ) )->post() );
 	}
 
 }
