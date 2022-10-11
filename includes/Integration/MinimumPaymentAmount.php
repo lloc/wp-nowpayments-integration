@@ -4,7 +4,7 @@ namespace lloc\Nowpayments\Integration;
 
 use lloc\Nowpayments\Rest\Endpoint;
 
-class MinAmount extends Endpoint {
+class MinimumPaymentAmount extends Endpoint {
 
 	/**
 	 * @param string $currency_from
@@ -13,7 +13,12 @@ class MinAmount extends Endpoint {
 	 * @return Endpoint
 	 */
 	public function set( string $currency_from, string $currency_to ): Endpoint {
-		return $this->set_body( [ 'currency_from' => $currency_from, 'currency_to' => $currency_to ] );
+		$args = [
+			'currency_from' => $currency_from,
+			'currency_to'   => $currency_to,
+		];
+
+		return $this->set_body( $args );
 	}
 
 	/**

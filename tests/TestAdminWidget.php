@@ -3,7 +3,7 @@
 namespace lloc\NowpaymentsTests;
 
 use lloc\Nowpayments\AdminWidget;
-use lloc\Nowpayments\Integration\Status;
+use lloc\Nowpayments\Integration\ApiStatus;
 use lloc\Nowpayments\Rest\Client;
 use lloc\Nowpayments\Rest\Service;
 use Brain\Monkey\Functions;
@@ -19,7 +19,7 @@ class TestAdminWidget extends LlocTestCase {
 		$client = \Mockery::mock( Client::class );
 		$client->shouldReceive( 'get_service' )->once()->andReturn( $service );
 
-		$status = \Mockery::mock( Status::class );
+		$status = \Mockery::mock( ApiStatus::class );
 		$status->shouldReceive( 'get' )->once()->andReturn( [ 'message' => 'def' ] );
 		$status->shouldReceive( 'get_client' )->once()->andReturn( $client );
 

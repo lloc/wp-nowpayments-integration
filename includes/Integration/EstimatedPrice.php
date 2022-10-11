@@ -4,7 +4,7 @@ namespace lloc\Nowpayments\Integration;
 
 use lloc\Nowpayments\Rest\Endpoint;
 
-class Estimate extends Endpoint {
+class EstimatedPrice extends Endpoint {
 
 	/**
 	 * @param string $amount
@@ -14,7 +14,13 @@ class Estimate extends Endpoint {
 	 * @return Endpoint
 	 */
 	public function set( string $amount, string $currency_from, string $currency_to ): Endpoint {
-		return $this->set_body( [ 'amount' => $amount, 'currency_from' => $currency_from, 'currency_to' => $currency_to ] );
+		$args = [
+			'amount'        => $amount,
+			'currency_from' => $currency_from,
+			'currency_to'   => $currency_to,
+		];
+
+		return $this->set_body( $args );
 	}
 
 	/**

@@ -26,7 +26,7 @@ class Response implements Result {
 			return json_decode( $this->response['body'], true );
 		}
 
-		return [ 'message' => __( 'Object has no message property!', 'wp-nowpayments-integration' ) ];
+		return [ 'message' => __( 'Object has no body property!', 'wp-nowpayments-integration' ) ];
 	}
 
 }

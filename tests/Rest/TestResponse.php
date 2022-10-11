@@ -19,7 +19,7 @@ class TestResponse extends LlocTestCase {
 
 		$response = new Response( [] );
 
-		$this->assertEquals( [ 'message' => 'Object has no message property!' ], $response->get() );
+		$this->assertEquals( [ 'message' => 'Object has no body property!' ], $response->get() );
 	}
 
 }
