@@ -25,7 +25,7 @@
     +url()
   }
   class AdminWidget {
-    #status : Status
+    #status : ApiStatus
     +__construct(status)
     {static} +create(status)
     +render()
@@ -42,23 +42,23 @@
     +form(instance)
   }
   package Integration as Integration <<Rectangle>> {
-    class Integration.Status {
+    class Integration.ApiStatus {
       +get()
     }
-    class Integration.Payment {
-      +set(args)
-      +get()
-      +list()
-    }
-    class Integration.Currencies {
+    class Integration.MinimumPaymentAmount {
+      +set(currency_from, currency_to)
       +get()
     }
-    class Integration.Estimate {
+    class Integration.AvailableCurrencies {
+      +get(cached)
+      +is_valid(currency)
+    }
+    class Integration.EstimatedPrice {
       +set(amount, currency_from, currency_to)
       +get()
     }
-    class Integration.MinAmount {
-      +set(currency_from, currency_to)
+    class Integration.PaymentStatus {
+      +set(payment_id)
       +get()
     }
   }
@@ -100,17 +100,17 @@
       +__call(name, arguments)
     }
   }
-  AdminWidget ..> Integration.Status
+  AdminWidget ..> Integration.ApiStatus
   Plugin ..> AdminWidget
   Rest.Client ..> Rest.Service
   Rest.Client ..> Rest.Service
   Rest.Endpoint ..> Rest.Client
   Rest.Endpoint ..> Rest.Client
-  Rest.Endpoint <|-- Integration.Currencies
-  Rest.Endpoint <|-- Integration.Estimate
-  Rest.Endpoint <|-- Integration.MinAmount
-  Rest.Endpoint <|-- Integration.Payment
-  Rest.Endpoint <|-- Integration.Status
+  Rest.Endpoint <|-- Integration.ApiStatus
+  Rest.Endpoint <|-- Integration.AvailableCurrencies
+  Rest.Endpoint <|-- Integration.EstimatedPrice
+  Rest.Endpoint <|-- Integration.MinimumPaymentAmount
+  Rest.Endpoint <|-- Integration.PaymentStatus
   Rest.Result <|-- Rest.Error
   Rest.Result <|-- Rest.Response
   Rest.Service ..> Rest.Service
