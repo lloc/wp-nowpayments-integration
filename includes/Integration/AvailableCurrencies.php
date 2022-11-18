@@ -32,7 +32,7 @@ class AvailableCurrencies extends Endpoint {
 	 *
 	 * @return bool
 	 */
-	public function is_valid( string $currency ): bool {
+	public function is_available( string $currency ): bool {
 		$result     = $this->get( true );
 		$currencies = $result[ 'currencies' ] ?? [];
 

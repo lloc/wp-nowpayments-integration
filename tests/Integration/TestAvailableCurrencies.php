@@ -37,8 +37,8 @@ class TestAvailableCurrencies extends LlocTestCase {
 	public function test_is_valid() {
 		Functions\expect( 'wp_cache_get' )->twice()->andReturn( [ 'currencies' => [ 'ada' ] ] );
 
-		$this->assertFalse( ( new AvailableCurrencies( $this->client ) )->is_valid( 'btc' ) );
-		$this->assertTrue( ( new AvailableCurrencies( $this->client ) )->is_valid( 'ada' ) );
+		$this->assertFalse( ( new AvailableCurrencies( $this->client ) )->is_available( 'btc' ) );
+		$this->assertTrue( ( new AvailableCurrencies( $this->client ) )->is_available( 'ada' ) );
 	}
 
 	public function test_post() {

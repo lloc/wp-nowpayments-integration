@@ -22,6 +22,8 @@ class MinimumPaymentAmount extends Endpoint {
 	}
 
 	/**
+	 * @todo Check if all mandatory vars are set in the body
+	 *
 	 * @return string[]
 	 */
 	public function get(): array {

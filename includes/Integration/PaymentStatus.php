@@ -7,7 +7,7 @@ use lloc\Nowpayments\Rest\Endpoint;
 class PaymentStatus extends Endpoint {
 	
 	/**
-	 * @param array<string, string|int> $args
+	 * @param string $payment_id
 	 *
 	 * @return Endpoint
 	 */
@@ -16,6 +16,8 @@ class PaymentStatus extends Endpoint {
 	}
 
 	/**
+	 * @todo Check if all mandatory vars are set in the body
+	 *
 	 * @return string[]
 	 */
 	public function get(): array {
