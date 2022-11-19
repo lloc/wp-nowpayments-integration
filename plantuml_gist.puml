@@ -51,7 +51,7 @@
     }
     class Integration.AvailableCurrencies {
       +get(cached)
-      +is_valid(currency)
+      +is_available(currency)
     }
     class Integration.EstimatedPrice {
       +set(amount, currency_from, currency_to)
@@ -92,11 +92,12 @@
     }
     class Rest.Endpoint {
       #client : Client
-      #body : string[]
+      -body : string[]
       +__construct(client)
       +get_client()
       #get_headers()
-      +set_body(body)
+      #get_body()
+      +set_body(params)
       +__call(name, arguments)
     }
   }
