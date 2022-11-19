@@ -16,7 +16,7 @@ class Plugin {
 	/**
 	 * @param string $file
 	 *
-	 * @return Plugin
+	 * @return Plugin'Method expected %d parameter (%d given).'
 	 */
 	public static function init( string $file ): Plugin {
 		$plugin = new self( $file );

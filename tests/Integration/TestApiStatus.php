@@ -22,15 +22,15 @@ class TestApiStatus extends LlocTestCase {
 		$this->client->shouldReceive( 'get' )->andReturn( $response );
 	}
 
-	public function test_get_client() {
-		$this->assertEquals( $this->client, ( new ApiStatus( $this->client ) )->get_client() );
-	}
-
-	public function test_get() {
+	public function test_get(): void {
 		$this->assertEquals( [], ( new ApiStatus( $this->client ) )->get() );
 	}
 
-	public function test_post() {
+	public function test_get_client(): void {
+		$this->assertEquals( $this->client, ( new ApiStatus( $this->client ) )->get_client() );
+	}
+
+	public function test_post(): void {
 		$this->expectException( \BadMethodCallException::class );
 		$this->assertNull( ( new ApiStatus( $this->client ) )->post() );
 	}

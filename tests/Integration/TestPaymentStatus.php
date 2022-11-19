@@ -23,19 +23,18 @@ class TestPaymentStatus extends LlocTestCase {
 		$this->client->shouldReceive( 'get' )->andReturn( $response );
 	}
 
-	public function test_get_client() {
-		$this->assertEquals( $this->client, ( new PaymentStatus( $this->client ) )->get_client() );
-	}
-
-	public function test_get() {
+	public function test_get(): void {
 		Functions\expect( 'get_option' )->once()->andReturn( 'abc' );
 
 		$payment_status = ( new PaymentStatus( $this->client ) )->set( '123456789' );
 		$this->assertEquals( [], $payment_status->get() );
 	}
 
+	public function test_get_client(): void {
+		$this->assertEquals( $this->client, ( new PaymentStatus( $this->client ) )->get_client() );
+	}
 
-	public function test_post() {
+	public function test_post(): void {
 		$this->expectException( \BadMethodCallException::class );
 		$this->assertNull( ( new PaymentStatus( $this->client ) )->post() );
 	}

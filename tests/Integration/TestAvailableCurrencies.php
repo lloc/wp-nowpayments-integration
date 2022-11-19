@@ -23,25 +23,25 @@ class TestAvailableCurrencies extends LlocTestCase {
 		$this->client->shouldReceive( 'get' )->andReturn( $response );
 	}
 
-	public function test_get_client() {
-		$this->assertEquals( $this->client, ( new AvailableCurrencies( $this->client ) )->get_client() );
-	}
-
-	public function test_get() {
+	public function test_get(): void {
 		Functions\expect( 'get_option' )->once()->andReturn( 'abc' );
 		Functions\expect( 'wp_cache_set' )->once();
 
 		$this->assertEquals( [], ( new AvailableCurrencies( $this->client ) )->get() );
 	}
 
-	public function test_is_valid() {
+	public function test_is_valid(): void {
 		Functions\expect( 'wp_cache_get' )->twice()->andReturn( [ 'currencies' => [ 'ada' ] ] );
 
 		$this->assertFalse( ( new AvailableCurrencies( $this->client ) )->is_available( 'btc' ) );
 		$this->assertTrue( ( new AvailableCurrencies( $this->client ) )->is_available( 'ada' ) );
 	}
 
-	public function test_post() {
+	public function test_get_client(): void {
+		$this->assertEquals( $this->client, ( new AvailableCurrencies( $this->client ) )->get_client() );
+	}
+
+	public function test_post(): void {
 		$this->expectException( \BadMethodCallException::class );
 		$this->assertNull( ( new AvailableCurrencies( $this->client ) )->post() );
 	}

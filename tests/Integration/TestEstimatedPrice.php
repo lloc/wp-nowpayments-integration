@@ -23,18 +23,18 @@ class TestEstimatedPrice extends LlocTestCase {
 		$this->client->shouldReceive( 'get' )->andReturn( $response );
 	}
 
-	public function test_get_client() {
-		$this->assertEquals( $this->client, ( new EstimatedPrice( $this->client ) )->get_client() );
-	}
-
-	public function test_get() {
+	public function test_get(): void {
 		Functions\expect( 'get_option' )->once()->andReturn( 'abc' );
 
 		$estimates = ( new EstimatedPrice( $this->client ) )->set( '3999.5000', 'usd', 'btc' );
 		$this->assertEquals( [], $estimates->get() );
 	}
 
-	public function test_post() {
+	public function test_get_client(): void {
+		$this->assertEquals( $this->client, ( new EstimatedPrice( $this->client ) )->get_client() );
+	}
+
+	public function test_post(): void {
 		$this->expectException( \BadMethodCallException::class );
 		$this->assertNull( ( new EstimatedPrice( $this->client ) )->post() );
 	}

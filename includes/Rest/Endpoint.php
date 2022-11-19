@@ -5,6 +5,7 @@ namespace lloc\Nowpayments\Rest;
 use lloc\Nowpayments\Option;
 use lloc\Nowpayments\Settings;
 
+
 class Endpoint {
 
 	/**
@@ -15,7 +16,7 @@ class Endpoint {
 	/**
 	 * @var string[]
 	 */
-	protected array $body = [];
+	private array $body;
 
 	/**
 	 * @param Client $client
@@ -39,12 +40,19 @@ class Endpoint {
 	}
 
 	/**
-	 * @param array<string, string|int> $body
+	 * @return string[]
+	 */
+	protected function get_body(): array {
+		return $this->body;
+	}
+
+	/**
+	 * @param array<string, string|int> $params
 	 *
 	 * @return Endpoint
 	 */
-	public function set_body( array $body ): Endpoint {
-		$this->body = $body;
+	public function set_body( array $params ): Endpoint {
+		$this->body = filter_var_array( $params, FILTER_SANITIZE_STRING );
 
 		return $this;
 	}
@@ -55,8 +63,8 @@ class Endpoint {
 	 *
 	 * @return mixed
 	 */
-	public function __call( string $name, array $arguments) {
-         throw new \BadMethodCallException( sprintf( 'Method %s::%s does not exist.', __CLASS__, $name ) );
+	public function __call( string $name, array $arguments ) {
+		throw new \BadMethodCallException( sprintf( 'Method %s::%s does not exist.', __CLASS__, $name ) );
 	}
 
 }

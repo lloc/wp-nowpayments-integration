@@ -16,13 +16,11 @@ class PaymentStatus extends Endpoint {
 	}
 
 	/**
-	 * @todo Check if all mandatory vars are set in the body
-	 *
 	 * @return string[]
 	 */
 	public function get(): array {
-		$endpoint = sprintf( 'v1/payment/%s', $this->body['payment_id'] );
-
+		$body     = $this->get_body();
+		$endpoint = sprintf( 'v1/payment/%s', $body[ 'payment_id' ] );
 		$response = $this->client->get( $endpoint, [], $this->get_headers() );
 
 		return $response->get();

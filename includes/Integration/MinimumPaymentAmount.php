@@ -22,12 +22,10 @@ class MinimumPaymentAmount extends Endpoint {
 	}
 
 	/**
-	 * @todo Check if all mandatory vars are set in the body
-	 *
 	 * @return string[]
 	 */
 	public function get(): array {
-		$response = $this->client->get( 'v1/min-amount', $this->body, $this->get_headers() );
+		$response = $this->client->get( 'v1/min-amount', $this->get_body(), $this->get_headers() );
 
 		return $response->get();
 	}
