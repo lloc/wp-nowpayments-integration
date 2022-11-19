@@ -49,9 +49,9 @@ class Endpoint {
 	/**
 	 * @param array<string, string|int> $params
 	 *
-	 * @return Endpoint
+	 * @return $this
 	 */
-	public function set_body( array $params ): Endpoint {
+	public function set_body( array $params ): self {
 		$this->body = filter_var_array( $params, FILTER_SANITIZE_STRING );
 
 		return $this;
