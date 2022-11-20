@@ -19,6 +19,11 @@ class TestEstimatedPrice extends LlocTestCase {
 		'estimated_amount' => 0.7566495,
 	];
 
+	/**
+	 * Method demonstrates how EstimatedPrice works
+	 *
+	 * @return void
+	 */
 	public function test_get(): void {
 		Functions\expect( 'get_option' )->once()->andReturn( 'abc' );
 
