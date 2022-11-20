@@ -25,9 +25,13 @@ class TestEstimatedPrice extends LlocTestCase {
 	 * @return void
 	 */
 	public function test_get(): void {
-		Functions\expect( 'get_option' )->once()->andReturn( 'abc' );
+		Functions\expect( 'get_option' )->once()->andReturn( 'API_KEY_FROM SETTINGS' );
 
-		$estimates = ( new EstimatedPrice( $this->client ) )->set( '3999.5000', 'usd', 'btc' );
+		$estimates = ( new EstimatedPrice( $this->client ) )->set(
+			self::EXPECTED['amount_from'],
+			self::EXPECTED['currency_from'],
+			self::EXPECTED['currency_to'],
+		);
 		$this->assertEquals( self::EXPECTED, $estimates->get() );
 	}
 

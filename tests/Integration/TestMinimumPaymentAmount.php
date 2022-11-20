@@ -12,6 +12,12 @@ class TestMinimumPaymentAmount extends LlocTestCase {
 
 	protected $client;
 
+	const EXPECTED = [
+		'currency_from' => 'eth',
+		'currency_to' => 'btc',
+		'min_amount' => 0.0098049
+	];
+	
 	/**
 	 * Method demonstrates how MinimumPaymentAmount works
 	 *
@@ -20,8 +26,11 @@ class TestMinimumPaymentAmount extends LlocTestCase {
 	public function test_get() {
 		Functions\expect( 'get_option' )->once()->andReturn( 'API_KEY_FROM SETTINGS' );
 
-		$estimates = ( new MinimumPaymentAmount( $this->client ) )->set( 'usd', 'btc' );
-		$this->assertEquals( [], $estimates->get() );
+		$estimates = ( new MinimumPaymentAmount( $this->client ) )->set(
+			self::EXPECTED['currency_from'],
+			self::EXPECTED['currency_to']
+		);
+		$this->assertEquals( self::EXPECTED, $estimates->get() );
 	}
 
 	/**
@@ -33,7 +42,7 @@ class TestMinimumPaymentAmount extends LlocTestCase {
 		parent::setUp();
 
 		$response = \Mockery::mock( Response::class );
-		$response->shouldReceive( 'get' )->andReturn( [] );
+		$response->shouldReceive( 'get' )->andReturn( self::EXPECTED );
 
 		$this->client = \Mockery::mock( Client::class );
 		$this->client->shouldReceive( 'get' )->andReturn( $response );

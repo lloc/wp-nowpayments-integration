@@ -47,7 +47,7 @@ class Endpoint {
 	}
 
 	/**
-	 * @param array<string, string|int> $params
+	 * @param array<string, mixed> $params
 	 *
 	 * @return $this
 	 */

@@ -50,7 +50,7 @@
       +get()
     }
     class Integration.AvailableCurrencies {
-      +get(cached)
+      +get()
       +is_available(currency)
     }
     class Integration.EstimatedPrice {
