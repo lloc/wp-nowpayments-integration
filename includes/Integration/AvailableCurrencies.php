@@ -7,15 +7,10 @@ use lloc\Nowpayments\Rest\Endpoint;
 class AvailableCurrencies extends Endpoint {
 
 	/**
-	 * @param bool $cached
-	 *
 	 * @return string[]
 	 */
-	public function get( bool $cached = false ): array {
-		$result = false;
-		if ( $cached ) {
-			$result = wp_cache_get( __METHOD__ );
-		}
+	public function get(): array {
+		$result = wp_cache_get( __METHOD__ );
 
 		if ( false === $result ) {
 			$response = $this->client->get( 'v1/currencies', [], $this->get_headers() );
@@ -33,7 +28,7 @@ class AvailableCurrencies extends Endpoint {
 	 * @return bool
 	 */
 	public function is_available( string $currency ): bool {
-		$result     = $this->get( true );
+		$result     = $this->get();
 		$currencies = $result[ 'currencies' ] ?? [];
 
 		return in_array( $currency, $currencies );
