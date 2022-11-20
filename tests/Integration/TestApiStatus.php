@@ -12,13 +12,15 @@ class TestApiStatus extends LlocTestCase {
 
 	protected $client;
 
+	const EXPECTED = [ 'message' => 'ok' ];
+
 	/**
 	 * Method demonstrates how ApiStatus works
 	 *
 	 * @return void
 	 */
 	public function test_get(): void {
-		$this->assertEquals( [ 'message' => 'ok' ], ( new ApiStatus( $this->client ) )->get() );
+		$this->assertEquals( self::EXPECTED, ( new ApiStatus( $this->client ) )->get() );
 	}
 
 	/**
@@ -30,7 +32,7 @@ class TestApiStatus extends LlocTestCase {
 		parent::setUp();
 
 		$response = Mockery::mock( Response::class );
-		$response->shouldReceive( 'get' )->andReturn( [ 'message' => 'ok' ] );
+		$response->shouldReceive( 'get' )->andReturn( self::EXPECTED );
 
 		$this->client = Mockery::mock( Client::class );
 		$this->client->shouldReceive( 'get' )->andReturn( $response );

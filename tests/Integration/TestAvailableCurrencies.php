@@ -21,7 +21,7 @@ class TestAvailableCurrencies extends LlocTestCase {
 	 * @return void
 	 */
 	public function test_get(): void {
-		Functions\expect( 'wp_cache_get' )->andReturn( false );
+		Functions\expect( 'wp_cache_get' )->once()->andReturn( false );
 		Functions\expect( 'get_option' )->once()->andReturn( 'API_KEY_FROM SETTINGS' );
 		Functions\expect( 'wp_cache_set' )->once();
 
