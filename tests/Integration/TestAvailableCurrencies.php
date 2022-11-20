@@ -7,7 +7,6 @@ use lloc\Nowpayments\Integration\AvailableCurrencies;
 use lloc\Nowpayments\Rest\Client;
 use lloc\Nowpayments\Rest\Response;
 use lloc\NowpaymentsTests\LlocTestCase;
-use Mockery;
 
 class TestAvailableCurrencies extends LlocTestCase {
 
@@ -50,10 +49,10 @@ class TestAvailableCurrencies extends LlocTestCase {
 	public function setUp(): void {
 		parent::setUp();
 
-		$response = Mockery::mock( Response::class );
+		$response = \Mockery::mock( Response::class );
 		$response->shouldReceive( 'get' )->andReturn( self::EXPECTED );
 
-		$this->client = Mockery::mock( Client::class );
+		$this->client = \Mockery::mock( Client::class );
 		$this->client->shouldReceive( 'get' )->andReturn( $response );
 	}
 

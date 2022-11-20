@@ -7,7 +7,6 @@ use lloc\Nowpayments\Integration\EstimatedPrice;
 use lloc\Nowpayments\Rest\Client;
 use lloc\Nowpayments\Rest\Response;
 use lloc\NowpaymentsTests\LlocTestCase;
-use Mockery;
 
 class TestEstimatedPrice extends LlocTestCase {
 
@@ -35,10 +34,10 @@ class TestEstimatedPrice extends LlocTestCase {
 	public function setUp(): void {
 		parent::setUp();
 
-		$response = Mockery::mock( Response::class );
+		$response = \Mockery::mock( Response::class );
 		$response->shouldReceive( 'get' )->andReturn( self::EXPECTED );
 
-		$this->client = Mockery::mock( Client::class );
+		$this->client = \Mockery::mock( Client::class );
 		$this->client->shouldReceive( 'get' )->andReturn( $response );
 	}
 
