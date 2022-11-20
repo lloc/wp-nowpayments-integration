@@ -23,7 +23,7 @@ class ApplicationLogs {
 	}
 
 	/**
-	 * @param string $url
+	 * @param string               $url
 	 * @param array<string, mixed> $arguments
 	 *
 	 * @return void

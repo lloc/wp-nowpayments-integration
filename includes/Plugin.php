@@ -118,7 +118,7 @@ class Plugin {
 	 *
 	 * @return mixed
 	 */
-	function pre_http_request( $preempt, $parsed_args, $url ) {
+	public function pre_http_request( $preempt, $parsed_args, $url ) {
 		$this->logs->pre_http_filter_debug( $url, $parsed_args );
 
 		return $preempt;
