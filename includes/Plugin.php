@@ -5,6 +5,7 @@ namespace lloc\Nowpayments;
 use lloc\Nowpayments\Integration\ApiStatus;
 use lloc\Nowpayments\Rest\Client;
 use lloc\Nowpayments\Rest\Service;
+use lloc\Nowpayments\ApplicationLogs;
 
 class Plugin {
 
@@ -12,21 +13,25 @@ class Plugin {
 	public const LANGUAGE_DIR = 'languages';
 
 	private string $file;
+	private ApplicationLogs $logs;
 
 	/**
 	 * @param string $file
 	 *
-	 * @return Plugin'Method expected %d parameter (%d given).'
+	 * @return Plugin
 	 */
 	public static function init( string $file ): Plugin {
-		$plugin = new self( $file );
+		$logs   = new ApplicationLogs();
+		$plugin = new self( $file, $logs );
 
 		add_action( 'plugins_loaded', [ $plugin, 'plugins_loaded' ] );
 		add_action( 'admin_menu', [ OptionsPage::class, 'admin_menu' ] );
 		add_action( 'admin_init', [ Settings::class, 'admin_init' ] );
 		add_action( 'wp_dashboard_setup', [ $plugin, 'wp_dashboard_setup' ] );
-		add_action( 'widgets_init', [ __CLASS__, 'widgets_init' ] );
+		add_action( 'widgets_init', [ $plugin, 'widgets_init' ] );
 		add_action( 'init', [ $plugin, 'block_init' ] );
+
+		add_filter( 'pre_http_request', [ $plugin, 'pre_http_request' ] , 10, 3 );
 
 		add_shortcode( 'sc_nowpayments_widget', [ __CLASS__, 'block_render' ] );
 
@@ -36,8 +41,9 @@ class Plugin {
 	/**
 	 * @param string $file
 	 */
-	public function __construct( string $file ) {
+	public function __construct( string $file, ApplicationLogs $logs ) {
 		$this->file = $file;
+		$this->logs = $logs;
 	}
 
 	/**
@@ -101,6 +107,21 @@ class Plugin {
 		ob_start();
 		the_widget( Widget::class );
 		return ob_get_clean();
+	}
+
+	/**
+	 * Function for `pre_http_request` filter-hook.
+	 *
+	 * @param mixed                $preempt     A preemptive return value of an HTTP request.
+	 * @param array<string, mixed> $parsed_args HTTP request arguments.
+	 * @param mixed                $url         The request URL.
+	 *
+	 * @return mixed
+	 */
+	function pre_http_request( $preempt, $parsed_args, $url ) {
+		$this->logs->pre_http_filter_debug( $url, $parsed_args );
+
+		return $preempt;
 	}
 
 	/**

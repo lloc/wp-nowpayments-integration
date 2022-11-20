@@ -3,19 +3,35 @@
 namespace lloc\NowpaymentsTests;
 
 use lloc\Nowpayments\AdminWidget;
+use lloc\Nowpayments\ApplicationLogs;
 use lloc\Nowpayments\Plugin;
 use Brain\Monkey\Functions;
-use function Brain\Monkey\Actions\expectAdded;
+use Brain\Monkey\Actions;
+use Brain\Monkey\Filters;
 
 class TestPlugin extends LlocTestCase {
+
+	protected $plugin;
+
+	public function setUp(): void {
+		parent::setUp();
+
+		$logs = \Mockery::mock( ApplicationLogs::class );
+
+		$this->plugin = new Plugin( __FILE__, $logs );
+	}
 
 	public function test_init(): void {
 		Functions\expect( 'add_shortcode' )->once();
 
-		expectAdded( 'plugins_loaded' );
-		expectAdded( 'admin_menu' );
-		expectAdded( 'admin_init' );
-		expectAdded( 'wp_dashboard_setup' );
+		Actions\expectAdded( 'plugins_loaded' );
+		Actions\expectAdded( 'admin_menu' );
+		Actions\expectAdded( 'admin_init' );
+		Actions\expectAdded( 'wp_dashboard_setup' );
+		Actions\expectAdded( 'widgets_init' );
+		Actions\expectAdded( 'init' );
+
+		Filters\expectAdded( 'pre_http_request' );
 
 		$this->assertInstanceOf( Plugin::class, Plugin::init( __FILE__ ) );
 	}
@@ -24,7 +40,7 @@ class TestPlugin extends LlocTestCase {
 		Functions\when( 'plugin_dir_path' )->returnArg();
 		Functions\when( 'load_plugin_textdomain' )->justReturn( true );
 
-		$this->assertTrue( ( new Plugin( __FILE__ ) )->plugins_loaded() );
+		$this->assertTrue( $this->plugin->plugins_loaded() );
 	}
 
 	public function test_wp_dashboard_setup(): void {
@@ -32,17 +48,17 @@ class TestPlugin extends LlocTestCase {
 		Functions\expect( '__' )->once()->andReturn( 'test' );
 		Functions\expect( 'wp_add_dashboard_widget' )->once()->andReturnNull();
 
-		$this->assertInstanceOf( AdminWidget::class, ( new Plugin( __FILE__ ) )->wp_dashboard_setup() );
+		$this->assertInstanceOf( AdminWidget::class, $this->plugin->wp_dashboard_setup() );
 	}
 
 	public function test_widgets_init(): void {
 		Functions\expect( 'register_widget' )->once();
 
-		$this->assertEquals( 1, ( new Plugin( __FILE__ ) )->widgets_init() );
+		$this->assertEquals( 1, $this->plugin->widgets_init() );
 	}
 
 	public function test_block_init_false(): void {
-		$this->assertFalse( ( new Plugin( __FILE__ ) )->block_init() );
+		$this->assertFalse( $this->plugin->block_init() );
 	}
 
 	public function test_block_init_true(): void {
@@ -52,7 +68,7 @@ class TestPlugin extends LlocTestCase {
 		Functions\expect( 'wp_register_script' )->once();
 		Functions\expect( 'plugins_url' )->once()->andReturn( $expected );
 
-		$this->assertTrue( ( new Plugin( __FILE__ ) )->block_init() );
+		$this->assertTrue( $this->plugin->block_init() );
 	}
 
 	public function test_block_render(): void {
@@ -69,7 +85,7 @@ class TestPlugin extends LlocTestCase {
 
 		Functions\expect( 'plugins_url' )->once()->andReturn( $expected );
 
-		$this->assertEquals( $expected, ( new Plugin( __FILE__ ) )->plugins_url( $path ) );
+		$this->assertEquals( $expected, $this->plugin->plugins_url( $path ) );
 	}
 
 	public function test_dirname(): void {
@@ -77,7 +93,7 @@ class TestPlugin extends LlocTestCase {
 
 		Functions\when( 'plugin_dir_path' )->justReturn( $expected );
 
-		$this->assertEquals( $expected . 'abc/', ( new Plugin( __FILE__ ) )->dirname( 'abc' ) );
+		$this->assertEquals( $expected . 'abc/', $this->plugin->dirname( 'abc' ) );
 	}
 
 	public function test_path(): void {
@@ -85,7 +101,7 @@ class TestPlugin extends LlocTestCase {
 
 		Functions\when( 'plugin_dir_path' )->justReturn( $expected );
 
-		$this->assertEquals( $expected, ( new Plugin( __FILE__ ) )->path() );
+		$this->assertEquals( $expected, $this->plugin->path() );
 	}
 
 	public function test_url(): void {
@@ -93,7 +109,7 @@ class TestPlugin extends LlocTestCase {
 
 		Functions\when( 'plugin_dir_url' )->justReturn( $expected );
 
-		$this->assertEquals( $expected, ( new Plugin( __FILE__ ) )->url() );
+		$this->assertEquals( $expected, $this->plugin->url() );
 	}
 
 }
