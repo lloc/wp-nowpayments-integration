@@ -3,11 +3,9 @@
 namespace lloc\NowpaymentsTests;
 
 use lloc\Nowpayments\AdminWidget;
-use lloc\Nowpayments\ApplicationLogs;
 use lloc\Nowpayments\Plugin;
 use Brain\Monkey\Functions;
 use Brain\Monkey\Actions;
-use Brain\Monkey\Filters;
 
 class TestPlugin extends LlocTestCase {
 
@@ -16,9 +14,7 @@ class TestPlugin extends LlocTestCase {
 	public function setUp(): void {
 		parent::setUp();
 
-		$logs = \Mockery::mock( ApplicationLogs::class );
-
-		$this->plugin = new Plugin( __FILE__, $logs );
+		$this->plugin = new Plugin( __FILE__ );
 	}
 
 	public function test_init(): void {
@@ -30,8 +26,6 @@ class TestPlugin extends LlocTestCase {
 		Actions\expectAdded( 'wp_dashboard_setup' );
 		Actions\expectAdded( 'widgets_init' );
 		Actions\expectAdded( 'init' );
-
-		Filters\expectAdded( 'pre_http_request' );
 
 		$this->assertInstanceOf( Plugin::class, Plugin::init( __FILE__ ) );
 	}

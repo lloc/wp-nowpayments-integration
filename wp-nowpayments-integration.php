@@ -39,6 +39,7 @@ require __DIR__ . '/vendor/autoload.php';
 
 add_action( 'plugins_loaded', function () {
 	lloc\Nowpayments\Plugin::init( __FILE__ );
+	lloc\Nowpayments\ApplicationLogs::init();
 } );
 
 add_filter( 'use_block_editor_for_post', '__return_true', 99 );
