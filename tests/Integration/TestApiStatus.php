@@ -11,7 +11,7 @@ class TestApiStatus extends LlocTestCase {
 
 	protected $client;
 
-	const EXPECTED = [ 'message' => 'ok' ];
+	public const EXPECTED = [ 'message' => 'ok' ];
 
 	/**
 	 * Method demonstrates how ApiStatus works

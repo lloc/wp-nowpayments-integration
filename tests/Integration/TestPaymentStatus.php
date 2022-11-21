@@ -12,7 +12,7 @@ class TestPaymentStatus extends LlocTestCase {
 
 	protected $client;
 
-	const EXPECTED = [
+	public const EXPECTED = [
 		'payment_id'       => '123456789',
 		'payment_status'   => 'waiting',
 		'pay_address'      => '<your_payment_address>',

@@ -12,7 +12,7 @@ class TestAvailableCurrencies extends LlocTestCase {
 
 	protected $client;
 
-	const EXPECTED = [ 'currencies' => [ 'ada', 'btc', 'eur' ] ];
+	public const EXPECTED = [ 'currencies' => [ 'ada', 'btc', 'eur' ] ];
 
 	/**
 	 * Method demonstrates how AvailableCurrencies works

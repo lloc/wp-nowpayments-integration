@@ -12,7 +12,7 @@ class TestMinimumPaymentAmount extends LlocTestCase {
 
 	protected $client;
 
-	const EXPECTED = [
+	public const EXPECTED = [
 		'currency_from' => 'eth',
 		'currency_to' => 'btc',
 		'min_amount' => 0.0098049

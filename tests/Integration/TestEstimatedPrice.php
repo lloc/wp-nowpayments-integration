@@ -12,7 +12,7 @@ class TestEstimatedPrice extends LlocTestCase {
 
 	protected $client;
 
-	const EXPECTED = [
+	public const EXPECTED = [
 		'currency_from'    => 'usd',
 		'amount_from'      => 3999.5,
 		'currency_to'      => 'btc',
