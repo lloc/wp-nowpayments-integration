@@ -2,6 +2,7 @@
 
 namespace lloc\Nowpayments;
 
+use lloc\Nowpayments\Rest\Service;
 use Monolog\Formatter\JsonFormatter;
 use Monolog\Logger;
 use Monolog\Handler\StreamHandler;
@@ -9,11 +10,13 @@ use Monolog\Handler\StreamHandler;
 class ApplicationLogs {
 
 	protected Logger $logger;
+	protected string $service_url;
 
 	const NAME = 'wp-nowpayments-integration-logs';
 
 	public function __construct( Logger $logger ) {
-		$this->logger = $logger;
+		$this->logger      = $logger;
+		$this->service_url = Service::create()->get_service_url();
 	}
 
 	/**
@@ -49,9 +52,11 @@ class ApplicationLogs {
 	 * @return mixed
 	 */
 	public function pre_http_request( $preempt, array $parsed_args, $url ) {
-		$message = sprintf( 'pre_http_request-filter-debug for %s', esc_url( $url ) );
+		if ( strncmp( $url, $this->service_url, strlen( $this->service_url ) ) === 0 ) {
+			$message = sprintf( 'pre_http_request-filter-debug for %s', esc_url( $url ) );
 
-		$this->logger->debug( $message, $parsed_args );
+			$this->logger->debug( $message, $parsed_args );
+		}
 
 		return $preempt;
 	}

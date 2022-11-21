@@ -5,7 +5,6 @@ namespace lloc\Nowpayments;
 use lloc\Nowpayments\Integration\ApiStatus;
 use lloc\Nowpayments\Rest\Client;
 use lloc\Nowpayments\Rest\Service;
-use lloc\Nowpayments\ApplicationLogs;
 
 class Plugin {
 
