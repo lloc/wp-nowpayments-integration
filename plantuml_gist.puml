@@ -12,6 +12,7 @@
   }
   class Plugin {
     -file : string
+    -logs : ApplicationLogs
     {static} +init(file)
     +__construct(file)
     +plugins_loaded()
@@ -30,6 +31,13 @@
     {static} +create(status)
     +render()
   }
+  class ApplicationLogs {
+    #logger : Logger
+    #service_url : string
+    +__construct(logger)
+    {static} +init()
+    +pre_http_request(preempt, parsed_args, url)
+  }
   class OptionsPage {
     {static} +admin_menu()
     {static} +render_page()
@@ -44,6 +52,10 @@
   package Integration as Integration <<Rectangle>> {
     class Integration.ApiStatus {
       +get()
+    }
+    class Integration.Payment {
+      +set(price_amount, price_currency, pay_currency)
+      +post()
     }
     class Integration.MinimumPaymentAmount {
       +set(currency_from, currency_to)
@@ -75,6 +87,7 @@
       -environment : string
       +__construct(environment)
       {static} +create()
+      +get_service_url()
       +get(method)
       +info()
     }
@@ -92,17 +105,21 @@
     }
     class Rest.Endpoint {
       #client : Client
+      -header : string[]
       -body : string[]
       +__construct(client)
       +get_client()
       #get_headers()
+      #set_header(params)
       #get_body()
-      +set_body(params)
+      #set_body(params)
       +__call(name, arguments)
     }
   }
   AdminWidget ..> Integration.ApiStatus
+  ApplicationLogs ..> ApplicationLogs
   Plugin ..> AdminWidget
+  Plugin ..> ApplicationLogs
   Rest.Client ..> Rest.Service
   Rest.Client ..> Rest.Service
   Rest.Endpoint ..> Rest.Client
@@ -111,6 +128,7 @@
   Rest.Endpoint <|-- Integration.AvailableCurrencies
   Rest.Endpoint <|-- Integration.EstimatedPrice
   Rest.Endpoint <|-- Integration.MinimumPaymentAmount
+  Rest.Endpoint <|-- Integration.Payment
   Rest.Endpoint <|-- Integration.PaymentStatus
   Rest.Result <|-- Rest.Error
   Rest.Result <|-- Rest.Response
