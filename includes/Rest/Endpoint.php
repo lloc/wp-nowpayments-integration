@@ -16,7 +16,12 @@ class Endpoint {
 	/**
 	 * @var string[]
 	 */
-	private array $body;
+	private array $header = [];
+
+	/**
+	 * @var string[]
+	 */
+	private array $body = [];
 
 	/**
 	 * @param Client $client
@@ -36,7 +41,20 @@ class Endpoint {
 	 * @return string[]
 	 */
 	protected function get_headers(): array {
-		return [ 'x-api-key' => ( new Option( Settings::API_KEY_FIELD ) )->get() ];
+		$header =  [ 'x-api-key' => ( new Option( Settings::API_KEY_FIELD ) )->get() ];
+
+		return array_merge( $header, $this->header );
+	}
+
+	/**
+	 * @param array<string, mixed> $params
+	 *
+	 * @return $this
+	 */
+	protected function set_header( array $params ): self {
+		$this->header = filter_var_array( $params, FILTER_SANITIZE_STRING );
+
+		return $this;
 	}
 
 	/**
@@ -51,7 +69,7 @@ class Endpoint {
 	 *
 	 * @return $this
 	 */
-	public function set_body( array $params ): self {
+	protected function set_body( array $params ): self {
 		$this->body = filter_var_array( $params, FILTER_SANITIZE_STRING );
 
 		return $this;

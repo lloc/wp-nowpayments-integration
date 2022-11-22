@@ -21,7 +21,7 @@ class PaymentStatus extends Endpoint {
 	public function get(): array {
 		$body     = $this->get_body();
 		$endpoint = sprintf( 'v1/payment/%s', $body[ 'payment_id' ] );
-		$response = $this->client->get( $endpoint, [], $this->get_headers() );
+		$response = $this->client->get( $endpoint, $this->get_body(), $this->get_headers() );
 
 		return $response->get();
 	}
