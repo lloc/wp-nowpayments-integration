@@ -3,6 +3,7 @@
 namespace lloc\Nowpayments;
 
 use lloc\Nowpayments\Integration\ApiStatus;
+use lloc\Nowpayments\Logs\ApplicationLogs;
 use lloc\Nowpayments\Rest\Client;
 use lloc\Nowpayments\Rest\Service;
 
@@ -12,7 +13,6 @@ class Plugin {
 	public const LANGUAGE_DIR = 'languages';
 
 	private string $file;
-	private ApplicationLogs $logs;
 
 	/**
 	 * @param string $file
