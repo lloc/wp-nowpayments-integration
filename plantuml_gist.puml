@@ -12,7 +12,6 @@
   }
   class Plugin {
     -file : string
-    -logs : ApplicationLogs
     {static} +init(file)
     +__construct(file)
     +plugins_loaded()
@@ -30,13 +29,6 @@
     +__construct(status)
     {static} +create(status)
     +render()
-  }
-  class ApplicationLogs {
-    #logger : Logger
-    #service_url : string
-    +__construct(logger)
-    {static} +init()
-    +pre_http_request(preempt, parsed_args, url)
   }
   class OptionsPage {
     {static} +admin_menu()
@@ -72,6 +64,20 @@
     class Integration.PaymentStatus {
       +set(payment_id)
       +get()
+    }
+  }
+  package Logs as Logs <<Rectangle>> {
+    class Logs.ApplicationLogs {
+      #logger : Logger
+      +__construct(logger)
+      {static} +init(logger)
+      +http_api_debug(response, context, class, parsed_args, url)
+    }
+    class Logs.LogFactory {
+      {static} +get_logger()
+    }
+    class Logs.StructuredLogsFormatter {
+      +format(record)
     }
   }
   package Rest as Rest <<Rectangle>> {
@@ -117,9 +123,7 @@
     }
   }
   AdminWidget ..> Integration.ApiStatus
-  ApplicationLogs ..> ApplicationLogs
   Plugin ..> AdminWidget
-  Plugin ..> ApplicationLogs
   Rest.Client ..> Rest.Service
   Rest.Client ..> Rest.Service
   Rest.Endpoint ..> Rest.Client
