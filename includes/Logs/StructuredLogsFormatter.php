@@ -13,8 +13,8 @@ class StructuredLogsFormatter extends JsonFormatter implements FormatterInterfac
 	 * @return string
 	 */
 	public function format( array $record ): string {
-		$record['siteUrl'] = site_url();
-		$record['userId']  = function_exists( 'wp_get_current_user' ) ? wp_get_current_user()->ID : 0;
+		$record['site_url'] = site_url();
+		$record['user_id']  = get_current_user_id();
 
 		return parent::format( $record );
 	}

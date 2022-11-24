@@ -2,13 +2,20 @@
 
 namespace lloc\NowpaymentsTests\Logs;
 
-use Brain\Monkey\Functions;
+use Brain\Monkey\Actions;
 use lloc\Nowpayments\Logs\ApplicationLogs;
 use lloc\NowpaymentsTests\LlocTestCase;
 use Monolog\Logger;
 
 class TestApplicationLogs extends LlocTestCase {
 
+	public function test_init() {
+		$logger = \Mockery::mock( Logger::class );
+
+		Actions\expectAdded( 'http_api_debug' );
+
+		$this->assertInstanceOf( ApplicationLogs::class, ApplicationLogs::init( $logger ) );
+	}
 
 	public function test_debug() {
 		$logger = \Mockery::mock( Logger::class );
