@@ -6,33 +6,46 @@ use lloc\Nowpayments\Rest\Endpoint;
 
 class Payment extends Endpoint {
 
+	public const ADDITIONAL_PARAMS = [
+		'pay_amount',
+		'ipn_callback_url',
+		'order_id',
+		'order_description',
+		'purchase_id',
+		'payout_address',
+		'payout_currency',
+		'payout_extra_id',
+		'case',
+	];
+
 	/**
 	 * @param float $price_amount
 	 * @param string $price_currency
 	 * @param string $pay_currency
+	 * @param array<string, mixed> $optional_params
 	 *
 	 * @return Endpoint
 	 */
-	public function set( float $price_amount, string $price_currency, string $pay_currency ): Endpoint {
+	public function set( float $price_amount, string $price_currency, string $pay_currency, array $optional_params = [] ): Endpoint {
 		$this->set_header( [ 'Content-Type' => 'application/json' ] );
-
-		/**
-		pay_amount (optional) - price in cryptocurrency
-		ipn_callback_url (optional) - url to receive callbacks, should contain "http" or "https", eg. "https://nowpayments.io"
-		order_id (optional) - inner store order ID, e.g. "RGDBP-21314"
-		order_description (optional) - inner store order description, e.g. "Apple Macbook Pro 2019 x 1"
-		purchase_id (optional) - id of purchase for which you want to create aother payment, only used for several payments for one order
-		payout_address (optional) - in case you want to receive funds on an external address, you can specify it in this parameter
-		payout_currency (optional) - currency of your external payout_address, required when payout_adress is specified.
-		payout_extra_id(optional) - extra id or memo or tag for external payout_address.
-		case(optional) - case which you want to test.
-		*/
 
 		$args = [
 			'amount'        => $price_amount,
 			'currency_from' => $price_currency,
 			'currency_to'   => $pay_currency,
 		];
+
+		foreach ( $optional_params as $key => $value ) {
+			if ( 'pay_amount' === $key ) {
+				$args['pay_amount'] = filter_var( $optional_params['pay_amount'], FILTER_SANITIZE_NUMBER_FLOAT );
+			}
+			elseif ( 'ipn_callback_url' === $key ) {
+				$args['ipn_callback_url'] = filter_var( $optional_params['ipn_callback_url'], FILTER_SANITIZE_URL );
+			}
+			elseif ( in_array( $key, self::ADDITIONAL_PARAMS ) ) {
+				$args[ $key ] = filter_var( $value, FILTER_SANITIZE_STRING );
+			}
+		}
 
 		return $this->set_body( $args );
 	}
