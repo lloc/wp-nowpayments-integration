@@ -46,7 +46,7 @@
       +get()
     }
     class Integration.Payment {
-      +set(price_amount, price_currency, pay_currency)
+      +set(price_amount, price_currency, pay_currency, optional_params)
       +post()
     }
     class Integration.MinimumPaymentAmount {
