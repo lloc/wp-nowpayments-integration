@@ -13,13 +13,13 @@ class TestPayment extends LlocTestCase {
 	protected $client;
 
 	public const EXPECTED = [
+		'price_amount' => 3999.5,
+		'price_currency' => 'usd',
+		'pay_currency' => 'btc',
 		'payment_id' => '<your_payment_id>',
 		'payment_status' => 'waiting',
 		'pay_address' => '<your_pay_address>',
-		'price_amount' => 3999.5,
-		'price_currency' => 'usd',
 		'pay_amount' => 0.8102725,
-		'pay_currency' => 'btc',
 		'order_id' => 'RGDBP-21314',
 		'order_description' => 'Apple Macbook Pro 2019 x 1',
 		'ipn_callback_url' => 'https://nowpayments.io',
@@ -36,10 +36,13 @@ class TestPayment extends LlocTestCase {
 	public function test_post(): void {
 		Functions\expect( 'get_option' )->once()->andReturn( 'API_KEY_FROM SETTINGS' );
 
+		$additional_parameters = array_slice( self::EXPECTED, 3 );
+
 		$payment = ( new Payment( $this->client ) )->set(
 			self::EXPECTED['price_amount'],
 			self::EXPECTED['price_currency'],
-			self::EXPECTED['pay_currency']
+			self::EXPECTED['pay_currency'],
+			$additional_parameters
 		);
 
 		$this->assertEquals( self::EXPECTED, $payment->post() );
