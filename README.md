@@ -9,7 +9,11 @@ Cryptocurrency Payment integration using the NOWPayments API
 1. <a href="https://nowpayments.io/?link_id=3530618365">Sign up at nowpayments.io</a>
 2. Specify your outcome wallet
 3. Generate an API key
-4. Insert it in the above field
+4. Insert it in the [settings field](asset/screenshot-1.png)
+
+## Screenshots
+
+![Plugin Settings](./assets/screenshot-1.png)
 
 ## Code
 
