@@ -15,6 +15,8 @@ Cryptocurrency Payment integration using the NOWPayments API
 
 ![Plugin Settings](./assets/screenshot-1.png)
 
+![Admin Widget](./assets/screenshot-2.png)
+
 ## Code
 
 PHP classes for WordPress integration and nowpayments.io communication.
