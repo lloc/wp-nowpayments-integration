@@ -1,10 +1,10 @@
 import React from 'react';
-import Button from "./components/Button";
+import DonateButton from "./components/DonateButton";
 
 const App = () => {
     return (
         <div>
-            <Button />
+            <DonateButton />
         </div>
     );
 }

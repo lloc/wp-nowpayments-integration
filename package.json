@@ -29,5 +29,9 @@
   "homepage": "https://github.com/lloc/wp-nowpayments-integration#readme",
   "devDependencies": {
     "@wordpress/scripts": "^24.6.0"
+  },
+  "dependencies": {
+    "semantic-ui-css": "^2.5.0",
+    "semantic-ui-react": "^2.1.4"
   }
 }
