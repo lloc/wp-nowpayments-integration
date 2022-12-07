@@ -1,6 +1,6 @@
 {
   "name": "lloc/wp-nowpayments-integration",
-  "description": "Cryptocurrency Payment integration using the nowpayments.io Gateway\n",
+  "description": "Cryptocurrency Payment integration using the nowpayments.io Gateway",
   "type": "wordpress-plugin",
   "license": "GPL-2.0-or-later",
   "homepage": "https://github.com/lloc/wp-nowpayments-integration",
@@ -52,5 +52,6 @@
     "allow-plugins": {
       "composer/installers": true
     }
-  }
+  },
+  "version": "1.0.0"
 }

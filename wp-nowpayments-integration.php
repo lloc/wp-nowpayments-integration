@@ -8,7 +8,7 @@
  * @wordpress-plugin
  *
  * Plugin Name: WordPress nowpayments.io integration
- * Version: 1.0
+ * Version: 1.0.0
  * Plugin URI: https://github.com/lloc/wp-nowpayments-itegration
  * Description: Cryptocurrency Payment integration using the NOWPayments API
  * Author: Dennis Ploetner
@@ -36,6 +36,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 require __DIR__ . '/vendor/autoload.php';
+
+defined( 'NOWPAYMENTS_PLUGIN_VERSION' ) or define( 'NOWPAYMENTS_PLUGIN_VERSION', '1.0.0' );
 
 add_action( 'plugins_loaded', function () {
 	lloc\Nowpayments\Plugin::init( __FILE__ );

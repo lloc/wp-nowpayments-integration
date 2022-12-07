@@ -11,6 +11,8 @@ class Plugin {
 
 	public const SLUG = 'nowpayments';
 	public const LANGUAGE_DIR = 'languages';
+	public const SCRIPT_HANDLE = 'nowpayments-script';
+	public const STYLE_HANDLE = 'nowpayments-style';
 
 	private string $file;
 
@@ -28,6 +30,7 @@ class Plugin {
 		add_action( 'wp_dashboard_setup', [ $plugin, 'wp_dashboard_setup' ] );
 		add_action( 'widgets_init', [ $plugin, 'widgets_init' ] );
 		add_action( 'init', [ $plugin, 'block_init' ] );
+		add_action( 'wp_enqueue_scripts', 'wp_enqueue_scripts' );
 
 		add_shortcode( 'sc_nowpayments_widget', [ __CLASS__, 'block_render' ] );
 
@@ -48,6 +51,16 @@ class Plugin {
 	 */
 	public function plugins_loaded(): bool {
 		return load_plugin_textdomain( 'wp-nowpayments-integration', false, $this->dirname( self::LANGUAGE_DIR ) );
+	}
+
+	/**
+	 * Enqueue scripts and styles.
+	 *
+	 * @return void
+	 */
+	public function wp_enqueue_scripts(): void {
+		wp_enqueue_style( self::SCRIPT_HANDLE, $this->plugins_url( 'build/index.css' ) );
+		wp_enqueue_script( self::STYLE_HANDLE, $this->plugins_url( 'build/index.js' ), [ 'wp-element' ], constant( 'NOWPAYMENTS_PLUGIN_VERSION' ), true );
 	}
 
 	/**
@@ -89,7 +102,7 @@ class Plugin {
 		register_block_type( 'lloc/nowpayments-widget-block', [
 			'attributes'      => [ 'title' => [ 'type' => 'string' ] ],
 			'editor_script'   => $handle,
-			'render_callback' => [__CLASS__, 'block_render' ],
+			'render_callback' => [ __CLASS__, 'block_render' ],
 		] );
 
 		return true;
@@ -101,6 +114,7 @@ class Plugin {
 	public static function block_render(): string {
 		ob_start();
 		the_widget( Widget::class );
+
 		return ob_get_clean();
 	}
 

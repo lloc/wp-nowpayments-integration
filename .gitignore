@@ -2,5 +2,7 @@
 node_modules/
 reports/
 vendor/
+build/
 .phpunit.result.cache
 composer.lock
+package-lock.json
