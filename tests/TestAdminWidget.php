@@ -11,7 +11,7 @@ use Brain\Monkey\Functions;
 class TestAdminWidget extends LlocTestCase {
 
 	public function test_render() {
-		Functions\expect( '__' )->once()->andReturn( '<div><strong>%s</strong> responds with "%s".</div>' );
+		Functions\expect( '__' )->once()->andReturn( '%s responds with "%s".' );
 
 		$service = \Mockery::mock( Service::class );
 		$service->shouldReceive( 'info' )->once()->andReturn( 'abc' );

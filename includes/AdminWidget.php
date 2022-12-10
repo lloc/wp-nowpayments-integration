@@ -26,11 +26,10 @@ class AdminWidget {
 
 	public function render(): void {
 		$arr     = $this->status->get();
-		$service = $this->status->get_client()->get_service();
+		$service = sprintf( '<strong>%s</strong>', $this->status->get_client()->get_service()->info() );
+		$format  = __( '%s responds with "%s".', 'wp-nowpayments-integration' );
 
-		$format = __( '<div><strong>%s</strong> responds with "%s".</div>', 'wp-nowpayments-integration' );
-
-		printf( $format, $service->info(), $arr['message'] );
+		echo '<div>', sprintf( $format, $service, $arr['message'] ), '</div>';
 	}
 
 }

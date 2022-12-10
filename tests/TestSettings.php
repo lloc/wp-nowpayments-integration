@@ -11,7 +11,7 @@ class TestSettings extends LlocTestCase {
 		Functions\expect( 'register_setting' )->once();
 		Functions\expect( 'add_settings_section' )->once();
 		Functions\expect( 'add_settings_field' )->once();
-		Functions\expect( '__' )->times( 3 );
+		Functions\expect( '__' )->times( 4 );
 
 		Settings::admin_init();
 

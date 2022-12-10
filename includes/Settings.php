@@ -25,6 +25,10 @@ class Settings {
 			OptionsPage::PAGE
 		);
 
+		$cta    = __( 'Sign up at nowpayments.io', 'wp-nowpayments-integration' );
+		$link   = sprintf( '<a href="https://nowpayments.io/?link_id=3530618365">%s</a>', $cta );
+		$format = __( '%s, specify your outcome wallet, generate an API key and insert it in the above field.', 'wp-nowpayments-integration' );
+
 		add_settings_field(
 			self::API_KEY_FIELD,
 			__( 'API key', 'wp-nowpayments-integration' ),
@@ -33,7 +37,7 @@ class Settings {
 			self::API_SECTION_ID,
 			[
 				'label_for' => self::API_KEY_FIELD,
-				'description' => __( '<a href="https://nowpayments.io/?link_id=3530618365">Sign up at nowpayments.io</a>, specify your outcome wallet, generate an API key and insert it in the above field.', 'wp-nowpayments-integration' ),
+				'description' => sprintf( $format, $link ),
 			]
 		);
 
