@@ -82,7 +82,7 @@ class Plugin {
 
 		wp_register_script(
 			$handle,
-			$this->plugins_url( 'js/widget-block.js' ),
+			$this->plugins_url( 'src/widget-block.js' ),
 			[ 'wp-blocks', 'wp-element', 'wp-components', 'wp-editor' ]
 		);
 

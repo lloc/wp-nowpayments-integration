@@ -1,0 +1,34 @@
+{
+  "name": "wp-nowpayments-integration",
+  "version": "1.0.0",
+  "description": "Cryptocurrency Payment integration using the NOWPayments API",
+  "main": "index.js",
+  "directories": {
+    "test": "src/tests"
+  },
+  "scripts": {
+    "test": "jest",
+    "test-watch": "jest --watch"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lloc/wp-nowpayments-integration.git"
+  },
+  "keywords": [
+    "WordPress",
+    "NOWPayments",
+    "payment",
+    "plugin",
+    "PHP",
+    "ReactJS"
+  ],
+  "author": "Dennis Ploetner",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/lloc/wp-nowpayments-integration/issues"
+  },
+  "homepage": "https://github.com/lloc/wp-nowpayments-integration#readme",
+  "devDependencies": {
+    "jest": "^29.3.1"
+  }
+}
