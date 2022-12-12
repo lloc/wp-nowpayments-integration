@@ -16,7 +16,10 @@
     "phpstan/phpstan": "^1.8",
     "szepeviktor/phpstan-wordpress": "^1.1",
     "phpstan/extension-installer": "^1.1",
-    "smeghead/php-class-diagram": "^0.0.7"
+    "smeghead/php-class-diagram": "^0.0.7",
+    "dealerdirect/phpcodesniffer-composer-installer": "^0.7.2",
+    "wp-coding-standards/wpcs": "^2.3",
+    "phpcompatibility/phpcompatibility-wp": "^2.1"
   },
   "autoload": {
     "psr-4": {
@@ -32,7 +35,9 @@
     "test": "vendor/bin/phpunit",
     "coverage": "vendor/bin/phpunit --coverage-html ./reports/php/coverage",
     "analyze": "vendor/bin/phpstan analyze",
-    "diagram": "vendor/bin/php-class-diagram --php7 includes > plantuml_gist.puml"
+    "diagram": "vendor/bin/php-class-diagram --php7 includes > plantuml_gist.puml",
+    "format": "phpcbf --standard=phpcs.xml.dist --report-summary --report-source",
+    "lint": "phpcs --standard=phpcs.xml.dist"
   },
   "authors": [
     {
@@ -50,7 +55,8 @@
   ],
   "config": {
     "allow-plugins": {
-      "composer/installers": true
+      "composer/installers": true,
+      "dealerdirect/phpcodesniffer-composer-installer": true
     }
   },
   "version": "1.0.0"
