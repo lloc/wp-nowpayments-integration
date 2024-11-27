@@ -39,7 +39,6 @@ class TestPlugin extends LlocTestCase {
 
 	public function test_wp_dashboard_setup(): void {
 		Functions\expect( 'wp_get_environment_type' )->once()->andReturn( 'staging' );
-		Functions\expect( '__' )->once()->andReturn( 'test' );
 		Functions\expect( 'wp_add_dashboard_widget' )->once()->andReturnNull();
 
 		$this->assertInstanceOf( AdminWidget::class, $this->plugin->wp_dashboard_setup() );
@@ -105,5 +104,4 @@ class TestPlugin extends LlocTestCase {
 
 		$this->assertEquals( $expected, $this->plugin->url() );
 	}
-
 }

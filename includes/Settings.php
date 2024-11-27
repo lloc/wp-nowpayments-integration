@@ -4,9 +4,9 @@ namespace lloc\Nowpayments;
 
 class Settings {
 
-	public const OPTION_GROUP = 'nowpayments_group';
+	public const OPTION_GROUP   = 'nowpayments_group';
 	public const API_SECTION_ID = 'api_section_id';
-	public const API_KEY_FIELD = 'api_key';
+	public const API_KEY_FIELD  = 'api_key';
 
 	/**
 	 * Callback entry-point
@@ -15,30 +15,32 @@ class Settings {
 		register_setting(
 			self::OPTION_GROUP,
 			Option::OPTION_NAME,
-			[ 'sanitize_callback' => [ __CLASS__, 'sanitize_text_field' ] ]
+			array( 'sanitize_callback' => array( __CLASS__, 'sanitize_text_field' ) )
 		);
 
 		add_settings_section(
 			self::API_SECTION_ID,
 			__( 'API settings', 'wp-nowpayments-integration' ),
-			[ __CLASS__, 'render_section' ],
+			array( __CLASS__, 'render_section' ),
 			OptionsPage::PAGE
 		);
 
-		$cta    = __( 'Sign up at nowpayments.io', 'wp-nowpayments-integration' );
-		$link   = sprintf( '<a href="https://nowpayments.io/?link_id=3530618365">%s</a>', $cta );
+		$cta  = __( 'Sign up at nowpayments.io', 'wp-nowpayments-integration' );
+		$link = sprintf( '<a href="https://nowpayments.io/?link_id=3530618365">%s</a>', $cta );
+
+		/* translators: %s: link */
 		$format = __( '%s, specify your outcome wallet, generate an API key and insert it in the above field.', 'wp-nowpayments-integration' );
 
 		add_settings_field(
 			self::API_KEY_FIELD,
 			__( 'API key', 'wp-nowpayments-integration' ),
-			[ __CLASS__, 'render_fields' ],
+			array( __CLASS__, 'render_fields' ),
 			OptionsPage::PAGE,
 			self::API_SECTION_ID,
-			[
-				'label_for' => self::API_KEY_FIELD,
+			array(
+				'label_for'   => self::API_KEY_FIELD,
 				'description' => sprintf( $format, $link ),
-			]
+			)
 		);
 
 		do_action( 'nowpayments_settings_admin_init', OptionsPage::PAGE );
@@ -68,8 +70,8 @@ class Settings {
 			esc_attr( ( new Option( $args['label_for'] ) )->get() )
 		);
 
-		if ( isset( $args['description' ] ) ) {
-			printf( '<p class="description">%s</p>', $args['description' ] );
+		if ( isset( $args['description'] ) ) {
+			printf( '<p class="description">%s</p>', $args['description'] );
 		}
 	}
 
@@ -81,7 +83,6 @@ class Settings {
 	public static function sanitize_text_field( array $fields ): array {
 		$value = $fields[ self::API_KEY_FIELD ] ?? '';
 
-		return [ self::API_KEY_FIELD => preg_replace( '/[^A-Z0-9-]/', '', $value ) ];
+		return array( self::API_KEY_FIELD => preg_replace( '/[^A-Z0-9-]/', '', $value ) );
 	}
-
 }

@@ -13,10 +13,10 @@ class MinimumPaymentAmount extends Endpoint {
 	 * @return Endpoint
 	 */
 	public function set( string $currency_from, string $currency_to ): Endpoint {
-		$args = [
+		$args = array(
 			'currency_from' => $currency_from,
 			'currency_to'   => $currency_to,
-		];
+		);
 
 		return $this->set_body( $args );
 	}

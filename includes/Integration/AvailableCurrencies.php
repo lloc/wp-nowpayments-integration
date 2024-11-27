@@ -29,9 +29,8 @@ class AvailableCurrencies extends Endpoint {
 	 */
 	public function is_available( string $currency ): bool {
 		$result     = $this->get();
-		$currencies = $result[ 'currencies' ] ?? [];
+		$currencies = $result['currencies'] ?? array();
 
 		return in_array( $currency, $currencies );
 	}
-
 }

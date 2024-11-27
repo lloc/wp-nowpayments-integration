@@ -12,12 +12,12 @@ class TestMinimumPaymentAmount extends LlocTestCase {
 
 	protected $client;
 
-	public const EXPECTED = [
+	public const EXPECTED = array(
 		'currency_from' => 'eth',
-		'currency_to' => 'btc',
-		'min_amount' => 0.0098049
-	];
-	
+		'currency_to'   => 'btc',
+		'min_amount'    => 0.0098049,
+	);
+
 	/**
 	 * Method demonstrates how MinimumPaymentAmount works
 	 *
@@ -66,5 +66,4 @@ class TestMinimumPaymentAmount extends LlocTestCase {
 		$this->expectException( \BadMethodCallException::class );
 		$this->assertNull( ( new MinimumPaymentAmount( $this->client ) )->post() );
 	}
-
 }

@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<ruleset name="Sniffs wp-nowpayments-integration plugin">
+	<description>Sniffs wp-nowpayments-integration plugin</description>
+
+	<arg value="ps"/>
+	<arg name="extensions" value="php"/>
+
+	<file>.</file>
+
+	<exclude-pattern>/build/*</exclude-pattern>
+	<exclude-pattern>/vendor/*</exclude-pattern>
+	<exclude-pattern>/node_modules/*</exclude-pattern>
+
+	<rule ref="PHPCompatibility"/>
+	<config name="testVersion" value="8.1-"/>
+	<config name="minimum_supported_wp_version" value="6.6"/>
+
+
+	<rule ref="WordPress">
+		<exclude name="Generic.Arrays.DisallowShortArraySyntax"/>
+		<exclude name="Generic.Commenting.DocComment.MissingShort"/>
+		<exclude name="WordPress.Files.FileName.NotHyphenatedLowercase"/>
+		<exclude name="WordPress.Files.FileName.InvalidClassFileName"/>
+		<exclude name="WordPress.PHP.StrictInArray.MissingTrueStrict"/>
+		<exclude name="Squiz.Commenting"/>
+	</rule>
+
+	<rule ref="WordPress.WP.I18n"/>
+	<config name="text_domain" value="wp-nowpayments-integration"/>
+</ruleset>

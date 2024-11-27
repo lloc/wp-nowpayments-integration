@@ -4,7 +4,7 @@ namespace lloc\Nowpayments\Rest;
 
 class Service {
 
-	public const SANDBOX_SERVICE_URL = 'https://api-sandbox.nowpayments.io';
+	public const SANDBOX_SERVICE_URL    = 'https://api-sandbox.nowpayments.io';
 	public const PRODUCTION_SERVICE_URL = 'https://api.nowpayments.io';
 
 	private string $environment;
@@ -43,11 +43,10 @@ class Service {
 	 * @return string
 	 */
 	public function info(): string {
-		if ( $this->environment === 'production' ) {
+		if ( 'production' === $this->environment ) {
 			return __( 'Production', 'wp-nowpayments-integration' );
 		}
 
 		return __( 'Sandbox', 'wp-nowpayments-integration' );
 	}
-
 }

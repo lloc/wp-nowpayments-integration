@@ -9,7 +9,7 @@ use lloc\Nowpayments\Rest\Service;
 
 class Plugin {
 
-	public const SLUG = 'nowpayments';
+	public const SLUG         = 'nowpayments';
 	public const LANGUAGE_DIR = 'languages';
 
 	private string $file;
@@ -22,14 +22,14 @@ class Plugin {
 	public static function init( string $file ): Plugin {
 		$plugin = new self( $file );
 
-		add_action( 'plugins_loaded', [ $plugin, 'plugins_loaded' ] );
-		add_action( 'admin_menu', [ OptionsPage::class, 'admin_menu' ] );
-		add_action( 'admin_init', [ Settings::class, 'admin_init' ] );
-		add_action( 'wp_dashboard_setup', [ $plugin, 'wp_dashboard_setup' ] );
-		add_action( 'widgets_init', [ $plugin, 'widgets_init' ] );
-		add_action( 'init', [ $plugin, 'block_init' ] );
+		add_action( 'plugins_loaded', array( $plugin, 'plugins_loaded' ) );
+		add_action( 'admin_menu', array( OptionsPage::class, 'admin_menu' ) );
+		add_action( 'admin_init', array( Settings::class, 'admin_init' ) );
+		add_action( 'wp_dashboard_setup', array( $plugin, 'wp_dashboard_setup' ) );
+		add_action( 'widgets_init', array( $plugin, 'widgets_init' ) );
+		add_action( 'init', array( $plugin, 'block_init' ) );
 
-		add_shortcode( 'sc_nowpayments_widget', [ __CLASS__, 'block_render' ] );
+		add_shortcode( 'sc_nowpayments_widget', array( __CLASS__, 'block_render' ) );
 
 		return $plugin;
 	}
@@ -83,14 +83,17 @@ class Plugin {
 		wp_register_script(
 			$handle,
 			$this->plugins_url( 'src/widget-block.js' ),
-			[ 'wp-blocks', 'wp-element', 'wp-components', 'wp-editor' ]
+			array( 'wp-blocks', 'wp-element', 'wp-components', 'wp-editor' )
 		);
 
-		register_block_type( 'lloc/nowpayments-widget-block', [
-			'attributes'      => [ 'title' => [ 'type' => 'string' ] ],
-			'editor_script'   => $handle,
-			'render_callback' => [__CLASS__, 'block_render' ],
-		] );
+		register_block_type(
+			'lloc/nowpayments-widget-block',
+			array(
+				'attributes'      => array( 'title' => array( 'type' => 'string' ) ),
+				'editor_script'   => $handle,
+				'render_callback' => array( __CLASS__, 'block_render' ),
+			)
+		);
 
 		return true;
 	}
@@ -135,5 +138,4 @@ class Plugin {
 	public function url(): string {
 		return plugin_dir_url( $this->file );
 	}
-
 }

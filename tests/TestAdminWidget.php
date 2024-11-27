@@ -11,8 +11,6 @@ use Brain\Monkey\Functions;
 class TestAdminWidget extends LlocTestCase {
 
 	public function test_render() {
-		Functions\expect( '__' )->once()->andReturn( '%s responds with "%s".' );
-
 		$service = \Mockery::mock( Service::class );
 		$service->shouldReceive( 'info' )->once()->andReturn( 'abc' );
 
@@ -20,12 +18,11 @@ class TestAdminWidget extends LlocTestCase {
 		$client->shouldReceive( 'get_service' )->once()->andReturn( $service );
 
 		$status = \Mockery::mock( ApiStatus::class );
-		$status->shouldReceive( 'get' )->once()->andReturn( [ 'message' => 'def' ] );
+		$status->shouldReceive( 'get' )->once()->andReturn( array( 'message' => 'def' ) );
 		$status->shouldReceive( 'get_client' )->once()->andReturn( $client );
 
 		( new AdminWidget( $status ) )->render();
 
 		$this->expectOutputString( '<div><strong>abc</strong> responds with "def".</div>' );
 	}
-
 }

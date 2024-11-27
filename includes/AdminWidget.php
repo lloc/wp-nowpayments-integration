@@ -19,7 +19,7 @@ class AdminWidget {
 
 		$widget_name = __( 'Nowpayments Status', 'wp-nowpayments-integration' );
 
-		wp_add_dashboard_widget(self::WIDGET_ID, $widget_name, [ $obj, 'render' ] );
+		wp_add_dashboard_widget( self::WIDGET_ID, $widget_name, array( $obj, 'render' ) );
 
 		return $obj;
 	}
@@ -27,9 +27,10 @@ class AdminWidget {
 	public function render(): void {
 		$arr     = $this->status->get();
 		$service = sprintf( '<strong>%s</strong>', $this->status->get_client()->get_service()->info() );
-		$format  = __( '%s responds with "%s".', 'wp-nowpayments-integration' );
+
+		/* translators: 1: service name, 2: message */
+		$format = __( '%1$s responds with "%2$s".', 'wp-nowpayments-integration' );
 
 		echo '<div>', sprintf( $format, $service, $arr['message'] ), '</div>';
 	}
-
 }

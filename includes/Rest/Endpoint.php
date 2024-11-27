@@ -16,12 +16,12 @@ class Endpoint {
 	/**
 	 * @var string[]
 	 */
-	private array $header = [];
+	private array $header = array();
 
 	/**
 	 * @var string[]
 	 */
-	private array $body = [];
+	private array $body = array();
 
 	/**
 	 * @param Client $client
@@ -41,7 +41,7 @@ class Endpoint {
 	 * @return string[]
 	 */
 	protected function get_headers(): array {
-		$header =  [ 'x-api-key' => ( new Option( Settings::API_KEY_FIELD ) )->get() ];
+		$header = array( 'x-api-key' => ( new Option( Settings::API_KEY_FIELD ) )->get() );
 
 		return array_merge( $header, $this->header );
 	}
@@ -76,7 +76,7 @@ class Endpoint {
 	}
 
 	/**
-	 * @param string $name
+	 * @param string   $name
 	 * @param string[] $arguments
 	 *
 	 * @return mixed
@@ -84,5 +84,4 @@ class Endpoint {
 	public function __call( string $name, array $arguments ) {
 		throw new \BadMethodCallException( sprintf( 'Method %s::%s does not exist.', __CLASS__, $name ) );
 	}
-
 }

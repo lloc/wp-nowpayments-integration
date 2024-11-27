@@ -15,7 +15,6 @@ class TestError extends LlocTestCase {
 
 		$response = new Error( $error );
 
-		$this->assertEquals( [ 'message' => 'abc' ], $response->get() );
+		$this->assertEquals( array( 'message' => 'abc' ), $response->get() );
 	}
-
 }

@@ -12,14 +12,14 @@ class LlocTestCase extends TestCase {
 		parent::setUp();
 		Monkey\setUp();
 
-		Functions\when( 'esc_url' )->returnArg( 1 );
-		Functions\when( 'esc_attr' )->returnArg( 1 );
-		Functions\when( 'esc_html' )->returnArg( 1 );
+		Functions\when( '__' )->returnArg();
+		Functions\when( 'esc_url' )->returnArg();
+		Functions\when( 'esc_attr' )->returnArg();
+		Functions\when( 'esc_html' )->returnArg();
 	}
 
 	protected function tearDown(): void {
 		Monkey\tearDown();
 		parent::tearDown();
 	}
-
 }
