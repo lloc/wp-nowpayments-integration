@@ -1,5 +1,4 @@
-<?php declare( strict_types=1 );
-
+<?php
 /**
  * WordPress nowpayments.io integration
  *
@@ -31,20 +30,25 @@
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
+declare( strict_types=1 );
+
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
 require __DIR__ . '/vendor/autoload.php';
 
-defined( 'NOWPAYMENTS_PLUGIN_VERSION' ) or define( 'NOWPAYMENTS_PLUGIN_VERSION', '1.0.0' );
+defined( 'NOWPAYMENTS_PLUGIN_VERSION' ) || define( 'NOWPAYMENTS_PLUGIN_VERSION', '1.0.0' );
 
-add_action( 'plugins_loaded', function () {
-	lloc\Nowpayments\Plugin::init( __FILE__ );
+add_action(
+	'plugins_loaded',
+	function () {
+		lloc\Nowpayments\Plugin::init( __FILE__ );
 
-	$logger = \lloc\Nowpayments\Logs\LogFactory::get_logger();
-	lloc\Nowpayments\Logs\ApplicationLogs::init( $logger );
-} );
+		$logger = \lloc\Nowpayments\Logs\LogFactory::get_logger();
+		lloc\Nowpayments\Logs\ApplicationLogs::init( $logger );
+	}
+);
 
 add_filter( 'use_block_editor_for_post', '__return_true', 99 );
 add_filter( 'use_block_editor_for_post_type', '__return_true', 99 );

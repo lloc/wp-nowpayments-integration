@@ -27,26 +27,26 @@ class TestClient extends LlocTestCase {
 	}
 
 	public function test_get_empty() {
-		Functions\expect( 'wp_remote_get' )->once()->andReturn( [ 'body' => 'ok' ] );
+		Functions\expect( 'wp_remote_get' )->once()->andReturn( array( 'body' => 'ok' ) );
 
 		$this->assertInstanceOf( Response::class, ( new Client( $this->service ) )->get( 'test' ) );
 	}
 
 	public function test_get() {
-		Functions\expect( 'wp_remote_get' )->once()->andReturn( [ 'body' => 'ok' ] );
+		Functions\expect( 'wp_remote_get' )->once()->andReturn( array( 'body' => 'ok' ) );
 
-		$this->assertInstanceOf( Response::class, ( new Client( $this->service ) )->get( 'test', [ 'abc' => 'def' ], [ 'ghi' => 'jkl' ] ) );
+		$this->assertInstanceOf( Response::class, ( new Client( $this->service ) )->get( 'test', array( 'abc' => 'def' ), array( 'ghi' => 'jkl' ) ) );
 	}
 
 	public function test_post_empty() {
-		Functions\expect( 'wp_remote_post' )->once()->andReturn( [ 'body' => 'ok' ] );
+		Functions\expect( 'wp_remote_post' )->once()->andReturn( array( 'body' => 'ok' ) );
 
 		$this->assertInstanceOf( Response::class, ( new Client( $this->service ) )->post( 'test' ) );
 	}
 
 	public function test_post() {
-		Functions\expect( 'wp_remote_post' )->once()->andReturn( [ 'body' => 'ok' ] );
+		Functions\expect( 'wp_remote_post' )->once()->andReturn( array( 'body' => 'ok' ) );
 
-		$this->assertInstanceOf( Response::class, ( new Client( $this->service ) )->post( 'test', [ 'abc' => 'def' ], [ 'ghi' => 'jkl' ] ) );
+		$this->assertInstanceOf( Response::class, ( new Client( $this->service ) )->post( 'test', array( 'abc' => 'def' ), array( 'ghi' => 'jkl' ) ) );
 	}
 }

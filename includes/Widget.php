@@ -25,12 +25,12 @@ class Widget extends \WP_Widget {
 	public function widget( $args, $instance ): void {
 		$args = wp_parse_args(
 			$args,
-			[
+			array(
 				'before_widget' => '',
 				'after_widget'  => '',
 				'before_title'  => '',
 				'after_title'   => '',
-			]
+			)
 		);
 
 		/** This filter is documented in wp-includes/default-widgets.php */
@@ -81,5 +81,4 @@ class Widget extends \WP_Widget {
 
 		return 'noform';
 	}
-
 }

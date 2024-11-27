@@ -4,11 +4,11 @@ namespace lloc\Nowpayments;
 
 class OptionsPage {
 
-	public const PAGE = 'nowpayments_page';
+	public const PAGE       = 'nowpayments_page';
 	public const PAGE_TITLE = 'Nowpayments Settings';
 	public const MENU_TITLE = 'Nowpayments';
 	public const CAPABILITY = 'manage_options';
-	public const SETTING = 'nowpayments_settings';
+	public const SETTING    = 'nowpayments_settings';
 
 	/**
 	 * Callback entry-point
@@ -16,10 +16,16 @@ class OptionsPage {
 	 * @return string
 	 */
 	public static function admin_menu(): string {
-		$hook_suffix = add_options_page( self::PAGE_TITLE, self::MENU_TITLE, self::CAPABILITY, Plugin::SLUG, [
-			__CLASS__,
-			'render_page'
-		] );
+		$hook_suffix = add_options_page(
+			self::PAGE_TITLE,
+			self::MENU_TITLE,
+			self::CAPABILITY,
+			Plugin::SLUG,
+			array(
+				__CLASS__,
+				'render_page',
+			)
+		);
 
 		return strval( $hook_suffix );
 	}
@@ -60,5 +66,4 @@ class OptionsPage {
 
 		return false;
 	}
-
 }

@@ -26,12 +26,12 @@ class TestApplicationLogs extends LlocTestCase {
 
 		$obj = new ApplicationLogs( $logger );
 
-		$parsed_args = [ 'random' => 'stuff' ];
+		$parsed_args = array( 'random' => 'stuff' );
 
 		/**
 		 * This message will be logged as debug
 		 */
-		$obj->http_api_debug( [], 'Test', __CLASS__, $parsed_args, 'https://example.org/wp-json/some-endpoint' );
+		$obj->http_api_debug( array(), 'Test', __CLASS__, $parsed_args, 'https://example.org/wp-json/some-endpoint' );
 
 		/**
 		 * This message should be logged as notice

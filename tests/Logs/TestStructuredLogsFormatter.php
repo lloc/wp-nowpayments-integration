@@ -3,12 +3,14 @@
 namespace lloc\NowpaymentsTests\Logs;
 
 use lloc\Nowpayments\Logs\StructuredLogsFormatter;
+use Monolog;
 use lloc\NowpaymentsTests\LlocTestCase;
 use Brain\Monkey\Functions;
+use Monolog\Level;
 
 class TestStructuredLogsFormatter extends LlocTestCase {
 
-	public function test_format() {
+	public function testFormat(): void {
 		$site_id = 42;
 		$user_id = 17;
 
@@ -17,8 +19,14 @@ class TestStructuredLogsFormatter extends LlocTestCase {
 
 		$obj = new StructuredLogsFormatter();
 
-		$record = [ 'field' => 'some value' ];
-		$expected = json_encode( array_merge( $record, [ 'site_url' => $site_id, 'user_id' => $user_id ] ) ) . PHP_EOL;
+		$record = new Monolog\LogRecord(
+			new \DateTimeImmutable( '2024-11-27 11:47:41' ),
+			'channel',
+			Level::Debug,
+			'message'
+		);
+
+		$expected = '{"message":"message","context":{},"level":100,"level_name":"DEBUG","channel":"channel","datetime":"2024-11-27T11:47:41+00:00","extra":{"site_url":42,"user_id":17}}' . PHP_EOL;
 
 		$this->assertEquals( $expected, $obj->format( $record ) );
 	}

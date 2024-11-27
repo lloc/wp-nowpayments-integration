@@ -19,7 +19,6 @@ class Error implements Result {
 	 * @return string[]
 	 */
 	public function get(): array {
-		return [ 'message' => $this->error->get_error_message() ];
+		return array( 'message' => $this->error->get_error_message() );
 	}
-
 }

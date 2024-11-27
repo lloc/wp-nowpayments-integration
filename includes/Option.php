@@ -23,5 +23,4 @@ class Option {
 	public function get(): string {
 		return $this->value;
 	}
-
 }

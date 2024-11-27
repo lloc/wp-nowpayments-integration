@@ -23,7 +23,6 @@ class TestOptionsPage extends LlocTestCase {
 		Functions\expect( 'settings_fields' )->once();
 		Functions\expect( 'do_settings_sections' )->once();
 		Functions\expect( 'submit_button' )->once();
-		Functions\expect( '__' )->once();
 
 		OptionsPage::render_page();
 
@@ -42,13 +41,11 @@ class TestOptionsPage extends LlocTestCase {
 
 	public function test_add_settings_error_true() {
 		Functions\expect( 'add_settings_error' )->once();
-		Functions\expect( '__' )->once();
 
-		$this->assertTrue( OptionsPage::add_settings_error( [ 'settings-updated' => 1 ] ) );
+		$this->assertTrue( OptionsPage::add_settings_error( array( 'settings-updated' => 1 ) ) );
 	}
 
 	public function test_add_settings_error_false() {
-		$this->assertFalse( OptionsPage::add_settings_error( [] ) );
+		$this->assertFalse( OptionsPage::add_settings_error( array() ) );
 	}
-
 }

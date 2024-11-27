@@ -10,7 +10,6 @@ class TestService extends LlocTestCase {
 
 	public function test_create_staging() {
 		Functions\when( 'wp_get_environment_type' )->justReturn( 'staging' );
-		Functions\expect( '__' )->once()->andReturnFirstArg();
 
 		$endpoint = 'test';
 		$expected = Service::SANDBOX_SERVICE_URL . '/test';
@@ -22,7 +21,6 @@ class TestService extends LlocTestCase {
 
 	public function test_create_production() {
 		Functions\when( 'wp_get_environment_type' )->justReturn( 'production' );
-		Functions\expect( '__' )->once()->andReturnFirstArg();
 
 		$endpoint = 'test';
 		$expected = Service::PRODUCTION_SERVICE_URL . '/test';
@@ -31,5 +29,4 @@ class TestService extends LlocTestCase {
 		$this->assertEquals( $expected, $service->get( $endpoint ) );
 		$this->assertEquals( 'Production', $service->info() );
 	}
-
 }

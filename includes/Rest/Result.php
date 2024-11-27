@@ -8,5 +8,4 @@ interface Result {
 	 * @return string[]
 	 */
 	public function get(): array;
-
 }

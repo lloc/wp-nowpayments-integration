@@ -12,12 +12,12 @@ class TestEstimatedPrice extends LlocTestCase {
 
 	protected $client;
 
-	public const EXPECTED = [
+	public const EXPECTED = array(
 		'currency_from'    => 'usd',
 		'amount_from'      => 3999.5,
 		'currency_to'      => 'btc',
 		'estimated_amount' => 0.7566495,
-	];
+	);
 
 	/**
 	 * Method demonstrates how EstimatedPrice works
@@ -68,6 +68,4 @@ class TestEstimatedPrice extends LlocTestCase {
 		$this->expectException( \BadMethodCallException::class );
 		$this->assertNull( ( new EstimatedPrice( $this->client ) )->post() );
 	}
-
-
 }

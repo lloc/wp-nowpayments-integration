@@ -14,33 +14,32 @@ class TestWidget extends LlocTestCase {
 	}
 
 	function test_widget_method(): void {
-		$arr = [
+		$arr = array(
 			'before_widget' => '',
 			'after_widget'  => '',
 			'before_title'  => '',
 			'after_title'   => '',
-		];
+		);
 
 		Functions\expect( 'wp_parse_args' )->once()->andReturn( $arr );
-		Functions\expect( '__' )->once()->andReturnFirstArg();
 
 		$obj = $this->get_sut();
 
 		$this->expectOutputString( '-Good news, everyone! There\'s a report on TV with some very bad news!' );
-		$obj->widget( [], [ 'title' => '-' ] );
+		$obj->widget( array(), array( 'title' => '-' ) );
 	}
 
 	public function test_update_method(): void {
 		$obj = $this->get_sut();
 
-		$result = $obj->update( [], [] );
-		$this->assertEquals( [], $result );
+		$result = $obj->update( array(), array() );
+		$this->assertEquals( array(), $result );
 
-		$result = $obj->update( [ 'title' => 'abc' ], [] );
-		$this->assertEquals( [ 'title' => 'abc' ], $result );
+		$result = $obj->update( array( 'title' => 'abc' ), array() );
+		$this->assertEquals( array( 'title' => 'abc' ), $result );
 
-		$result = $obj->update( [ 'title' => 'xyz' ], [ 'title' => 'abc' ] );
-		$this->assertEquals( [ 'title' => 'xyz' ], $result );
+		$result = $obj->update( array( 'title' => 'xyz' ), array( 'title' => 'abc' ) );
+		$this->assertEquals( array( 'title' => 'xyz' ), $result );
 	}
 
 	public function test_form(): void {
@@ -50,10 +49,8 @@ class TestWidget extends LlocTestCase {
 		$obj->shouldReceive( 'get_field_id' )->andReturn( 'widget-field_id' );
 		$obj->shouldReceive( 'get_field_name' )->andReturn( 'field_name' );
 
-		Functions\expect( '__' )->once()->andReturnFirstArg();
 
 		$this->expectOutputString( $expected );
-		$this->assertEquals( 'noform', $obj->form( [] ) );
+		$this->assertEquals( 'noform', $obj->form( array() ) );
 	}
-
 }

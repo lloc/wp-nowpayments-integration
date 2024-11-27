@@ -11,7 +11,7 @@ class TestApiStatus extends LlocTestCase {
 
 	protected $client;
 
-	public const EXPECTED = [ 'message' => 'ok' ];
+	public const EXPECTED = array( 'message' => 'ok' );
 
 	/**
 	 * Method demonstrates how ApiStatus works
@@ -55,5 +55,4 @@ class TestApiStatus extends LlocTestCase {
 		$this->expectException( \BadMethodCallException::class );
 		$this->assertNull( ( new ApiStatus( $this->client ) )->post() );
 	}
-
 }

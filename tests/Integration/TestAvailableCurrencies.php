@@ -12,7 +12,7 @@ class TestAvailableCurrencies extends LlocTestCase {
 
 	protected $client;
 
-	public const EXPECTED = [ 'currencies' => [ 'ada', 'btc', 'eur' ] ];
+	public const EXPECTED = array( 'currencies' => array( 'ada', 'btc', 'eur' ) );
 
 	/**
 	 * Method demonstrates how AvailableCurrencies works
@@ -74,5 +74,4 @@ class TestAvailableCurrencies extends LlocTestCase {
 		$this->expectException( \BadMethodCallException::class );
 		$this->assertNull( ( new AvailableCurrencies( $this->client ) )->post() );
 	}
-
 }

@@ -12,7 +12,7 @@ class TestPaymentStatus extends LlocTestCase {
 
 	protected $client;
 
-	public const EXPECTED = [
+	public const EXPECTED = array(
 		'payment_id'       => '123456789',
 		'payment_status'   => 'waiting',
 		'pay_address'      => '<your_payment_address>',
@@ -25,8 +25,8 @@ class TestPaymentStatus extends LlocTestCase {
 		'updated_at'       => '2019-04-18T13:40:16.512Z',
 		'purchase_id'      => '<your_purchase_id',
 		'outcome_currency' => 'eth',
-		'outcome_amount'   => 31.28
-	];
+		'outcome_amount'   => 31.28,
+	);
 
 	/**
 	 * Method demonstrates how PaymentStatus works
@@ -73,5 +73,4 @@ class TestPaymentStatus extends LlocTestCase {
 		$this->expectException( \BadMethodCallException::class );
 		$this->assertNull( ( new PaymentStatus( $this->client ) )->post() );
 	}
-
 }
