@@ -1,11 +1,14 @@
 <?xml version="1.0"?>
-<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" colors="true" xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/9.3/phpunit.xsd">
-    <coverage>
-        <include>
-            <directory suffix=".php">./includes/</directory>
-        </include>
-    </coverage>
-    <testsuite name="Internal tests">
-        <directory prefix="Test" suffix=".php">./tests/</directory>
-    </testsuite>
+<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" colors="true" xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/10.5/phpunit.xsd">
+  <php>
+    <const name="NOWPAYMENTS_PLUGIN_VERSION" value="1.0.0"/>
+  </php>
+  <testsuite name="Internal tests">
+    <directory prefix="Test" suffix=".php">./tests/</directory>
+  </testsuite>
+  <source>
+    <include>
+      <directory suffix=".php">./includes/</directory>
+    </include>
+  </source>
 </phpunit>

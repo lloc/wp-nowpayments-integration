@@ -32,6 +32,7 @@ class TestSettings extends LlocTestCase {
 
 	public function test_render_fields_description() {
 		Functions\expect( 'get_option' )->andReturn( array( 'abc' => 'def' ) );
+		Functions\expect( 'wp_kses_post' )->once()->andReturnFirstArg();
 
 		Settings::render_fields(
 			array(

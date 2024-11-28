@@ -1,4 +1,4 @@
-<?php
+<?php declare( strict_types=1 );
 
 namespace lloc\NowpaymentsTests;
 
@@ -13,7 +13,7 @@ class TestWidget extends LlocTestCase {
 		return \Mockery::mock( Widget::class )->makePartial();
 	}
 
-	function test_widget_method(): void {
+	public function test_widget_method(): void {
 		$arr = array(
 			'before_widget' => '',
 			'after_widget'  => '',
@@ -22,6 +22,7 @@ class TestWidget extends LlocTestCase {
 		);
 
 		Functions\expect( 'wp_parse_args' )->once()->andReturn( $arr );
+		Functions\expect( 'wp_kses_post' )->once()->andReturnFirstArg();
 
 		$obj = $this->get_sut();
 
@@ -30,6 +31,8 @@ class TestWidget extends LlocTestCase {
 	}
 
 	public function test_update_method(): void {
+		Functions\expect( 'wp_strip_all_tags' )->twice()->andReturnFirstArg();
+
 		$obj = $this->get_sut();
 
 		$result = $obj->update( array(), array() );
@@ -43,12 +46,12 @@ class TestWidget extends LlocTestCase {
 	}
 
 	public function test_form(): void {
+		Functions\expect( 'esc_html__' )->once()->andReturnFirstArg();
 		$expected = '<p><label for="widget-field_id">Title:</label> <input class="widefat" id="widget-field_id" name="field_name" type="text" value="" /></p>';
 
 		$obj = $this->get_sut();
 		$obj->shouldReceive( 'get_field_id' )->andReturn( 'widget-field_id' );
 		$obj->shouldReceive( 'get_field_name' )->andReturn( 'field_name' );
-
 
 		$this->expectOutputString( $expected );
 		$this->assertEquals( 'noform', $obj->form( array() ) );

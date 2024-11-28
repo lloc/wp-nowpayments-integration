@@ -8,16 +8,11 @@ use Monolog\Level;
 class ApplicationLogs {
 
 	/**
-	 * @var Logger
-	 */
-	protected Logger $logger;
-
-	/**
 	 * @param Logger $logger
 	 */
-	public function __construct( Logger $logger ) {
-		$this->logger = $logger;
-	}
+	public function __construct(
+		protected readonly Logger $logger
+	) { }
 
 	/**
 	 * Adds filter "pre_http_request" to ApplicationLogs-object

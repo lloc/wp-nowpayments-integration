@@ -42,7 +42,7 @@ class Widget extends \WP_Widget {
 
 		$content = __( "Good news, everyone! There's a report on TV with some very bad news!", 'wp-nowpayments-integration' );
 
-		echo $args['before_widget'], $title, $content, $args['after_widget'];
+		echo wp_kses_post( $args['before_widget'] . $title . $content . $args['after_widget'] );
 	}
 
 	/**
@@ -57,7 +57,7 @@ class Widget extends \WP_Widget {
 		$instance = $old_instance;
 
 		if ( isset( $new_instance['title'] ) ) {
-			$instance['title'] = strip_tags( $new_instance['title'] );
+			$instance['title'] = wp_strip_all_tags( $new_instance['title'] );
 		}
 
 		return $instance;
@@ -73,9 +73,9 @@ class Widget extends \WP_Widget {
 	public function form( $instance ) {
 		printf(
 			'<p><label for="%1$s">%2$s:</label> <input class="widefat" id="%1$s" name="%3$s" type="text" value="%4$s" /></p>',
-			$this->get_field_id( 'title' ),
-			__( 'Title', 'wp-nowpayments-integration' ),
-			$this->get_field_name( 'title' ),
+			esc_attr( $this->get_field_id( 'title' ) ),
+			esc_html__( 'Title', 'wp-nowpayments-integration' ),
+			esc_attr( $this->get_field_name( 'title' ) ),
 			( isset( $instance['title'] ) ? esc_attr( $instance['title'] ) : '' )
 		);
 

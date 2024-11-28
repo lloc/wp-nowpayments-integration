@@ -71,7 +71,7 @@ class Settings {
 		);
 
 		if ( isset( $args['description'] ) ) {
-			printf( '<p class="description">%s</p>', $args['description'] );
+			printf( '<p class="description">%s</p>', wp_kses_post( $args['description'] ) );
 		}
 	}
 

@@ -39,7 +39,7 @@ class OptionsPage {
 
 		echo '<div class="wrap">', PHP_EOL;
 		printf( '<h1>%s</h1>', esc_html( get_admin_page_title() ) );
-		echo PHP_EOL, '<form action="', admin_url( 'options.php' ), '" method="post">', PHP_EOL;
+		echo PHP_EOL, '<form action="', esc_url( admin_url( 'options.php' ) ), '" method="post">', PHP_EOL;
 
 		settings_fields( Settings::OPTION_GROUP );
 		do_settings_sections( self::PAGE );

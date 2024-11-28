@@ -6,13 +6,11 @@ use lloc\Nowpayments\Integration\ApiStatus;
 
 class AdminWidget {
 
-	protected ApiStatus $status;
-
 	public const WIDGET_ID = 'nowpayments_status_widget';
 
-	public function __construct( ApiStatus $status ) {
-		$this->status = $status;
-	}
+	public function __construct(
+		protected readonly ApiStatus $status
+	) { }
 
 	public static function create( ApiStatus $status ): AdminWidget {
 		$obj = new self( $status );
@@ -31,6 +29,6 @@ class AdminWidget {
 		/* translators: 1: service name, 2: message */
 		$format = __( '%1$s responds with "%2$s".', 'wp-nowpayments-integration' );
 
-		echo '<div>', sprintf( $format, $service, $arr['message'] ), '</div>';
+		echo wp_kses_post( '<div>' . sprintf( $format, $service, $arr['message'] ) . '</div>' );
 	}
 }

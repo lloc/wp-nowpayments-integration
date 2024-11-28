@@ -21,6 +21,8 @@ class TestAdminWidget extends LlocTestCase {
 		$status->shouldReceive( 'get' )->once()->andReturn( array( 'message' => 'def' ) );
 		$status->shouldReceive( 'get_client' )->once()->andReturn( $client );
 
+		Functions\expect( 'wp_kses_post' )->once()->andReturnFirstArg();
+
 		( new AdminWidget( $status ) )->render();
 
 		$this->expectOutputString( '<div><strong>abc</strong> responds with "def".</div>' );

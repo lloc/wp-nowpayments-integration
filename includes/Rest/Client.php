@@ -4,14 +4,12 @@ namespace lloc\Nowpayments\Rest;
 
 class Client {
 
-	private Service $service;
-
 	/**
 	 * @param Service $service
 	 */
-	public function __construct( Service $service ) {
-		$this->service = $service;
-	}
+	public function __construct(
+		private readonly Service $service
+	) { }
 
 	/**
 	 * @return Service

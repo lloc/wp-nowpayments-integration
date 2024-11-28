@@ -12,7 +12,12 @@ class Plugin {
 	public const SLUG         = 'nowpayments';
 	public const LANGUAGE_DIR = 'languages';
 
-	private string $file;
+	/**
+	 * @param string $file
+	 */
+	public function __construct(
+		private readonly string $file
+	) { }
 
 	/**
 	 * @param string $file
@@ -32,13 +37,6 @@ class Plugin {
 		add_shortcode( 'sc_nowpayments_widget', array( __CLASS__, 'block_render' ) );
 
 		return $plugin;
-	}
-
-	/**
-	 * @param string $file
-	 */
-	public function __construct( string $file ) {
-		$this->file = $file;
 	}
 
 	/**
@@ -83,7 +81,9 @@ class Plugin {
 		wp_register_script(
 			$handle,
 			$this->plugins_url( 'src/widget-block.js' ),
-			array( 'wp-blocks', 'wp-element', 'wp-components', 'wp-editor' )
+			array( 'wp-blocks', 'wp-element', 'wp-components', 'wp-editor' ),
+			constant( 'NOWPAYMENTS_PLUGIN_VERSION' ),
+			true
 		);
 
 		register_block_type(
