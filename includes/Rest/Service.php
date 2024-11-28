@@ -7,14 +7,12 @@ class Service {
 	public const SANDBOX_SERVICE_URL    = 'https://api-sandbox.nowpayments.io';
 	public const PRODUCTION_SERVICE_URL = 'https://api.nowpayments.io';
 
-	private string $environment;
-
 	/**
 	 * @param string $environment
 	 */
-	public function __construct( string $environment ) {
-		$this->environment = $environment;
-	}
+	public function __construct(
+		private readonly string $environment
+	) { }
 
 	/**
 	 * @return Service

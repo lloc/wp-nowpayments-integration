@@ -41,7 +41,7 @@ class Payment extends Endpoint {
 			} elseif ( 'ipn_callback_url' === $key ) {
 				$args['ipn_callback_url'] = filter_var( $optional_params['ipn_callback_url'], FILTER_SANITIZE_URL );
 			} elseif ( in_array( $key, self::ADDITIONAL_PARAMS ) ) {
-				$args[ $key ] = filter_var( $value, FILTER_SANITIZE_STRING );
+				$args[ $key ] = filter_var( $value, FILTER_SANITIZE_FULL_SPECIAL_CHARS );
 			}
 		}
 

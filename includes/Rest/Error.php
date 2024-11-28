@@ -6,14 +6,12 @@ use WP_Error;
 
 class Error implements Result {
 
-	protected WP_Error $error;
-
 	/**
 	 * @param WP_Error $error
 	 */
-	public function __construct( WP_Error $error ) {
-		$this->error = $error;
-	}
+	public function __construct(
+		protected readonly WP_Error $error
+	) { }
 
 	/**
 	 * @return string[]

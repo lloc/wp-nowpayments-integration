@@ -19,10 +19,11 @@
 	<rule ref="WordPress">
 		<exclude name="Generic.Arrays.DisallowShortArraySyntax"/>
 		<exclude name="Generic.Commenting.DocComment.MissingShort"/>
-		<exclude name="WordPress.Files.FileName.NotHyphenatedLowercase"/>
-		<exclude name="WordPress.Files.FileName.InvalidClassFileName"/>
-		<exclude name="WordPress.PHP.StrictInArray.MissingTrueStrict"/>
 		<exclude name="Squiz.Commenting"/>
+		<exclude name="WordPress.Files.FileName.InvalidClassFileName"/>
+		<exclude name="WordPress.Files.FileName.NotHyphenatedLowercase"/>
+		<exclude name="WordPress.PHP.StrictInArray.MissingTrueStrict"/>
+		<exclude name="WordPress.Security.NonceVerification.Recommended"/>
 	</rule>
 
 	<rule ref="WordPress.WP.I18n"/>

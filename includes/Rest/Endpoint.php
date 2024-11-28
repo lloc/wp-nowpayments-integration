@@ -9,11 +9,6 @@ use lloc\Nowpayments\Settings;
 class Endpoint {
 
 	/**
-	 * @var Client
-	 */
-	protected Client $client;
-
-	/**
 	 * @var string[]
 	 */
 	private array $header = array();
@@ -26,9 +21,9 @@ class Endpoint {
 	/**
 	 * @param Client $client
 	 */
-	public function __construct( Client $client ) {
-		$this->client = $client;
-	}
+	public function __construct(
+		protected readonly Client $client
+	) { }
 
 	/**
 	 * @return Client
@@ -52,7 +47,7 @@ class Endpoint {
 	 * @return $this
 	 */
 	protected function set_header( array $params ): self {
-		$this->header = filter_var_array( $params, FILTER_SANITIZE_STRING );
+		$this->header = filter_var_array( $params, FILTER_SANITIZE_FULL_SPECIAL_CHARS );
 
 		return $this;
 	}
@@ -70,7 +65,7 @@ class Endpoint {
 	 * @return $this
 	 */
 	protected function set_body( array $params ): self {
-		$this->body = filter_var_array( $params, FILTER_SANITIZE_STRING );
+		$this->body = filter_var_array( $params, FILTER_SANITIZE_FULL_SPECIAL_CHARS );
 
 		return $this;
 	}
@@ -82,6 +77,6 @@ class Endpoint {
 	 * @return mixed
 	 */
 	public function __call( string $name, array $arguments ) {
-		throw new \BadMethodCallException( sprintf( 'Method %s::%s does not exist.', __CLASS__, $name ) );
+		throw new \BadMethodCallException( sprintf( 'Method %s::%s does not exist.', __CLASS__, esc_attr( $name ) ) );
 	}
 }
