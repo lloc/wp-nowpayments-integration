@@ -46,6 +46,8 @@
       +set(amount, currency_from, currency_to)
       +get()
     }
+    enum "EndpointMethods" as Integration_EndpointMethods {
+    }
     class "Payment" as Integration_Payment {
       +set(price_amount, price_currency, pay_currency, optional_params)
       +post()
@@ -124,9 +126,15 @@
   }
   AdminWidget ..> AdminWidget
   AdminWidget ..> Integration_ApiStatus
+  Integration_ApiStatus ..> Integration_EndpointMethods
+  Integration_AvailableCurrencies ..> Integration_EndpointMethods
+  Integration_EstimatedPrice ..> Integration_EndpointMethods
   Integration_EstimatedPrice ..> Rest_Endpoint
+  Integration_MinimumPaymentAmount ..> Integration_EndpointMethods
   Integration_MinimumPaymentAmount ..> Rest_Endpoint
+  Integration_Payment ..> Integration_EndpointMethods
   Integration_Payment ..> Rest_Endpoint
+  Integration_PaymentStatus ..> Integration_EndpointMethods
   Integration_PaymentStatus ..> Rest_Endpoint
   Logs_ApplicationLogs ..> Logs_ApplicationLogs
   Logs_LogFactory ..> Logs_StructuredLogsFormatter

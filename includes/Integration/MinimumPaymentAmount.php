@@ -25,7 +25,11 @@ class MinimumPaymentAmount extends Endpoint {
 	 * @return string[]
 	 */
 	public function get(): array {
-		$response = $this->client->get( 'v1/min-amount', $this->get_body(), $this->get_headers() );
+		$response = $this->client->get(
+			EndpointMethods::MinimumPaymentAmount->value,
+			$this->get_body(),
+			$this->get_headers()
+		);
 
 		return $response->get();
 	}

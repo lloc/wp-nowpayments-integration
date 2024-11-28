@@ -52,7 +52,11 @@ class Payment extends Endpoint {
 	 * @return string[]
 	 */
 	public function post(): array {
-		$response = $this->client->post( 'v1/payment', $this->get_body(), $this->get_headers() );
+		$response = $this->client->post(
+			EndpointMethods::Payment->value,
+			$this->get_body(),
+			$this->get_headers()
+		);
 
 		return $response->get();
 	}

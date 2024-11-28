@@ -10,7 +10,7 @@ class ApiStatus extends Endpoint {
 	 * @return string[]
 	 */
 	public function get(): array {
-		$response = $this->client->get( 'v1/status' );
+		$response = $this->client->get( EndpointMethods::ApiStatus->value );
 
 		return $response->get();
 	}
