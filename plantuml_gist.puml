@@ -1,19 +1,19 @@
 @startuml class-diagram
-  class Option {
-    +value : string
-    +__construct(key)
-    +get()
-  }
-  class Settings {
+  class "Settings" as Settings {
     {static} +admin_init()
     {static} +render_section(args)
     {static} +render_fields(args)
     {static} +sanitize_text_field(fields)
   }
-  class Plugin {
+  class "Option" as Option {
+    +value : string
+    +__construct(key)
+    +get()
+  }
+  class "Plugin" as Plugin {
     -file : string
-    {static} +init(file)
     +__construct(file)
+    {static} +init(file)
     +plugins_loaded()
     {static} +wp_dashboard_setup()
     +widgets_init()
@@ -24,72 +24,69 @@
     +path()
     +url()
   }
-  class AdminWidget {
-    #status : ApiStatus
-    +__construct(status)
-    {static} +create(status)
-    +render()
-  }
-  class OptionsPage {
-    {static} +admin_menu()
-    {static} +render_page()
-    {static} +add_settings_error(arr)
-  }
-  class Widget {
+  class "Widget" as Widget {
     +__construct()
     +widget(args, instance)
     +update(new_instance, old_instance)
     +form(instance)
   }
-  package Integration as Integration <<Rectangle>> {
-    class Integration.ApiStatus {
-      +get()
-    }
-    class Integration.Payment {
-      +set(price_amount, price_currency, pay_currency, optional_params)
-      +post()
-    }
-    class Integration.MinimumPaymentAmount {
-      +set(currency_from, currency_to)
-      +get()
-    }
-    class Integration.AvailableCurrencies {
-      +get()
-      +is_available(currency)
-    }
-    class Integration.EstimatedPrice {
+  class "AdminWidget" as AdminWidget {
+    #status : ApiStatus
+    +__construct(status)
+    {static} +create(status)
+    +render()
+  }
+  class "OptionsPage" as OptionsPage {
+    {static} +admin_menu()
+    {static} +render_page()
+    {static} +add_settings_error(arr)
+  }
+  package Integration as Integration {
+    class "EstimatedPrice" as Integration_EstimatedPrice {
       +set(amount, currency_from, currency_to)
       +get()
     }
-    class Integration.PaymentStatus {
+    class "Payment" as Integration_Payment {
+      +set(price_amount, price_currency, pay_currency, optional_params)
+      +post()
+    }
+    class "AvailableCurrencies" as Integration_AvailableCurrencies {
+      +get()
+      +is_available(currency)
+    }
+    class "MinimumPaymentAmount" as Integration_MinimumPaymentAmount {
+      +set(currency_from, currency_to)
+      +get()
+    }
+    class "ApiStatus" as Integration_ApiStatus {
+      +get()
+    }
+    class "PaymentStatus" as Integration_PaymentStatus {
       +set(payment_id)
       +get()
     }
   }
-  package Logs as Logs <<Rectangle>> {
-    class Logs.ApplicationLogs {
+  package Logs as Logs {
+    class "StructuredLogsFormatter" as Logs_StructuredLogsFormatter {
+      +format(record)
+    }
+    class "LogFactory" as Logs_LogFactory {
+      {static} +get_logger()
+    }
+    class "ApplicationLogs" as Logs_ApplicationLogs {
       #logger : Logger
       +__construct(logger)
       {static} +init(logger)
-      +http_api_debug(response, context, class, parsed_args, url)
-    }
-    class Logs.LogFactory {
-      {static} +get_logger()
-    }
-    class Logs.StructuredLogsFormatter {
-      +format(record)
+      +http_api_debug(response, context, transport, parsed_args, url)
     }
   }
-  package Rest as Rest <<Rectangle>> {
-    interface Rest.Result {
+  package Rest as Rest {
+    class "Response" as Rest_Response {
+      #response : string[]
+      +__construct(response)
       +get()
     }
-    class Rest.Error {
-      #error : WP_Error
-      +__construct(error)
-      +get()
-    }
-    class Rest.Service {
+    class "Service" as Rest_Service {
       -environment : string
       +__construct(environment)
       {static} +create()
@@ -97,22 +94,18 @@
       +get(method)
       +info()
     }
-    class Rest.Client {
-      -service : Service
-      +__construct(service)
-      +get_service()
-      +get(endpoint, body, headers)
-      +post(endpoint, body, headers)
-    }
-    class Rest.Response {
-      #response : string[]
-      +__construct(response)
+    interface "Result" as Rest_Result {
       +get()
     }
-    class Rest.Endpoint {
-      #client : Client
+    class "Error" as Rest_Error {
+      #error : WP_Error
+      +__construct(error)
+      +get()
+    }
+    class "Endpoint" as Rest_Endpoint {
       -header : string[]
       -body : string[]
+      #client : Client
       +__construct(client)
       +get_client()
       #get_headers()
@@ -121,20 +114,48 @@
       #set_body(params)
       +__call(name, arguments)
     }
+    class "Client" as Rest_Client {
+      -service : Service
+      +__construct(service)
+      +get_service()
+      +get(endpoint, body, headers)
+      +post(endpoint, body, headers)
+    }
   }
-  AdminWidget ..> Integration.ApiStatus
+  AdminWidget ..> AdminWidget
+  AdminWidget ..> Integration_ApiStatus
+  Integration_EstimatedPrice ..> Rest_Endpoint
+  Integration_MinimumPaymentAmount ..> Rest_Endpoint
+  Integration_Payment ..> Rest_Endpoint
+  Integration_PaymentStatus ..> Rest_Endpoint
+  Logs_ApplicationLogs ..> Logs_ApplicationLogs
+  Logs_LogFactory ..> Logs_StructuredLogsFormatter
+  OptionsPage ..> Plugin
+  OptionsPage ..> Settings
   Plugin ..> AdminWidget
-  Rest.Client ..> Rest.Service
-  Rest.Client ..> Rest.Service
-  Rest.Endpoint ..> Rest.Client
-  Rest.Endpoint ..> Rest.Client
-  Rest.Endpoint <|-- Integration.ApiStatus
-  Rest.Endpoint <|-- Integration.AvailableCurrencies
-  Rest.Endpoint <|-- Integration.EstimatedPrice
-  Rest.Endpoint <|-- Integration.MinimumPaymentAmount
-  Rest.Endpoint <|-- Integration.Payment
-  Rest.Endpoint <|-- Integration.PaymentStatus
-  Rest.Result <|-- Rest.Error
-  Rest.Result <|-- Rest.Response
-  Rest.Service ..> Rest.Service
+  Plugin ..> Integration_ApiStatus
+  Plugin ..> OptionsPage
+  Plugin ..> Plugin
+  Plugin ..> Rest_Client
+  Plugin ..> Rest_Service
+  Plugin ..> Settings
+  Plugin ..> Widget
+  Rest_Client ..> Rest_Error
+  Rest_Client ..> Rest_Response
+  Rest_Client ..> Rest_Result
+  Rest_Client ..> Rest_Service
+  Rest_Endpoint ..> Option
+  Rest_Endpoint ..> Rest_Client
+  Rest_Endpoint ..> Settings
+  Rest_Endpoint <|-- Integration_ApiStatus
+  Rest_Endpoint <|-- Integration_AvailableCurrencies
+  Rest_Endpoint <|-- Integration_EstimatedPrice
+  Rest_Endpoint <|-- Integration_MinimumPaymentAmount
+  Rest_Endpoint <|-- Integration_Payment
+  Rest_Endpoint <|-- Integration_PaymentStatus
+  Rest_Result <|-- Rest_Error
+  Rest_Result <|-- Rest_Response
+  Rest_Service ..> Rest_Service
+  Settings ..> Option
+  Settings ..> OptionsPage
 @enduml
