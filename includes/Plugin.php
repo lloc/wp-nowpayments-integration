@@ -42,38 +42,32 @@ class Plugin {
 	/**
 	 * Loads text domain
 	 *
-	 * @return bool
+	 * @return void
 	 */
-	public function plugins_loaded(): bool {
-		return load_plugin_textdomain( 'wp-nowpayments-integration', false, $this->dirname( self::LANGUAGE_DIR ) );
+	public function plugins_loaded(): void {
+		load_plugin_textdomain( 'wp-nowpayments-integration', false, $this->dirname( self::LANGUAGE_DIR ) );
 	}
 
 	/**
-	 * @return AdminWidget
+	 * Creates the dashboard widget
+	 *
+	 * @return void
 	 */
-	public static function wp_dashboard_setup(): AdminWidget {
+	public static function wp_dashboard_setup(): void {
 		$service = Service::create();
 		$client  = new Client( $service );
 		$status  = new ApiStatus( $client );
 
-		return AdminWidget::create( $status );
+		AdminWidget::create( $status );
 	}
 
-	/**
-	 * @return int
-	 */
-	public function widgets_init(): int {
-		register_widget( Widget::class );
-
-		return 1;
+	public function widgets_init(): void {
+		register_widget( FrontendWidget::class );
 	}
 
-	/**
-	 * @return bool
-	 */
-	public function block_init(): bool {
+	public function block_init(): void {
 		if ( ! function_exists( 'register_block_type' ) ) {
-			return false;
+			return;
 		}
 
 		$handle = 'nowpayments-widget-block';
@@ -94,8 +88,6 @@ class Plugin {
 				'render_callback' => array( __CLASS__, 'block_render' ),
 			)
 		);
-
-		return true;
 	}
 
 	/**
@@ -103,7 +95,7 @@ class Plugin {
 	 */
 	public static function block_render(): string {
 		ob_start();
-		the_widget( Widget::class );
+		the_widget( FrontendWidget::class );
 		return ob_get_clean();
 	}
 

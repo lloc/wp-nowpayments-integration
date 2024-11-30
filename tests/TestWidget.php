@@ -3,14 +3,14 @@
 namespace lloc\NowpaymentsTests;
 
 use Brain\Monkey\Functions;
-use lloc\Nowpayments\Widget;
+use lloc\Nowpayments\FrontendWidget;
 
 class TestWidget extends LlocTestCase {
 
 	public function get_sut() {
 		\Mockery::mock( '\WP_Widget' );
 
-		return \Mockery::mock( Widget::class )->makePartial();
+		return \Mockery::mock( FrontendWidget::class )->makePartial();
 	}
 
 	public function test_widget_method(): void {

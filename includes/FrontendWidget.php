@@ -2,7 +2,10 @@
 
 namespace lloc\Nowpayments;
 
-class Widget extends \WP_Widget {
+/**
+ * @phpstan-ignore missingType.generics
+ */
+class FrontendWidget extends \WP_Widget {
 
 	public const ID_BASE = 'nowpayments_widget';
 
@@ -19,10 +22,11 @@ class Widget extends \WP_Widget {
 	/**
 	 * Output of the widget in the frontend
 	 *
-	 * @param mixed $args
-	 * @param mixed $instance
+	 * @param array<string, mixed> $args
+	 * @param array<string, mixed> $instance
+	 * @return void
 	 */
-	public function widget( $args, $instance ): void {
+	public function widget( $args, $instance ) {
 		$args = wp_parse_args(
 			$args,
 			array(
@@ -48,10 +52,10 @@ class Widget extends \WP_Widget {
 	/**
 	 * Update widget in the backend
 	 *
-	 * @param mixed $new_instance
-	 * @param mixed $old_instance
+	 * @param array<string, mixed> $new_instance
+	 * @param array<string, mixed> $old_instance
 	 *
-	 * @return string[]
+	 * @return array<string, mixed>
 	 */
 	public function update( $new_instance, $old_instance ) {
 		$instance = $old_instance;
@@ -66,7 +70,7 @@ class Widget extends \WP_Widget {
 	/**
 	 * Display an input-form in the backend
 	 *
-	 * @param mixed $instance
+	 * @param array<string, mixed> $instance
 	 *
 	 * @return string
 	 */

@@ -10,13 +10,8 @@ class OptionsPage {
 	public const CAPABILITY = 'manage_options';
 	public const SETTING    = 'nowpayments_settings';
 
-	/**
-	 * Callback entry-point
-	 *
-	 * @return string
-	 */
-	public static function admin_menu(): string {
-		$hook_suffix = add_options_page(
+	public static function admin_menu(): void {
+		add_options_page(
 			self::PAGE_TITLE,
 			self::MENU_TITLE,
 			self::CAPABILITY,
@@ -26,8 +21,6 @@ class OptionsPage {
 				'render_page',
 			)
 		);
-
-		return strval( $hook_suffix );
 	}
 
 	public static function render_page(): void {
@@ -51,7 +44,7 @@ class OptionsPage {
 	}
 
 	/**
-	 * @param string[] $arr
+	 * @param array<string, mixed> $arr
 	 *
 	 * @return bool
 	 */
