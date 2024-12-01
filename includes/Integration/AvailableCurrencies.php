@@ -7,7 +7,7 @@ use lloc\Nowpayments\Rest\Endpoint;
 class AvailableCurrencies extends Endpoint {
 
 	/**
-	 * @return string[]
+	 * @return array<string, string[]>
 	 */
 	public function get(): array {
 		$result = wp_cache_get( __METHOD__ );

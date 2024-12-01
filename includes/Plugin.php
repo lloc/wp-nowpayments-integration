@@ -96,7 +96,7 @@ class Plugin {
 	public static function block_render(): string {
 		ob_start();
 		the_widget( FrontendWidget::class );
-		return ob_get_clean();
+		return (string) ob_get_clean();
 	}
 
 	/**

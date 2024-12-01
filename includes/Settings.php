@@ -76,9 +76,9 @@ class Settings {
 	}
 
 	/**
-	 * @param string[] $fields
+	 * @param array<string, string|null> $fields
 	 *
-	 * @return string[]
+	 * @return array<string, string|null>
 	 */
 	public static function sanitize_text_field( array $fields ): array {
 		$value = $fields[ self::API_KEY_FIELD ] ?? '';
