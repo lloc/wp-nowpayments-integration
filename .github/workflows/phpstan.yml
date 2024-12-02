@@ -1,13 +1,17 @@
-name: Run UnitTests
+name: Run PHPStan
 
-on: [push]
+on:
+    push:
+        branches:
+            - main
+    pull_request:
 
 jobs:
-    unit-tests:
-        name: UnitTests
+    phpstan:
+        name: Static Analysis
         runs-on: ubuntu-latest
         steps:
-            - name: Checkout project
+            - name: Checkout
               uses: actions/checkout@v4
 
             - name: Setup PHP
@@ -17,13 +21,10 @@ jobs:
                   coverage: none
                   tools: composer, cs2pr
 
-            - name: Composer dependencies
-              run: composer install
-
             - name: Install PHP dependencies
               uses: ramsey/composer-install@v2
               with:
                   composer-options: '--prefer-dist --no-scripts'
 
-            - name: Run Testsuite
-              run: composer test
+            - name: PHPStan
+              run: composer phpstan

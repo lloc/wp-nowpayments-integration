@@ -34,7 +34,7 @@
   "scripts": {
     "test": "vendor/bin/phpunit",
     "coverage": "@php -d xdebug.mode=coverage vendor/bin/phpunit --coverage-html reports/php/coverage",
-    "analyze": "vendor/bin/phpstan analyze --memory-limit 2048M",
+    "phpstan": "vendor/bin/phpstan analyze --memory-limit 2048M",
     "diagram": "vendor/bin/php-class-diagram --php7 includes > plantuml_gist.puml",
     "format": "phpcbf --standard=phpcs.xml --report-summary --report-source",
     "lint": "phpcs --standard=phpcs.xml"
