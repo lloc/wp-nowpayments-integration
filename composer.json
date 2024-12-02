@@ -19,7 +19,8 @@
     "smeghead/php-class-diagram": "^1.4",
     "dealerdirect/phpcodesniffer-composer-installer": "^1.0",
     "wp-coding-standards/wpcs": "^3.1",
-    "phpcompatibility/phpcompatibility-wp": "^2.1"
+    "phpcompatibility/phpcompatibility-wp": "^2.1",
+    "phpstan/phpstan-deprecation-rules": "^1.2"
   },
   "autoload": {
     "psr-4": {

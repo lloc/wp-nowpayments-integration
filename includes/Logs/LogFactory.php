@@ -3,6 +3,7 @@
 namespace lloc\Nowpayments\Logs;
 
 use Monolog\Handler\StreamHandler;
+use Monolog\Level;
 use Monolog\Logger;
 
 class LogFactory {
@@ -15,10 +16,10 @@ class LogFactory {
 	public static function get_logger(): Logger {
 		$formatter = new StructuredLogsFormatter();
 
-		$debug_handler = new StreamHandler( 'php://stdout', Logger::DEBUG );
+		$debug_handler = new StreamHandler( 'php://stdout', Level::Debug );
 		$debug_handler->setFormatter( $formatter );
 
-		$error_handler = new StreamHandler( 'php://stderr', Logger::NOTICE );
+		$error_handler = new StreamHandler( 'php://stderr', Level::Notice );
 		$error_handler->setFormatter( $formatter );
 
 		$logger = new Logger( self::NAME );
