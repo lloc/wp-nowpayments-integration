@@ -4,7 +4,7 @@ namespace lloc\Nowpayments\Integration;
 
 use lloc\Nowpayments\Rest\Endpoint;
 
-class AvailableCurrencies extends Endpoint {
+final class AvailableCurrencies extends Endpoint {
 
 	/**
 	 * @return array<string, string[]>

@@ -4,7 +4,7 @@ namespace lloc\Nowpayments\Integration;
 
 use lloc\Nowpayments\Rest\Endpoint;
 
-class ApiStatus extends Endpoint {
+final class ApiStatus extends Endpoint implements ApiStatusInterface {
 
 	/**
 	 * @return string[]

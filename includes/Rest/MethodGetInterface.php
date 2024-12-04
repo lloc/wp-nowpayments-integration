@@ -2,7 +2,8 @@
 
 namespace lloc\Nowpayments\Rest;
 
-interface Result {
+interface MethodGetInterface {
+
 
 	/**
 	 * @return string[]

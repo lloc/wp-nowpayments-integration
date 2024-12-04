@@ -4,7 +4,7 @@ namespace lloc\Nowpayments\Integration;
 
 use lloc\Nowpayments\Rest\Endpoint;
 
-class Payment extends Endpoint {
+final class Payment extends Endpoint {
 
 	public const ADDITIONAL_PARAMS = array(
 		'pay_amount',

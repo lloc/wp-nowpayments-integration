@@ -4,7 +4,7 @@ namespace lloc\Nowpayments\Integration;
 
 use lloc\Nowpayments\Rest\Endpoint;
 
-class MinimumPaymentAmount extends Endpoint {
+final class MinimumPaymentAmount extends Endpoint {
 
 	/**
 	 * @param string $currency_from

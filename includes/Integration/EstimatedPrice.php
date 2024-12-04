@@ -4,7 +4,7 @@ namespace lloc\Nowpayments\Integration;
 
 use lloc\Nowpayments\Rest\Endpoint;
 
-class EstimatedPrice extends Endpoint {
+final class EstimatedPrice extends Endpoint {
 
 	/**
 	 * @param float  $amount

@@ -23,9 +23,9 @@ class Client {
 	 * @param string[] $body
 	 * @param string[] $headers
 	 *
-	 * @return Result
+	 * @return ResultInterface
 	 */
-	public function get( string $endpoint, array $body = array(), array $headers = array() ): Result {
+	public function get( string $endpoint, array $body = array(), array $headers = array() ): ResultInterface {
 		$url = add_query_arg( $body, $this->service->get( $endpoint ) );
 
 		if ( ! empty( $headers ) ) {
@@ -42,9 +42,9 @@ class Client {
 	 * @param string[] $body
 	 * @param string[] $headers
 	 *
-	 * @return Result
+	 * @return ResultInterface
 	 */
-	public function post( string $endpoint, array $body = array(), array $headers = array() ): Result {
+	public function post( string $endpoint, array $body = array(), array $headers = array() ): ResultInterface {
 		$url  = $this->service->get( $endpoint );
 		$args = array();
 

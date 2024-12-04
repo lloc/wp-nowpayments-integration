@@ -15,6 +15,21 @@ class TestAvailableCurrencies extends LlocTestCase {
 	public const EXPECTED = array( 'currencies' => array( 'ada', 'btc', 'eur' ) );
 
 	/**
+	 * Test Setup
+	 *
+	 * @return void
+	 */
+	public function setUp(): void {
+		parent::setUp();
+
+		$response = \Mockery::mock( Response::class );
+		$response->shouldReceive( 'get' )->andReturn( self::EXPECTED );
+
+		$this->client = \Mockery::mock( Client::class );
+		$this->client->shouldReceive( 'get' )->andReturn( $response );
+	}
+
+	/**
 	 * Method demonstrates how AvailableCurrencies works
 	 *
 	 * @return void
@@ -28,32 +43,27 @@ class TestAvailableCurrencies extends LlocTestCase {
 	}
 
 	/**
+	 * Data provider for is_available method
+	 *
+	 * @return array<int, array<int, string|bool>>
+	 */
+	public static function provide_data_for_is_available(): array {
+		return array(
+			array( 'bch', false ),
+			array( 'ada', true ),
+			array( 'btc', true ),
+			array( 'eur', true ),
+		);
+	}
+	/**
 	 * The is_available method looks a currency in the cached result-set up
 	 *
-	 * @return void
+	 * @dataProvider provide_data_for_is_available
 	 */
-	public function test_is_available(): void {
+	public function test_is_available( string $currency, bool $expected ): void {
 		Functions\expect( 'wp_cache_get' )->atLeast()->once()->andReturn( self::EXPECTED );
 
-		$this->assertFalse( ( new AvailableCurrencies( $this->client ) )->is_available( 'bch' ) );
-		$this->assertTrue( ( new AvailableCurrencies( $this->client ) )->is_available( 'ada' ) );
-		$this->assertTrue( ( new AvailableCurrencies( $this->client ) )->is_available( 'btc' ) );
-		$this->assertTrue( ( new AvailableCurrencies( $this->client ) )->is_available( 'eur' ) );
-	}
-
-	/**
-	 * Test Setup
-	 *
-	 * @return void
-	 */
-	public function setUp(): void {
-		parent::setUp();
-
-		$response = \Mockery::mock( Response::class );
-		$response->shouldReceive( 'get' )->andReturn( self::EXPECTED );
-
-		$this->client = \Mockery::mock( Client::class );
-		$this->client->shouldReceive( 'get' )->andReturn( $response );
+		$this->assertEquals( $expected, ( new AvailableCurrencies( $this->client ) )->is_available( $currency ) );
 	}
 
 	/**

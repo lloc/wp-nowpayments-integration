@@ -4,7 +4,7 @@ namespace lloc\Nowpayments\Integration;
 
 use lloc\Nowpayments\Rest\Endpoint;
 
-class PaymentStatus extends Endpoint {
+final class PaymentStatus extends Endpoint {
 
 	public const ENDPOINT = 'v1/payment';
 
