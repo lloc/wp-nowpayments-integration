@@ -2,33 +2,40 @@
 
 namespace lloc\Nowpayments;
 
-use lloc\Nowpayments\Integration\ApiStatusInterface;
+use lloc\Nowpayments\Services\ApiStatusService;
 
 class AdminWidget {
 
 	public const WIDGET_ID = 'nowpayments_status_widget';
 
 	public function __construct(
-		protected readonly ApiStatusInterface $status
+		protected readonly ApiStatusService $api_status_service
 	) { }
 
-	public static function create( ApiStatusInterface $status ): AdminWidget {
-		$obj = new self( $status );
+	public static function init( ApiStatusService $api_status_service ): AdminWidget {
+		$obj = new self( $api_status_service );
 
-		$widget_name = __( 'Nowpayments Status', 'wp-nowpayments-integration' );
-
-		wp_add_dashboard_widget( self::WIDGET_ID, $widget_name, array( $obj, 'render' ) );
+		add_action( 'wp_dashboard_setup', array( $obj, 'add_dashboard_widget' ) );
 
 		return $obj;
 	}
 
+	public function add_dashboard_widget(): void {
+		$widget_name = __( 'Nowpayments Status', 'wp-nowpayments-integration' );
+
+		wp_add_dashboard_widget( self::WIDGET_ID, $widget_name, array( $this, 'render' ) );
+	}
+
 	public function render(): void {
-		$message = $this->status->get()['message'] ?? '';
-		$service = sprintf( '<strong>%s</strong>', $this->status->get_client()->get_service()->info() );
+		$data = $this->api_status_service->get_data();
 
 		/* translators: 1: service name, 2: message */
 		$format = __( '%1$s responds with "%2$s".', 'wp-nowpayments-integration' );
 
-		echo wp_kses_post( '<div>' . sprintf( $format, $service, $message ) . '</div>' );
+		echo wp_kses_post(
+			'<div>' .
+			sprintf( $format, '<strong>' . $data['info'] . '</strong>', $data['status'] ) .
+			'</div>'
+		);
 	}
 }

@@ -1,0 +1,17 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "title": "WP Nowpayments Integration Block",
+  "icon": "money",
+  "category": "widgets",
+  "name": "lloc/wp-nowpayments-integration-block",
+  "version": "1.0.0",
+  "description": "This is a placeholder description for the WP Nowpayments Integration Block.",
+  "example": {},
+  "supports": {
+    "html": false
+  },
+  "textdomain": "wp-nowpayments-integration",
+  "editorScript": "file:./index.js",
+  "render": "file:./render.php"
+}

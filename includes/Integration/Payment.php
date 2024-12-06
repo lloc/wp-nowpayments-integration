@@ -3,8 +3,10 @@
 namespace lloc\Nowpayments\Integration;
 
 use lloc\Nowpayments\Rest\Endpoint;
+use lloc\Nowpayments\Rest\EndpointPostInterface;
+use lloc\Nowpayments\Rest\ResponseInterface;
 
-final class Payment extends Endpoint {
+final class Payment extends Endpoint implements EndpointPostInterface {
 
 	public const ADDITIONAL_PARAMS = array(
 		'pay_amount',
@@ -24,9 +26,9 @@ final class Payment extends Endpoint {
 	 * @param string               $pay_currency
 	 * @param array<string, mixed> $optional_params
 	 *
-	 * @return Endpoint
+	 * @return EndpointPostInterface
 	 */
-	public function set( float $price_amount, string $price_currency, string $pay_currency, array $optional_params = array() ): Endpoint {
+	public function set( float $price_amount, string $price_currency, string $pay_currency, array $optional_params = array() ): EndpointPostInterface {
 		$this->set_header( array( 'Content-Type' => 'application/json' ) );
 
 		$args = array(
@@ -49,15 +51,13 @@ final class Payment extends Endpoint {
 	}
 
 	/**
-	 * @return string[]
+	 * @return ResponseInterface
 	 */
-	public function post(): array {
-		$response = $this->client->post(
+	public function post(): ResponseInterface {
+		return $this->client->post(
 			EndpointMethods::Payment->value,
 			$this->get_body(),
 			$this->get_headers()
 		);
-
-		return $response->get();
 	}
 }

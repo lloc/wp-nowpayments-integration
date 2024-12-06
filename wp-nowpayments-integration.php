@@ -44,10 +44,15 @@ defined( 'NOWPAYMENTS_PLUGIN_VERSION' ) || define( 'NOWPAYMENTS_PLUGIN_VERSION',
 add_action(
 	'plugins_loaded',
 	function () {
-		lloc\Nowpayments\Plugin::init( __FILE__ );
+		$builder = new DI\ContainerBuilder();
+		$builder->addDefinitions( require __DIR__ . '/config.php' );
+		$container = $builder->build();
 
-		$logger = \lloc\Nowpayments\Logs\LogFactory::get_logger();
-		lloc\Nowpayments\Logs\ApplicationLogs::init( $logger );
+		lloc\Nowpayments\Plugin::init( __FILE__ );
+		lloc\Nowpayments\OptionsPage::init();
+		lloc\Nowpayments\Settings::init();
+		lloc\Nowpayments\AdminWidget::init( $container->get( lloc\Nowpayments\Services\ApiStatusService::class ) );
+		lloc\Nowpayments\Logs\ApplicationLogs::init( $container->get( Psr\Log\LoggerInterface::class ) );
 	}
 );
 

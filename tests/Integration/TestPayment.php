@@ -1,21 +1,16 @@
-<?php
+<?php declare( strict_types=1 );
 
 namespace lloc\NowpaymentsTests\Integration;
 
 use Brain\Monkey\Functions;
 use lloc\Nowpayments\Integration\Payment;
 use lloc\Nowpayments\Rest\Client;
-use lloc\Nowpayments\Rest\Response;
+use lloc\Nowpayments\Rest\ResponseInterface;
 use lloc\NowpaymentsTests\LlocTestCase;
 
 class TestPayment extends LlocTestCase {
 
-	protected $client;
-
-	public const EXPECTED = array(
-		'price_amount'      => 3999.5,
-		'price_currency'    => 'usd',
-		'pay_currency'      => 'btc',
+	public const ADDITIONAL_PARAMETERS = array(
 		'payment_id'        => '<your_payment_id>',
 		'payment_status'    => 'waiting',
 		'pay_address'       => '<your_pay_address>',
@@ -28,57 +23,21 @@ class TestPayment extends LlocTestCase {
 		'purchase_id'       => '<your_purchase_id>',
 	);
 
-	/**
-	 * Method demonstrates how Payment works
-	 *
-	 * @return void
-	 */
 	public function test_post(): void {
+		$response = \Mockery::mock( ResponseInterface::class );
+
+		$client = \Mockery::mock( Client::class );
+		$client->shouldReceive( 'post' )->once()->andReturn( $response );
+
 		Functions\expect( 'get_option' )->once()->andReturn( 'API_KEY_FROM SETTINGS' );
 
-		$additional_parameters = array_slice( self::EXPECTED, 3 );
-
-		$payment = ( new Payment( $this->client ) )->set(
-			self::EXPECTED['price_amount'],
-			self::EXPECTED['price_currency'],
-			self::EXPECTED['pay_currency'],
-			$additional_parameters
+		$payment = ( new Payment( $client ) )->set(
+			3999.5,
+			'usd',
+			'btc',
+			self::ADDITIONAL_PARAMETERS
 		);
 
-		$this->assertEquals( self::EXPECTED, $payment->post() );
-	}
-
-	/**
-	 * Test setup
-	 *
-	 * @return void
-	 */
-	public function setUp(): void {
-		parent::setUp();
-
-		$response = \Mockery::mock( Response::class );
-		$response->shouldReceive( 'get' )->andReturn( self::EXPECTED );
-
-		$this->client = \Mockery::mock( Client::class );
-		$this->client->shouldReceive( 'post' )->andReturn( $response );
-	}
-
-	/**
-	 * Endpoints are able to return their client
-	 *
-	 * @return void
-	 */
-	public function test_get_client(): void {
-		$this->assertEquals( $this->client, ( new Payment( $this->client ) )->get_client() );
-	}
-
-	/**
-	 * PaymentStatus does not have a get method
-	 *
-	 * @return void
-	 */
-	public function test_get(): void {
-		$this->expectException( \BadMethodCallException::class );
-		$this->assertNull( ( new Payment( $this->client ) )->get() );
+		$this->assertEquals( $response, $payment->post() );
 	}
 }

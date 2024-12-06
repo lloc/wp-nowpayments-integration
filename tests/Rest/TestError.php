@@ -9,7 +9,7 @@ use Mockery;
 
 class TestError extends LlocTestCase {
 
-	public function test_get() {
+	public function test_get(): void {
 		$error = Mockery::mock( '\WP_Error' );
 		$error->shouldReceive( 'get_error_message' )->once()->andReturn( 'abc' );
 

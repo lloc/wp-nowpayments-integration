@@ -5,16 +5,16 @@ namespace lloc\Nowpayments\Rest;
 class Client {
 
 	/**
-	 * @param Service $service
+	 * @param Api $service
 	 */
 	public function __construct(
-		private readonly Service $service
+		private readonly Api $service
 	) { }
 
 	/**
-	 * @return Service
+	 * @return Api
 	 */
-	public function get_service(): Service {
+	public function get_service(): Api {
 		return $this->service;
 	}
 
@@ -23,9 +23,9 @@ class Client {
 	 * @param string[] $body
 	 * @param string[] $headers
 	 *
-	 * @return ResultInterface
+	 * @return ResponseInterface
 	 */
-	public function get( string $endpoint, array $body = array(), array $headers = array() ): ResultInterface {
+	public function get( string $endpoint, array $body = array(), array $headers = array() ): ResponseInterface {
 		$url = add_query_arg( $body, $this->service->get( $endpoint ) );
 
 		if ( ! empty( $headers ) ) {
@@ -42,9 +42,9 @@ class Client {
 	 * @param string[] $body
 	 * @param string[] $headers
 	 *
-	 * @return ResultInterface
+	 * @return ResponseInterface
 	 */
-	public function post( string $endpoint, array $body = array(), array $headers = array() ): ResultInterface {
+	public function post( string $endpoint, array $body = array(), array $headers = array() ): ResponseInterface {
 		$url  = $this->service->get( $endpoint );
 		$args = array();
 

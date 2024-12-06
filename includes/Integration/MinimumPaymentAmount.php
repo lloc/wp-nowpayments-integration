@@ -3,16 +3,18 @@
 namespace lloc\Nowpayments\Integration;
 
 use lloc\Nowpayments\Rest\Endpoint;
+use lloc\Nowpayments\Rest\EndpointGetInterface;
+use lloc\Nowpayments\Rest\ResponseInterface;
 
-final class MinimumPaymentAmount extends Endpoint {
+final class MinimumPaymentAmount extends Endpoint implements EndpointGetInterface {
 
 	/**
 	 * @param string $currency_from
 	 * @param string $currency_to
 	 *
-	 * @return Endpoint
+	 * @return EndpointGetInterface
 	 */
-	public function set( string $currency_from, string $currency_to ): Endpoint {
+	public function set( string $currency_from, string $currency_to ): EndpointGetInterface {
 		$args = array(
 			'currency_from' => $currency_from,
 			'currency_to'   => $currency_to,
@@ -22,15 +24,13 @@ final class MinimumPaymentAmount extends Endpoint {
 	}
 
 	/**
-	 * @return string[]
+	 * @return ResponseInterface
 	 */
-	public function get(): array {
-		$response = $this->client->get(
+	public function get(): ResponseInterface {
+		return $this->client->get(
 			EndpointMethods::MinimumPaymentAmount->value,
 			$this->get_body(),
 			$this->get_headers()
 		);
-
-		return $response->get();
 	}
 }

@@ -4,7 +4,7 @@ namespace lloc\Nowpayments\Rest;
 
 use WP_Error;
 
-class Error implements ResultInterface {
+class Error implements ResponseInterface {
 
 	/**
 	 * @param WP_Error $error

@@ -3,9 +3,18 @@
 namespace lloc\NowpaymentsTests;
 
 use Brain\Monkey\Functions;
+use Brain\Monkey\Actions;
 use lloc\Nowpayments\OptionsPage;
 
 class TestOptionsPage extends LlocTestCase {
+
+	public function test_init(): void {
+		Actions\expectAdded( 'admin_menu' )->once();
+
+		OptionsPage::init();
+
+		$this->expectNotToPerformAssertions();
+	}
 
 	public function test_admin_menu(): void {
 		Functions\expect( 'add_options_page' )->once()->andReturn( 'my_page_slug' );

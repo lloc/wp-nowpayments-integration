@@ -4,5 +4,4 @@ parameters:
     paths:
         - wp-nowpayments-integration.php
         - includes
-    excludePaths:
         - tests

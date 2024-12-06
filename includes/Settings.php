@@ -8,9 +8,10 @@ class Settings {
 	public const API_SECTION_ID = 'api_section_id';
 	public const API_KEY_FIELD  = 'api_key';
 
-	/**
-	 * Callback entry-point
-	 */
+	public static function init(): void {
+		add_action( 'admin_init', array( __CLASS__, 'admin_init' ) );
+	}
+
 	public static function admin_init(): void {
 		register_setting(
 			self::OPTION_GROUP,
