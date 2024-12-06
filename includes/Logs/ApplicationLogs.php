@@ -2,26 +2,26 @@
 
 namespace lloc\Nowpayments\Logs;
 
-use Monolog\Logger;
-use Monolog\Level;
+use Psr\Log\LoggerInterface;
+use Psr\Log\LogLevel;
 
 class ApplicationLogs {
 
 	/**
-	 * @param Logger $logger
+	 * @param LoggerInterface $logger
 	 */
-	public function __construct(
-		protected readonly Logger $logger
+	private function __construct(
+		protected readonly LoggerInterface $logger
 	) { }
 
 	/**
 	 * Adds filter "pre_http_request" to ApplicationLogs-object
 	 *
-	 * @param Logger $logger
+	 * @param LoggerInterface $logger
 	 *
 	 * @return ApplicationLogs
 	 */
-	public static function init( Logger $logger ): ApplicationLogs {
+	public static function init( LoggerInterface $logger ): ApplicationLogs {
 		$obj = new self( $logger );
 
 		/**
@@ -45,10 +45,10 @@ class ApplicationLogs {
 	 */
 	public function http_api_debug( $response, string $context, string $transport, array $parsed_args, string $url ): void {
 		if ( is_wp_error( $response ) ) {
-			$log_level = Level::Notice;
+			$log_level = LogLevel::NOTICE;
 			$message   = $response->get_error_message();
 		} else {
-			$log_level = Level::Debug;
+			$log_level = LogLevel::DEBUG;
 			$message   = sprintf( '%s-debug for %s', __FUNCTION__, esc_url( $url ) );
 		}
 

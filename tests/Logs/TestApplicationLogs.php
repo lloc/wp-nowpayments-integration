@@ -1,4 +1,4 @@
-<?php
+<?php declare( strict_types=1 );
 
 namespace lloc\NowpaymentsTests\Logs;
 
@@ -9,22 +9,16 @@ use Monolog\Logger;
 
 class TestApplicationLogs extends LlocTestCase {
 
-	public function test_init() {
-		$logger = \Mockery::mock( Logger::class );
-
+	public function test_init(): void {
 		Actions\expectAdded( 'http_api_debug' );
 
-		$this->assertInstanceOf( ApplicationLogs::class, ApplicationLogs::init( $logger ) );
-	}
-
-	public function test_debug() {
 		$logger = \Mockery::mock( Logger::class );
 		$logger->shouldReceive( 'log' )->twice();
 
 		$error = \Mockery::mock( \WP_Error::class );
-		$error->shouldReceive( 'get_error_message' )->andReturn( 'Yeah, this is a meaningful error-message!' );
+		$error->shouldReceive( 'get_error_message' )->once()->andReturn( 'Yeah, this is a meaningful error-message!' );
 
-		$obj = new ApplicationLogs( $logger );
+		$obj = ApplicationLogs::init( $logger );
 
 		$parsed_args = array( 'random' => 'stuff' );
 
@@ -38,9 +32,6 @@ class TestApplicationLogs extends LlocTestCase {
 		 */
 		$obj->http_api_debug( $error, 'Test', __CLASS__, $parsed_args, 'https://example.com/wp-json/some-endpoint' );
 
-		/**
-		 * This is for suppress the risky tests complain
-		 */
-		$this->expectOutputString( '' );
+		$this->expectNotToPerformAssertions();
 	}
 }

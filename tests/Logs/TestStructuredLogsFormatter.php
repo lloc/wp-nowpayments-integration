@@ -3,10 +3,10 @@
 namespace lloc\NowpaymentsTests\Logs;
 
 use lloc\Nowpayments\Logs\StructuredLogsFormatter;
-use Monolog;
 use lloc\NowpaymentsTests\LlocTestCase;
 use Brain\Monkey\Functions;
 use Monolog\Level;
+use Monolog\LogRecord;
 
 class TestStructuredLogsFormatter extends LlocTestCase {
 
@@ -19,7 +19,7 @@ class TestStructuredLogsFormatter extends LlocTestCase {
 
 		$obj = new StructuredLogsFormatter();
 
-		$record = new Monolog\LogRecord(
+		$record = new LogRecord(
 			new \DateTimeImmutable( '2024-11-27 11:47:41' ),
 			'channel',
 			Level::Debug,

@@ -2,7 +2,7 @@
 
 namespace lloc\Nowpayments\Rest;
 
-class Response implements ResultInterface {
+class Response implements ResponseInterface {
 
 	/**
 	 * @var string[]

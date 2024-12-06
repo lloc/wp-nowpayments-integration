@@ -3,28 +3,27 @@
 namespace lloc\Nowpayments\Integration;
 
 use lloc\Nowpayments\Rest\Endpoint;
+use lloc\Nowpayments\Rest\EndpointGetInterface;
+use lloc\Nowpayments\Rest\ResponseInterface;
 
-final class PaymentStatus extends Endpoint {
-
-	public const ENDPOINT = 'v1/payment';
+final class PaymentStatus extends Endpoint implements EndpointGetInterface {
 
 	/**
 	 * @param string $payment_id
 	 *
-	 * @return Endpoint
+	 * @return EndpointGetInterface
 	 */
-	public function set( string $payment_id ): Endpoint {
+	public function set( string $payment_id ): EndpointGetInterface {
 		return $this->set_body( array( 'payment_id' => $payment_id ) );
 	}
 
 	/**
-	 * @return string[]
+	 * @return ResponseInterface
 	 */
-	public function get(): array {
+	public function get(): ResponseInterface {
 		$body     = $this->get_body();
 		$endpoint = sprintf( EndpointMethods::PaymentStatus->value, $body['payment_id'] );
-		$response = $this->client->get( $endpoint, $this->get_body(), $this->get_headers() );
 
-		return $response->get();
+		return $this->client->get( $endpoint, $this->get_body(), $this->get_headers() );
 	}
 }

@@ -3,15 +3,15 @@
 namespace lloc\Nowpayments\Integration;
 
 use lloc\Nowpayments\Rest\Endpoint;
+use lloc\Nowpayments\Rest\EndpointGetInterface;
+use lloc\Nowpayments\Rest\ResponseInterface;
 
-final class ApiStatus extends Endpoint implements ApiStatusInterface {
+final class ApiStatus extends Endpoint implements EndpointGetInterface {
 
 	/**
-	 * @return string[]
+	 * @return ResponseInterface
 	 */
-	public function get(): array {
-		$response = $this->client->get( EndpointMethods::ApiStatus->value );
-
-		return $response->get();
+	public function get(): ResponseInterface {
+		return $this->client->get( EndpointMethods::ApiStatus->value );
 	}
 }

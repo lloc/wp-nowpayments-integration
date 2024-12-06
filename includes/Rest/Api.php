@@ -2,7 +2,7 @@
 
 namespace lloc\Nowpayments\Rest;
 
-class Service {
+class Api {
 
 	public const SANDBOX_SERVICE_URL    = 'https://api-sandbox.nowpayments.io';
 	public const PRODUCTION_SERVICE_URL = 'https://api.nowpayments.io';
@@ -10,14 +10,14 @@ class Service {
 	/**
 	 * @param string $environment
 	 */
-	public function __construct(
+	private function __construct(
 		private readonly string $environment
 	) { }
 
 	/**
-	 * @return Service
+	 * @return Api
 	 */
-	public static function create(): Service {
+	public static function create(): Api {
 		return new self( wp_get_environment_type() );
 	}
 

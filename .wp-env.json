@@ -1,6 +1,9 @@
 {
-  "core": "WordPress/WordPress",
-  "plugins": [
-    "."
-  ]
+	"core": "WordPress/WordPress",
+	"plugins": [
+		"."
+	],
+	"config": {
+		"WP_ENVIRONMENT_TYPE": "development"
+	}
 }

@@ -10,6 +10,10 @@ class OptionsPage {
 	public const CAPABILITY = 'manage_options';
 	public const SETTING    = 'nowpayments_settings';
 
+	public static function init(): void {
+		add_action( 'admin_menu', array( __CLASS__, 'admin_menu' ) );
+	}
+
 	public static function admin_menu(): void {
 		add_options_page(
 			self::PAGE_TITLE,

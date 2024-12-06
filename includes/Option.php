@@ -12,9 +12,7 @@ class Option {
 	 * @param string $key
 	 */
 	public function __construct( string $key ) {
-		$options = get_option( self::OPTION_NAME );
-
-		$this->value = $options[ $key ] ?? '';
+		$this->value = get_option( self::OPTION_NAME, array() )[ $key ] ?? '';
 	}
 
 	/**

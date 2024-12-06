@@ -6,7 +6,7 @@ use lloc\Nowpayments\Option;
 use lloc\Nowpayments\Settings;
 
 
-class Endpoint {
+class Endpoint implements EndpointInterface {
 
 	/**
 	 * @var string[]
