@@ -28,5 +28,4 @@ class TestMinimumPaymentAmount extends LlocTestCase {
 
 		$this->assertEquals( $response, $estimates->get() );
 	}
-
 }

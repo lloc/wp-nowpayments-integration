@@ -18,5 +18,4 @@ class AvailableCurrencies extends Endpoint implements EndpointGetInterface {
 			$this->get_headers()
 		);
 	}
-
 }

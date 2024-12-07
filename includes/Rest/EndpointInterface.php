@@ -8,5 +8,4 @@ interface EndpointInterface {
 	 * @return Client
 	 */
 	public function get_client(): Client;
-
 }

@@ -4,8 +4,8 @@ namespace lloc\Nowpayments\Services;
 
 use lloc\Nowpayments\Integration\ApiStatus;
 
-class ApiStatusService
-{
+class ApiStatusService {
+
 
 	public function __construct(
 		private readonly ApiStatus $api_status
