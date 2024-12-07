@@ -29,7 +29,7 @@ class TestAvailableCurrenciesService extends LlocTestCase {
 		$this->test = new AvailableCurrenciesService( $available_currencies );
 	}
 
-	public function test_get_data() {
+	public function test_get_data(): void {
 		$this->assertEquals( self::RESULT['currencies'], $this->test->get_data() );
 	}
 
