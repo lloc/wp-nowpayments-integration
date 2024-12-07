@@ -13,12 +13,12 @@ class AvailableCurrenciesService {
 	/**
 	 * @return array<string, string[]>
 	 */
-	protected function get_data(): array {
+	public function get_data(): array {
 		$response = wp_cache_get( __METHOD__ );
 
 		if ( false === $response ) {
 			$result   = $this->available_currencies->get();
-			$response = $result->get();
+			$response = $result->get()['currencies'] ?? array();
 
 			wp_cache_set( __METHOD__, $response );
 		}
@@ -32,8 +32,6 @@ class AvailableCurrenciesService {
 	 * @return bool
 	 */
 	public function is_available( string $currency ): bool {
-		$currencies = $this->get_data()['currencies'] ?? array();
-
-		return in_array( $currency, $currencies );
+		return in_array( $currency, $this->get_data() );
 	}
 }
