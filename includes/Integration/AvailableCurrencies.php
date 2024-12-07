@@ -6,7 +6,7 @@ use lloc\Nowpayments\Rest\Endpoint;
 use lloc\Nowpayments\Rest\EndpointGetInterface;
 use lloc\Nowpayments\Rest\ResponseInterface;
 
-final class AvailableCurrencies extends Endpoint implements EndpointGetInterface {
+class AvailableCurrencies extends Endpoint implements EndpointGetInterface {
 
 	/**
 	 * @return ResponseInterface

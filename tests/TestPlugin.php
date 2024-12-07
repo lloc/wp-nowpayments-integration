@@ -10,7 +10,7 @@ class TestPlugin extends LlocTestCase {
 
 	protected Plugin $plugin;
 
-	public function setUp(): void {
+	protected function setUp(): void {
 		parent::setUp();
 
 		Actions\expectAdded( 'plugins_loaded' )->once();

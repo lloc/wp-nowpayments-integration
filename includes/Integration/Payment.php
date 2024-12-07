@@ -6,7 +6,7 @@ use lloc\Nowpayments\Rest\Endpoint;
 use lloc\Nowpayments\Rest\EndpointPostInterface;
 use lloc\Nowpayments\Rest\ResponseInterface;
 
-final class Payment extends Endpoint implements EndpointPostInterface {
+class Payment extends Endpoint implements EndpointPostInterface {
 
 	public const ADDITIONAL_PARAMS = array(
 		'pay_amount',

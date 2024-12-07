@@ -1,36 +1,21 @@
-.idea/
-.phpunit.result.cache
-composer.lock
-package-lock.json
-
-# Logs
-logs
 *.log
+*.tgz
+*.zip
+.env
+.eslintcache
+.idea/
+.npm
+.phpunit.result.cache
+build/
+js/
+composer.lock
+logs
+node_modules/
 npm-debug.log*
+package-lock.json
+reports/
+vendor/
+wp-nowpayments-integration/
+
 yarn-debug.log*
 yarn-error.log*
-
-# Coverage directory
-reports/
-
-# Compiled assets
-build/
-
-# Dependency directories
-node_modules/
-vendor/
-
-# Optional npm cache directory
-.npm
-
-# Optional eslint cache
-.eslintcache
-
-# Output of `npm pack`
-*.tgz
-
-# Output of `wp-scripts plugin-zip`
-*.zip
-
-# dotenv environment variables file
-.env

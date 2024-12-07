@@ -69,14 +69,4 @@ class Endpoint implements EndpointInterface {
 
 		return $this;
 	}
-
-	/**
-	 * @param string   $name
-	 * @param string[] $arguments
-	 *
-	 * @return mixed
-	 */
-	public function __call( string $name, array $arguments ) {
-		throw new \BadMethodCallException( sprintf( 'Method %s::%s does not exist.', __CLASS__, esc_attr( $name ) ) );
-	}
 }

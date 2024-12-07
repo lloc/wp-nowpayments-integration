@@ -6,7 +6,7 @@ use lloc\Nowpayments\Rest\Endpoint;
 use lloc\Nowpayments\Rest\EndpointGetInterface;
 use lloc\Nowpayments\Rest\ResponseInterface;
 
-final class MinimumPaymentAmount extends Endpoint implements EndpointGetInterface {
+class MinimumPaymentAmount extends Endpoint implements EndpointGetInterface {
 
 	/**
 	 * @param string $currency_from

@@ -6,7 +6,7 @@ use lloc\Nowpayments\Rest\Endpoint;
 use lloc\Nowpayments\Rest\EndpointGetInterface;
 use lloc\Nowpayments\Rest\ResponseInterface;
 
-final class EstimatedPrice extends Endpoint implements EndpointGetInterface {
+class EstimatedPrice extends Endpoint implements EndpointGetInterface {
 
 	/**
 	 * @param float  $amount
