@@ -20,14 +20,14 @@ class TestApiStatusService extends LlocTestCase {
 		$client->shouldReceive( 'get_service' )->once()->andReturn( $service );
 
 		$response = \Mockery::mock( ResponseInterface::class );
-		$response->shouldReceive( 'get' )->once()->andReturn( array( 'status' => 'ok' ) );
+		$response->shouldReceive( 'get' )->once()->andReturn( array( 'message' => 'OK' ) );
 
 		$api_status = \Mockery::mock( ApiStatus::class );
 		$api_status->shouldReceive( 'get' )->once()->andReturn( $response );
 		$api_status->shouldReceive( 'get_client' )->once()->andReturn( $client );
 
 		$expected = array(
-			'status' => 'ok',
+			'status' => 'OK',
 			'info'   => 'Sandbox',
 		);
 
