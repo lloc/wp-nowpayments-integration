@@ -12,19 +12,19 @@
     "php-di/php-di": "^7.0"
   },
   "require-dev": {
-    "phpunit/phpunit": "^10.5",
     "brain/monkey": "^2.6",
-    "phpstan/phpstan": "^1.12",
-    "smeghead/php-class-diagram": "^1.4",
     "dealerdirect/phpcodesniffer-composer-installer": "^1.0",
-    "wp-coding-standards/wpcs": "^3.1",
+    "johnbillion/wp-compat": "^1.1.0",
     "phpcompatibility/phpcompatibility-wp": "^2.1",
-    "szepeviktor/phpstan-wordpress": "^1.3",
     "phpstan/extension-installer": "^1.4",
-    "phpstan/phpstan-deprecation-rules": "^1.2",
-    "johnbillion/wp-compat": "^0.3.1",
-    "swissspidy/phpstan-no-private": "^0.2.1",
-    "phpstan/phpstan-mockery": "^1.1"
+    "phpstan/phpstan": "^2.1",
+    "phpstan/phpstan-deprecation-rules": "^2.0.1",
+    "phpstan/phpstan-mockery": "^2.0.0",
+    "phpunit/phpunit": "^10.5",
+    "smeghead/php-class-diagram": "^1.4",
+    "swissspidy/phpstan-no-private": "^v1.0.0",
+    "szepeviktor/phpstan-wordpress": "^v2.0",
+    "wp-coding-standards/wpcs": "^3.1"
   },
   "autoload": {
     "psr-4": {
