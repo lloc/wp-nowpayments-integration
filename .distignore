@@ -30,7 +30,7 @@ package.json
 patchwork.json
 phpcs.xml
 phpdoc.xml
-phpstan.neon
+phpstan.neon.dist
 phpunit.xml
 plantuml_gist.puml
 playwright.config.ts
