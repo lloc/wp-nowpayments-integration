@@ -23,7 +23,6 @@
 Changelog.md
 Diagrams.md
 README.md
-composer.json
 composer.lock
 package-lock.json
 package.json
