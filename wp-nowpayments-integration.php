@@ -1,16 +1,16 @@
 <?php
 /**
- * WordPress nowpayments.io integration
+ * WP Nowpayments Integration
  *
  * @copyright Copyright (C) 2022, Dennis Ploetner, re@lloc.de
  * @license http://www.gnu.org/licenses/gpl-2.0.html GNU General Public License, version 2 or later
  * @wordpress-plugin
  *
- * Plugin Name: WordPress nowpayments.io integration
+ * Plugin Name: WP Nowpayments Integration
  * Version: 1.0.0
  * Requires at least: 6.6
  * Plugin URI: https://github.com/lloc/wp-nowpayments-itegration
- * Description: Cryptocurrency Payment integration using the NOWPayments API
+ * Description: Cryptocurrency Payment integration using the NOWPayments API for WordPress.
  * Author: Dennis Ploetner
  * Author URI: https://ploetner.io/
  * Text Domain: wp-nowpayments-integration

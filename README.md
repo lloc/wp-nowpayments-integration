@@ -1,4 +1,4 @@
-# WordPress nowpayments.io integration
+# WP Nowpayments Integration
 
 Cryptocurrency Payment integration using the NOWPayments API
 
