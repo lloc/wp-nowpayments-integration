@@ -6,7 +6,7 @@
 	"devDependencies": {
 		"@types/node": "^24.0.3",
 		"@wordpress/e2e-test-utils": "^11.13.0",
-		"@wordpress/scripts": "^30.6.0",
+		"@wordpress/scripts": "^31.0.0",
 		"dotenv": "^17.0.0"
 	}
 }
