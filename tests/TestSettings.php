@@ -19,6 +19,7 @@ class TestSettings extends LlocTestCase {
 		Functions\expect( 'register_setting' )->once();
 		Functions\expect( 'add_settings_section' )->once();
 		Functions\expect( 'add_settings_field' )->once();
+		Functions\expect( '__' )->times( 4 )->andReturnFirstArg();
 
 		Settings::admin_init();
 
@@ -26,6 +27,10 @@ class TestSettings extends LlocTestCase {
 	}
 
 	public function test_render_section(): void {
+		Functions\expect( '__' )->once()->andReturnFirstArg();
+		Functions\expect( 'esc_attr' )->once()->andReturnFirstArg();
+		Functions\expect( 'esc_html' )->once()->andReturnFirstArg();
+
 		Settings::render_section( array( 'id' => 'abc' ) );
 
 		$this->expectOutputString( "<p id=\"abc\">Set here the API parameters for the site's connection to the Nowpayments API.</p>" );
@@ -33,6 +38,7 @@ class TestSettings extends LlocTestCase {
 
 	public function test_render_fields(): void {
 		Functions\expect( 'get_option' )->andReturn( array( 'abc' => 'def' ) );
+		Functions\expect( 'esc_attr' )->times( 3 )->andReturnFirstArg();
 
 		Settings::render_fields( array( 'label_for' => 'abc' ) );
 		$this->expectOutputString( '<input id="abc" name="nowpayments_option[abc]" value="def" class="regular-text code" />' );
@@ -41,6 +47,7 @@ class TestSettings extends LlocTestCase {
 	public function test_render_fields_description(): void {
 		Functions\expect( 'get_option' )->andReturn( array( 'abc' => 'def' ) );
 		Functions\expect( 'wp_kses_post' )->once()->andReturnFirstArg();
+		Functions\expect( 'esc_attr' )->times( 3 )->andReturnFirstArg();
 
 		Settings::render_fields(
 			array(

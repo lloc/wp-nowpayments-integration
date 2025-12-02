@@ -5,7 +5,7 @@
   "icon": "money",
   "category": "widgets",
   "name": "lloc/wp-nowpayments-integration-block",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "This is a placeholder description for the WP Nowpayments Integration Block.",
   "example": {},
   "supports": {

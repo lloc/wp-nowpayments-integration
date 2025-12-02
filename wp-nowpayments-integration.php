@@ -7,7 +7,7 @@
  * @wordpress-plugin
  *
  * Plugin Name: WP Nowpayments Integration
- * Version: 1.0.0
+ * Version: 1.0.1
  * Requires at least: 6.6
  * Plugin URI: https://github.com/lloc/wp-nowpayments-itegration
  * Description: Cryptocurrency Payment integration using the NOWPayments API for WordPress.

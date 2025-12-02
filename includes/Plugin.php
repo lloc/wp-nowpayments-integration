@@ -5,7 +5,6 @@ namespace lloc\Nowpayments;
 class Plugin {
 
 	public const SLUG         = 'nowpayments';
-	public const LANGUAGE_DIR = 'languages';
 
 	/**
 	 * @param string $file
@@ -22,17 +21,9 @@ class Plugin {
 	public static function init( string $file ): Plugin {
 		$plugin = new self( $file );
 
-		add_action( 'plugins_loaded', array( $plugin, 'plugins_loaded' ) );
 		add_action( 'init', array( $plugin, 'block_init' ) );
 
 		return $plugin;
-	}
-
-	/**
-	 * @return void
-	 */
-	public function plugins_loaded(): void {
-		load_plugin_textdomain( 'wp-nowpayments-integration', false, $this->dirname( self::LANGUAGE_DIR ) );
 	}
 
 	public function block_init(): void {

@@ -31,6 +31,9 @@ class TestOptionsPage extends LlocTestCase {
 		Functions\expect( 'settings_fields' )->once();
 		Functions\expect( 'do_settings_sections' )->once();
 		Functions\expect( 'submit_button' )->once();
+		Functions\expect( 'esc_html' )->once()->andReturnFirstArg();
+		Functions\expect( 'esc_url' )->once()->andReturnFirstArg();
+		Functions\expect( '__' )->once()->andReturnFirstArg();
 
 		OptionsPage::render_page();
 
@@ -49,6 +52,8 @@ class TestOptionsPage extends LlocTestCase {
 
 	public function test_add_settings_error_true(): void {
 		Functions\expect( 'add_settings_error' )->once();
+		Functions\expect( '__' )->once()->andReturnFirstArg();
+		Functions\expect( 'esc_attr' )->once()->andReturnFirstArg();
 
 		$this->expectNotToPerformAssertions();
 

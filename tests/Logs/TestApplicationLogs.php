@@ -3,6 +3,7 @@
 namespace lloc\NowpaymentsTests\Logs;
 
 use Brain\Monkey\Actions;
+use Brain\Monkey\Functions;
 use lloc\Nowpayments\Logs\ApplicationLogs;
 use lloc\NowpaymentsTests\LlocTestCase;
 use Monolog\Logger;
@@ -11,6 +12,7 @@ class TestApplicationLogs extends LlocTestCase {
 
 	public function test_init(): void {
 		Actions\expectAdded( 'http_api_debug' );
+		Functions\expect( 'esc_url' )->once()->andReturnFirstArg();
 
 		$logger = \Mockery::mock( Logger::class );
 		$logger->shouldReceive( 'log' )->twice();

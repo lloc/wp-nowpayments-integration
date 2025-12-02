@@ -1,11 +1,11 @@
 {
 	"scripts": {
-		"build-wp-nowpayments-integration-block": "wp-scripts build src/wp-nowpayments-integration-block/index.js --webpack-src-dir=src/wp-nowpayments-integration-block --output-path=js/wp-nowpayments-integration-block",
+		"build-wp-nowpayments-integration-block": "wp-scripts build src/wp-nowpayments-integration-block/index.js --output-path=js",
 		"build": "npm run build-wp-nowpayments-integration-block"
 	},
 	"devDependencies": {
-		"@types/node": "^24.0.3",
-		"@wordpress/e2e-test-utils": "^11.13.0",
+		"@types/node": "^24.10.0",
+		"@wordpress/e2e-test-utils": "^11.34.0",
 		"@wordpress/scripts": "^31.1.0",
 		"dotenv": "^17.0.0"
 	}
