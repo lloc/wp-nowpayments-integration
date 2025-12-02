@@ -22,6 +22,7 @@ class TestAdminWidget extends LlocTestCase {
 		$status = \Mockery::mock( ApiStatusService::class );
 
 		Functions\expect( 'wp_add_dashboard_widget' )->once();
+		Functions\expect( '__' )->once()->andReturnFirstArg();
 
 		$this->expectNotToPerformAssertions();
 
@@ -38,6 +39,7 @@ class TestAdminWidget extends LlocTestCase {
 		$status->shouldReceive( 'get_data' )->once()->andReturn( $data );
 
 		Functions\expect( 'wp_kses_post' )->once()->andReturnFirstArg();
+		Functions\expect( '__' )->once()->andReturnFirstArg();
 
 		( new AdminWidget( $status ) )->render();
 
