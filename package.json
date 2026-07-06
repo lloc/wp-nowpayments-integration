@@ -4,7 +4,7 @@
 		"build": "npm run build-wp-nowpayments-integration-block"
 	},
 	"devDependencies": {
-		"@types/node": "^25.0.6",
+		"@types/node": "^26.1.0",
 		"@wordpress/e2e-test-utils": "^11.34.0",
 		"@wordpress/scripts": "^32.0.0",
 		"dotenv": "^17.0.0"
