@@ -20,7 +20,7 @@
     "phpstan/phpstan": "^2.1",
     "phpstan/phpstan-deprecation-rules": "^2.0.1",
     "phpstan/phpstan-mockery": "^2.0.0",
-    "phpunit/phpunit": "^10.5",
+    "phpunit/phpunit": "^13.4",
     "smeghead/php-class-diagram": "^1.4",
     "swissspidy/phpstan-no-private": "^v1.0.0",
     "szepeviktor/phpstan-wordpress": "^v2.0",
